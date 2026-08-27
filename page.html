@@ -1,0 +1,392 @@
+* { -webkit-font-smoothing: antialiased; }
+body { font-family: 'Cabin', system-ui, sans-serif; margin: 0; }
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.card {
+  background: #fff;
+  border: 3px solid #f1f1f1;
+  width: 400px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  font-family: 'Cabin', sans-serif;
+}
+.card .date { font-size: 12px; color: #6b6b6b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+.card .quote { font-size: 21px; line-height: 1.28; max-width: 320px; }
+.card .meta { display: flex; gap: 16px; padding-top: 24px; border-top: 1px solid #e5e5e5; }
+.card .avatar { width: 64px; height: 64px; flex-shrink: 0; background: #f1f1f1; overflow: hidden; }
+.card .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card .meta-text { display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
+.card .name { font-size: 16px; }
+.card .meta-bottom { display: flex; gap: 16px; align-items: flex-end; }
+.card .meta-tags { flex: 1; font-size: 12px; color: #6b6b6b; text-transform: uppercase; line-height: 1.4; }
+.card .rating { display: flex; gap: 4px; align-items: center; font-size: 14px; color: #6b6b6b; }
+.card .rating .star { color: #ff4081; }
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          accent: '#704de3',
+          'black-5': '#f1f1f1',
+          'black-10': '#e5e5e5',
+          'black-60': '#6b6b6b',
+          'white-5': 'rgba(255,255,255,0.05)'
+        },
+        fontFamily: {
+          display: ['Urbanist','serif'],
+          hand: ['Instrument Serif','serif'],
+          sans: ['Cabin','sans-serif']
+        }
+      }
+    }
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Asul:wght@400;700&family=Cabin:ital,wght@0,400..700;1,400..700&family=Covered+By+Your+Grace&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<!-- Tailwind JIT safelist (hidden) -->
+<div class="hidden bg-accent/60 mix-blend-multiply border-white/60 border-white-5 text-[14px] tracking-[0.14px] w-16 h-px bg-black-10 w-24 w-[75px] h-14"></div>
+
+<div class="bg-white text-black w-full overflow-x-hidden">
+
+<!-- ABOUT -->
+  <section id="about" class="relative p-6 min-h-[900px] flex flex-col">
+    <div class="flex items-start justify-between w-full">
+      <p data-anim="reveal" class="font-sans text-[14px] uppercase tracking-[0.14px] leading-[1.28] max-w-[120px]">Senior MarTech<br>Consultant</p>
+      <p data-anim="hand" class="font-hand text-accent text-[28px] uppercase">B2B enterprises</p>
+    </div>
+    <div class="flex-1 flex items-center justify-center relative">
+      <div class="relative max-w-[824px] w-full">
+        <h2 data-anim="reveal" class="font-display font-bold uppercase text-[64px] md:text-[96px] leading-[0.96] tracking-[-3.84px] text-center">We gain a deep understanding of your needs to craft marketing strategies</h2>
+        <span data-anim="hand" class="font-hand text-accent text-[28px] uppercase absolute -top-8 right-[15%] whitespace-nowrap">Who I Am</span>
+        <span data-anim="hand" class="font-hand text-accent text-[28px] uppercase absolute -left-12 top-[calc(50%-83px)]">Pro</span>
+        <span data-anim="hand" class="font-hand text-accent text-[28px] uppercase absolute -bottom-8 left-[200px] whitespace-nowrap">Since 2023</span>
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pt-16 hidden md:flex items-start justify-center pointer-events-none">
+          <div data-anim="parallax" data-speed="0.5" class="pt-8 -mr-20 shrink-0"><div class="rotate-[10deg]"><div class="w-[200px] h-[267px] border-[3px] border-white shadow-md overflow-hidden bg-black-5"><img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=600&q=80" class="size-full object-cover" alt=""></div></div></div>
+          <div data-anim="parallax" data-speed="0.2" class="pt-[120px] -mr-20 shrink-0"><div class="-rotate-2"><div class="w-[200px] h-[267px] border-[3px] border-white shadow-md overflow-hidden bg-black-5"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&q=80" class="size-full object-cover" alt=""></div></div></div>
+          <div data-anim="parallax" data-speed="0.6" class="shrink-0"><div class="-rotate-[8deg]"><div class="w-[200px] h-[267px] border-[3px] border-white shadow-md overflow-hidden bg-black-5"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&q=80" class="size-full object-cover" alt=""></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-end justify-between w-full gap-8">
+      <p data-anim="reveal" class="font-sans text-[14px] uppercase max-w-[120px]">Professional marketing services</p>
+      <div data-anim="reveal" class="flex flex-col gap-4 max-w-[330px]">
+        <p class="font-sans text-[18px] max-w-[240px]">Automated Customer Acquisition.</p>
+        <a href="#" class="group relative inline-flex items-center gap-1.5 pt-0.5 pb-1 text-[14px] uppercase text-black font-sans w-fit">
+          <span class="absolute left-0 right-0 bottom-0.5 h-px bg-black"></span><span>了解行銷</span>
+          <svg class="w-3 h-3 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+ 
+  <!-- SERVICES -->
+  <section id="services" class="bg-black px-6 py-[200px]">
+    <div class="mx-auto max-w-[1968px] flex flex-col gap-[160px] items-center">
+      <h2 data-anim="reveal" class="font-display font-bold uppercase text-white text-[64px] md:text-[96px] leading-[0.96] tracking-[-3.84px] text-center max-w-[760px]">網站服務</h2>
+      <div class="flex items-center justify-center w-full flex-wrap gap-6 lg:gap-0">
+        <div data-anim="card-pop" class="lg:-mr-16 shrink-0">
+          <div class="lg:-rotate-6">
+            <div class="bg-black border-[3px] border-white-5 flex flex-col h-[400px] w-[328px] items-start justify-between p-6 relative text-white">
+              <svg class="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="#ff4081" stroke-width="1.5"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+              <div><p class="font-display font-bold uppercase text-[32px] leading-[0.96] tracking-[-1.28px]">網站架設</p><p class="font-sans text-[18px] mt-2 max-w-[240px]">Precision cuts and styling tailored to your lifestyle.</p></div>
+            </div>
+          </div>
+        </div>
+        <div data-anim="card-pop" class="lg:-mr-16 lg:pt-6 shrink-0 z-10">
+          <div class="lg:rotate-[10deg]">
+            <div class="bg-black border-[3px] border-white-5 flex flex-col h-[400px] w-[328px] items-start justify-between p-6 relative text-white">
+              <svg class="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="#ff4081" stroke-width="1.5"><path d="M9.06 11.9l8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z"/></svg>
+              <div><p class="font-display font-bold uppercase text-[32px] leading-[0.96] tracking-[-1.28px]">AI導入</p><p class="font-sans text-[18px] mt-2 max-w-[240px]">Custom color and highlights for natural depth and balance.</p></div>
+            </div>
+          </div>
+        </div>
+        <div data-anim="card-pop" class="shrink-0 z-20">
+          <div class="lg:rotate-3">
+            <div class="bg-black border-[3px] border-white-5 flex flex-col h-[400px] w-[328px] items-start justify-between p-6 relative text-white">
+              <svg class="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="#ff4081" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <div><p class="font-display font-bold uppercase text-[32px] leading-[0.96] tracking-[-1.28px]">API串接</p><p class="font-sans text-[18px] mt-2 max-w-[240px]">Lasting styles for weddings and special occasions.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WIDE BANNER -->
+  <section class="w-full">
+    <div class="w-full bg-black-5 overflow-hidden" style="aspect-ratio: 1440/680;">
+      <img data-anim="zoom" src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=80" class="size-full object-cover" alt="">
+    </div>
+  </section>
+
+  <!-- BIG TICKER -->
+  <div class="overflow-hidden py-6 border-y border-black-10">
+    <div id="bigTicker" class="flex items-center gap-12 whitespace-nowrap" style="animation: ticker 50s linear infinite;"></div>
+  </div>
+
+  <!-- PROCESS -->
+  <section class="relative px-6 py-24 min-h-[900px] flex flex-col items-center justify-center overflow-hidden">
+    <div id="processFloats" class="hidden lg:block pointer-events-none absolute inset-0"></div>
+    <div id="processSmalls" class="hidden lg:block pointer-events-none absolute inset-0 opacity-50"></div>
+    <div class="relative z-10 flex flex-col items-center gap-10">
+      <span data-anim="hand" class="font-hand text-accent text-[28px] uppercase whitespace-nowrap">你可以對我們有期待</span>
+      <div data-anim="steps" class="flex flex-col gap-2 items-center pl-6">
+        <div class="relative inline-flex items-start uppercase"><p class="font-hand absolute -left-6 top-0 text-accent text-[28px]">01</p><p class="font-display font-bold text-[64px] leading-[0.96] tracking-[-2.56px]">精準行銷策略</p></div>
+        <div class="relative inline-flex items-start uppercase"><p class="font-hand absolute -left-6 top-0 text-accent text-[28px]">02</p><p class="font-display font-bold text-[64px] leading-[0.96] tracking-[-2.56px]">精準行銷策略</p></div>
+        <div class="relative inline-flex items-start uppercase"><p class="font-hand absolute -left-6 top-0 text-accent text-[28px]">03</p><p class="font-display font-bold text-[64px] leading-[0.96] tracking-[-2.56px]">精準行銷策略</p></div>
+      </div>
+      <div data-anim="reveal">
+        <a href="#contact" class="group relative inline-flex items-center gap-1.5 pt-0.5 pb-1 text-[14px] uppercase text-black font-sans">
+          <span class="absolute left-0 right-0 bottom-0.5 h-px bg-black"></span><span>了解網頁</span>
+          <svg class="w-3 h-3 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="bg-black-5 relative px-6 py-24 min-h-[700px] flex flex-col items-center justify-center overflow-hidden">
+    <span data-anim="hand" class="font-hand text-accent text-[28px] uppercase absolute top-6 left-1/2 -translate-x-1/2 whitespace-nowrap">聽聽客戶怎麼說</span>
+    <button id="prevBtn" data-anim="reveal" class="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-black p-3 hover:opacity-90 transition" aria-label="Previous"><svg class="size-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button id="nextBtn" data-anim="reveal" class="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-black p-3 hover:opacity-90 transition" aria-label="Next"><svg class="size-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+    <div class="relative flex items-center justify-center w-full mt-12" style="height:480px;">
+      <div class="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -ml-[240px] z-0 pointer-events-none">
+        <div id="leftFrame" class="opacity-50 scale-75 rotate-[5deg]"><article id="leftCard" class="card"></article></div>
+      </div>
+      <div class="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ml-[240px] z-0 pointer-events-none">
+        <div id="rightFrame" class="opacity-50 scale-75 -rotate-[5deg]"><article id="rightCard" class="card"></article></div>
+      </div>
+      <div class="relative z-10"><article id="centerCard" class="card"></article></div>
+    </div>
+  </section>
+
+  <!-- BIG CTA -->
+  <section class="px-6 pt-12">
+    <div data-anim="reveal">
+      <a href="#contact" class="bg-black inline-flex items-center justify-center text-white font-display font-bold uppercase whitespace-nowrap hover:opacity-90 transition w-full !py-[72px] !px-12 !text-[64px] tracking-[-2.56px] gap-5">
+        <span>現在馬上諮詢</span>
+        <svg class="size-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <div class="pt-12">
+    <footer class="border-t border-black-10 flex flex-col items-center overflow-hidden p-6 w-full">
+      <div class="flex flex-col gap-[200px] items-start max-w-[1968px] w-full">
+        <div data-anim="reveal" class="flex flex-col lg:flex-row gap-12 lg:gap-6 items-start w-full">
+          <div class="flex-1 flex flex-col gap-10 items-start min-w-0">
+            <p class="font-display font-bold uppercase text-[24px] tracking-[-1.92px]">Rossi</p>
+            <div class="flex flex-col gap-4 items-start max-w-[330px] w-full">
+              <p class="font-sans text-[18px] max-w-[240px]">Find a time that works for you and book your appointment.</p>
+              <a href="#" class="group relative inline-flex items-center gap-1.5 pt-0.5 pb-1 text-[14px] uppercase text-black font-sans w-fit"><span class="absolute left-0 right-0 bottom-0.5 h-px bg-black"></span><span>Book Now</span><svg class="w-3 h-3 group-hover:translate-x-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+            </div>
+          </div>
+          <div class="flex-1 grid grid-cols-3 gap-6 items-start w-full">
+            <div class="flex flex-col gap-2"><a href="#work" class="font-sans text-[14px] uppercase hover:opacity-60 transition">Work</a><a href="#services" class="font-sans text-[14px] uppercase hover:opacity-60 transition">Services</a><a href="#about" class="font-sans text-[14px] uppercase hover:opacity-60 transition">About</a><a href="#contact" class="font-sans text-[14px] uppercase hover:opacity-60 transition">Contact</a></div>
+            <div class="flex flex-col gap-2"><a href="#" class="font-sans text-[14px] uppercase hover:opacity-60 transition">TikTok</a><a href="#" class="font-sans text-[14px] uppercase hover:opacity-60 transition">Instagram</a><a href="#" class="font-sans text-[14px] uppercase hover:opacity-60 transition">X (Twitter)</a><a href="#" class="font-sans text-[14px] uppercase hover:opacity-60 transition">LinkedIn</a></div>
+            <div class="flex flex-col gap-2"><span class="font-sans text-[14px] uppercase">+39 02 3456 7890</span><span class="font-sans text-[14px] uppercase">work@rossi.com</span><span class="font-sans text-[14px] uppercase">t.me/sofia_rossi</span></div>
+          </div>
+        </div>
+        <div class="flex gap-6 items-start w-full">
+          <div class="flex-1 self-stretch min-w-0"></div>
+          <div class="flex-1 flex items-center justify-between min-w-0 flex-wrap gap-4">
+            <div class="flex gap-6 items-center"><a href="#" class="font-sans text-[14px] uppercase hover:opacity-60 transition">Privacy Policy</a><div class="bg-black-10 h-px w-16"></div><a href="#" class="font-sans text-[14px] uppercase hover:opacity-60 transition">Terms & Conditions</a></div>
+            <a href="#" class="font-sans text-[14px] uppercase hover:opacity-60 transition">Licenses</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+</div>
+
+gsap.registerPlugin(ScrollTrigger);
+const TESTIMONIALS = [
+  { date:'6 Feb, 2026', quote:'Sofia really understands hair. The cut feels natural, and the color still looks great weeks later. Easy, calm, and very professional throughout the whole experience.', name:'Martina Bianchi', service:'Color & Highlights', tag:'Regular Client', rating:4.9, avatar:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80' },
+  { date:'19 Dec, 2025', quote:'You can feel the care and attention in every step of the process. The result looks effortless, and styling at home has become much easier, quicker, and more natural.', name:'Valentina Greco', service:'Styling', tag:'First Visit', rating:5.0, avatar:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80' },
+  { date:'1 Feb, 2026', quote:'I wanted something simple and low-maintenance, and she got it right immediately. My hair now feels balanced, soft, and easy to manage every single day.', name:'Chiara Ferrari', service:'Cut & Styling', tag:'First Visit', rating:5.0, avatar:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80' },
+  { date:'22 Nov, 2025', quote:'The first consultation made all the difference. She listened carefully and shaped the cut around how I actually wear my hair, not how a salon thinks I should.', name:'Giulia Romano', service:'Precision Cut', tag:'Regular Client', rating:5.0, avatar:'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80' },
+  { date:'8 Oct, 2025', quote:'Color came out exactly as we discussed. No surprises, no patchwork. The tone is soft and grows out beautifully, which is what I really wanted from the start.', name:'Beatrice Conti', service:'Color & Highlights', tag:'First Visit', rating:4.8, avatar:'https://images.unsplash.com/photo-1500649297466-74794c70acfc?w=200&q=80' }
+];
+
+const u = (id, w=600) => `https://images.unsplash.com/${id}?w=${w}&q=80`;
+
+{
+  const items = [...TICKER_ITEMS, ...TICKER_ITEMS];
+  document.getElementById('topTicker').innerHTML = items.map(t =>
+    `<div class="flex items-center gap-12 shrink-0"><span class="font-sans text-[14px] uppercase tracking-[0.14px] text-black">${t}</span><span class="w-16 h-px bg-black-10"></span></div>`
+  ).join('');
+}
+
+{
+  const renderItem = (it) => {
+    if (it.type === 'sep') return `<span class="w-24 h-px bg-black-10 shrink-0"></span>`;
+    if (it.type === 'block') return `<span class="flex items-center gap-3 shrink-0"><span class="w-[75px] h-14 bg-accent shrink-0"></span><span class="font-display font-bold uppercase text-[64px] leading-[0.96] tracking-[-2.56px]">${it.text}</span></span>`;
+    return `<span class="font-display font-bold uppercase text-[64px] leading-[0.96] tracking-[-2.56px] shrink-0">${it.text}</span>`;
+  };
+  document.getElementById('bigTicker').innerHTML = [...BIG_TICKER, ...BIG_TICKER].map(renderItem).join('');
+}
+
+{
+  const accents = new Set([2,7,18,23,36,39,44,53,58,60]);
+  const cells = Array.from({length:64}, (_,i) =>
+    `<div class="border-2 border-white/60 ${accents.has(i)?'bg-accent/60 mix-blend-multiply':''}"></div>`
+  ).join('');
+  document.getElementById('heroGrid').innerHTML = cells;
+}
+
+{
+  const ar = r => r==='3:4' ? '3/4' : r==='1:1' ? '1/1' : '4/3';
+  const rows = [];
+  let row = [];
+  for (const w of WORKS) {
+    if (w[0] === 'BR') { rows.push(row); row = []; continue; }
+    row.push(w);
+  }
+  rows.push(row);
+  document.getElementById('worksGrid').innerHTML = rows.map(r => `
+    <div class="flex gap-6 items-start w-full">
+      ${r.map(([id, ratio, caption, maxW, padTop]) => {
+        if (!id) return `<div class="flex-1" style="max-width:${maxW}px"></div>`;
+        return `<div data-anim="photo" class="flex-1" style="max-width:${maxW}px;padding-top:${padTop}px">
+          <div class="flex flex-col gap-2 items-end w-full group">
+            <div class="relative w-full overflow-hidden bg-black-5" style="aspect-ratio:${ar(ratio)}">
+              <img src="${u(id,800)}" alt="Work" class="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105">
+            </div>
+            <p class="font-sans text-black text-[14px] text-right uppercase tracking-[0.14px] w-full">${caption}</p>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+  `).join('');
+}
+
+{
+  const big = [
+    ['top:40px;left:24px;','212px','3/4',0],
+    ['top:200px;right:24px;','212px','3/4',1],
+    ['bottom:120px;left:18%;','212px','4/3',2],
+    ['bottom:40px;right:20%;','180px','3/4',3]
+  ];
+  document.getElementById('processFloats').innerHTML = big.map(([pos, w, aspect, idx]) =>
+    `<div data-anim="float" class="absolute overflow-hidden bg-black-5" style="${pos}width:${w};aspect-ratio:${aspect};"><img src="${u(PROCESS_IMAGES[idx])}" class="size-full object-cover" alt=""></div>`
+  ).join('');
+
+  const small = [
+    ['top:80px;left:28%;',4],['top:140px;left:64%;',5],['top:280px;left:14%;',0],
+    ['top:420px;right:14%;',1],['bottom:220px;left:8%;',2],['bottom:150px;left:42%;',3]
+  ];
+  document.getElementById('processSmalls').innerHTML = small.map(([pos, idx]) =>
+    `<div class="absolute overflow-hidden bg-black-5" style="${pos}width:54px;height:54px;"><img src="${u(PROCESS_IMAGES[idx],200)}" class="size-full object-cover" alt=""></div>`
+  ).join('');
+}
+
+let tIndex = 0, tDir = 1;
+const N = TESTIMONIALS.length;
+
+const cardHTML = t => `
+  <p class="date">${t.date}</p>
+  <p class="quote">${t.quote}</p>
+  <div class="meta">
+    <div class="avatar"><img src="${t.avatar}" alt="${t.name}"></div>
+    <div class="meta-text">
+      <p class="name">${t.name}</p>
+      <div class="meta-bottom">
+        <div class="meta-tags"><p>${t.service}</p><p>${t.tag}</p></div>
+        <div class="rating"><span class="star">★</span><span>${t.rating.toFixed(1)}</span></div>
+      </div>
+    </div>
+  </div>`;
+
+const center = document.getElementById('centerCard');
+const left   = document.getElementById('leftCard');
+const right  = document.getElementById('rightCard');
+const leftFrame  = document.getElementById('leftFrame');
+const rightFrame = document.getElementById('rightFrame');
+
+function renderSlider() {
+  const p = (tIndex - 1 + N) % N;
+  const n = (tIndex + 1) % N;
+  center.innerHTML = cardHTML(TESTIMONIALS[tIndex]);
+  left.innerHTML   = cardHTML(TESTIMONIALS[p]);
+  right.innerHTML  = cardHTML(TESTIMONIALS[n]);
+}
+
+function swapAnimate() {
+  const d = tDir;
+  const tl = gsap.timeline();
+  tl.fromTo(center, { opacity:0, scale:0.92, x:d*30, y:12 }, { opacity:1, scale:1, x:0, y:0, duration:0.5, ease:'power3.out' }, 0);
+  tl.fromTo(leftFrame,  { opacity:0, x:d*-20 }, { opacity:0.5, x:0, duration:0.5, ease:'power2.out' }, 0.05);
+  tl.fromTo(rightFrame, { opacity:0, x:d*20  }, { opacity:0.5, x:0, duration:0.5, ease:'power2.out' }, 0.05);
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => { tDir = -1; tIndex = (tIndex - 1 + N) % N; renderSlider(); swapAnimate(); });
+document.getElementById('nextBtn').addEventListener('click', () => { tDir =  1; tIndex = (tIndex + 1) % N; renderSlider(); swapAnimate(); });
+
+renderSlider();
+
+gsap.from("[data-anim='nav']", { yPercent: -100, duration: 0.9, ease: 'power3.out' });
+
+const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+heroTL.from("[data-anim='hero-h1']", { opacity: 0, y: 40, duration: 1.2 })
+      .from("[data-anim='hero-decor']", { opacity: 0, scale: 0.6, rotate: '+=20', duration: 0.8, stagger: 0.1, transformOrigin: 'center' }, '-=0.6')
+      .from("[data-anim='hero-info']", { opacity: 0, y: 20, duration: 0.6, stagger: 0.05 }, '-=0.7');
+
+gsap.from("[data-anim='hero-grid'] > div", {
+  opacity: 0, scale: 0.9, duration: 0.4,
+  stagger: { amount: 0.6, from: 'random' },
+  scrollTrigger: { trigger: "[data-anim='hero-grid']", start: 'top 80%' }
+});
+
+gsap.utils.toArray("[data-anim='reveal']").forEach(el => {
+  gsap.from(el, { opacity: 0, y: 60, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%' } });
+});
+
+gsap.utils.toArray("[data-anim='stagger']").forEach(el => {
+  gsap.from(el.children, { opacity: 0, y: 40, duration: 0.8, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 85%' } });
+});
+
+gsap.utils.toArray("[data-anim='photo']").forEach(el => {
+  gsap.from(el, { opacity: 0, scale: 0.85, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%' } });
+});
+
+gsap.utils.toArray("[data-anim='steps']").forEach(el => {
+  gsap.from(el.children, { opacity: 0, x: -40, duration: 0.7, stagger: 0.15, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 80%' } });
+});
+
+gsap.utils.toArray("[data-anim='float']").forEach((el, i) => {
+  gsap.from(el, { opacity: 0, y: 30, duration: 0.8, delay: (i % 6) * 0.08, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 95%' } });
+  gsap.to(el, { y: '+=12', duration: 3 + (i % 3), repeat: -1, yoyo: true, ease: 'sine.inOut' });
+});
+
+gsap.utils.toArray("[data-anim='hand']").forEach(el => {
+  gsap.from(el, { opacity: 0, scale: 0.4, rotate: -8, duration: 0.7, ease: 'back.out(1.8)', transformOrigin: 'center', scrollTrigger: { trigger: el, start: 'top 90%' } });
+});
+
+gsap.utils.toArray("[data-anim='zoom']").forEach(el => {
+  gsap.fromTo(el, { scale: 1.18 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
+});
+
+gsap.utils.toArray("[data-anim='card-pop']").forEach((el, i) => {
+  gsap.from(el, { opacity: 0, scale: 0.7, y: 60, duration: 0.9, delay: (i % 3) * 0.12, ease: 'back.out(1.6)', scrollTrigger: { trigger: el, start: 'top 85%' } });
+});
+
+gsap.utils.toArray("[data-anim='parallax']").forEach(el => {
+  const speed = parseFloat(el.dataset.speed || '0.3');
+  gsap.to(el, { yPercent: -50 * speed, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
+});
