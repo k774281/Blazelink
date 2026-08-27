@@ -10,7 +10,7 @@ const REPEATED = Array.from({ length: 4 }).flatMap(() => LOGOS)
 
 export default function LogoTicker() {
   return (
-    <section className="logo-ticker absolute left-0 bottom-0 z-10 w-full overflow-hidden pt-5 pb-7 opacity-0 animate-fade-up [animation-delay:0.6s]">
+    <section className="logo-ticker w-full overflow-hidden pt-5 pb-7 opacity-0 animate-fade-up [animation-delay:0.6s]">
       <div className="logo-ticker__track flex items-center gap-16 w-max max-sm:gap-10">
         {REPEATED.map((src, i) => (
           <img

@@ -3,7 +3,7 @@ import { useCountUp } from '../hooks/useCountUp.js'
 const AVATARS = [
   {
     orbit: 1,
-    src: '/icon-1.svg',
+    src: '/seo.gif',
     angle: 270,
     radius: 177,
     size: 58,
@@ -33,7 +33,7 @@ const AVATARS = [
   },
   {
     orbit: 2,
-    src: '/icon-3.svg',
+    src: '/internet.gif',
     angle: 300,
     radius: 251,
     size: 58,
@@ -63,7 +63,7 @@ const AVATARS = [
   },
   {
     orbit: 4,
-    src: '/icon-4.svg',
+    src: 'chat.gif',
     angle: 95,
     radius: 399,
     size: 88,
@@ -73,7 +73,7 @@ const AVATARS = [
   },
   {
     orbit: 4,
-    src: '/icon-2.svg',
+    src: '/share.gif',
     angle: 220,
     radius: 399,
     size: 88,

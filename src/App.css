@@ -1,10 +1,10 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-ink: #0e0e0e;
-  --color-brand: #704de3;
-  --color-brand-light: #a068ff;
-  --color-brand-dark: #4a309f;
+  --color-ink: #031846;
+  --color-brand: #ffffff;
+  --color-brand-light: #9da2bc;
+  --color-brand-dark: #49309f;
   --color-page-bg: #f4f4f4;
   --color-mist: #f1f1f1;
   --color-hairline: #e5e5e5;
@@ -138,7 +138,7 @@
     inset: -3px;
     border-radius: inherit;
     padding: 3px;
-    background: conic-gradient(from var(--border-angle), #704de3, #070319, #704de3, #070319, #704de3);
+    background: conic-gradient(from var(--border-angle), #25135f, #070319, #704de3, #070319, #704de3);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -146,9 +146,9 @@
     pointer-events: none;
   }
 
-  .btn-border-wrap--accent::before {
+  /* .btn-border-wrap--accent::before {
     background: conic-gradient(from var(--border-angle), #8977d6, #cccad5, #a068ff, #beb3ee, #a068ff);
-  }
+  } */
 
   /* ---------- Nav underline ---------- */
 
@@ -175,28 +175,69 @@
   }
 
   /* ---------- Buttons ---------- */
-  /* The hover fill-slide is a ::after wipe — no clean utility equivalent. */
 
   .btn {
     position: relative;
     overflow: hidden;
   }
 
-  .btn::after {
+  /* Lives on .btn-border-wrap (the outer wrap), NOT .btn-cta — .btn-cta--outline's
+     fill is transparent, so if this sat on the button itself there'd be
+     nothing opaque left to hide its resting state behind, and it would
+     show straight through, dimming the label underneath. Attached to the
+     wrap instead, with z-index:-1 and opacity:0 at rest, it stays fully
+     invisible until hover regardless of what the button's own fill does.
+     Uses an explicit brand gradient rather than background:inherit, since
+     filter:blur (which blurs the pseudo-element's OWN paint, unlike
+     backdrop-filter which blurs what's behind it) needs its own color to
+     work with. */
+  .btn-border-wrap::after {
     content: '';
     position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: var(--color-brand-dark);
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 90%;
+    opacity: 0;
+    border-radius: 50px;
+    background: linear-gradient(to right, var(--color-brand-light), var(--color-brand));
+    filter: blur(1px);
+    transition: opacity 0.2s ease, filter 0.2s ease, width 0.2s ease, bottom 0.2s ease, left 0.2s ease;
+    pointer-events: none;
   }
 
-  .btn:hover::after {
-    transform: translateX(0);
+  .btn-border-wrap:hover::after {
+    opacity: 0.8;
+    filter: blur(24px);
+    width: 100%;
+    bottom: -5px;
+    left: 0;
   }
 
-  .btn-cta::after {
-    transform: translateX(-100%);
+  .btn-border-wrap:active::after {
+    filter: blur(10px);
+  }
+
+  /* ---------- CTA — outline variant ---------- */
+  /* Only the hero CTA uses this (see HeroLeft.jsx) — sits inside the
+     existing .btn-border-wrap--accent spinning conic-gradient ring, so
+     instead of drawing a second border here the fill is solid --color-ink
+     (matching the hero's own background) and lets that ring be the only
+     border, with the label gradient-clipped to match. AboutSection's CTA
+     keeps its original solid bg-brand fill. */
+
+  .btn-cta--outline {
+    background-color: var(--color-ink);
+  }
+
+  .btn-cta--outline .btn-cta__label {
+    background-image: linear-gradient(to right, var(--color-brand-light), var(--color-brand));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
   }
 
   /* ---------- Scroll down indicator ---------- */
@@ -511,22 +552,17 @@
     opacity: 0;
   }
 
-  /* .floating-paths itself carries no opacity rule — used bare (as the
-     hero's background) it's just always visible. Only the instance living
-     inside .preloader gets gated: hidden until it fades in alongside
-     .loader_line, and faded back out once the door starts opening — same
-     lifespan as the line it accompanies. */
+  /* Visible from the very first frame — it's the thing that appears BEFORE
+     BLAZELINK (see BG_LEAD_MS in Preloader.jsx) — and fades out once the
+     door starts opening, same lifespan the floating-paths background used
+     to have. */
 
-  .preloader .floating-paths {
-    opacity: 0;
+  .preloader .gateway-flow {
+    opacity: 1;
     transition: opacity 0.6s ease;
   }
 
-  .preloader .floating-paths.is-visible {
-    opacity: 1;
-  }
-
-  .preloader.is-door-open .floating-paths {
+  .preloader.is-door-open .gateway-flow {
     opacity: 0;
   }
 

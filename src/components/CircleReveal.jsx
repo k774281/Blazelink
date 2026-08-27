@@ -1,4 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
+import { ScrollVelocity } from './ScrollVelocity.jsx'
+
+const MARQUEE_IMAGES = [
+  { title: 'Moonbeam', thumbnail: 'img-1.jpg' },
+  { title: 'Cursor', thumbnail: 'img-2.jpg' },
+  { title: 'Rogue', thumbnail: 'img-3.jpg' },
+  { title: 'Editorially', thumbnail: 'img-4.jpg' },
+  { title: 'Editrix AI', thumbnail: 'img-5.jpg' },
+  { title: 'Moonbeam 2', thumbnail: 'img-1.jpg' },
+  { title: 'Cursor 2', thumbnail: 'img-2.jpg' },
+  { title: 'Rogue 2', thumbnail: 'img-3.jpg' },
+  { title: 'Editorially 2', thumbnail: 'img-4.jpg' },
+  { title: 'Editrix AI 2', thumbnail: 'img-5.jpg' },
+]
+
+const MARQUEE_VELOCITIES = [3, -3]
 
 const HEADING_TEXT = '想了解我們有什麼服務嗎？'
 const MIN_PERCENT = 0
@@ -78,7 +94,32 @@ export default function CircleReveal() {
 
   return (
     <>
-      <div ref={trackRef} className="scroll-reveal-track h-screen" aria-hidden="true" />
+      <div ref={trackRef} className="scroll-reveal-track relative h-screen overflow-hidden flex items-center">
+        <div className="w-full">
+          <div className="flex flex-col gap-5 py-10 mt-115">
+            {MARQUEE_VELOCITIES.map((v, index) => (
+              <ScrollVelocity key={index} velocity={v}>
+                {MARQUEE_IMAGES.map(({ title, thumbnail }) => (
+                  <div
+                    key={title}
+                    className="relative h-[6rem] w-[9rem] mx-2.5 md:h-[8rem] md:w-[12rem] xl:h-[12rem] xl:w-[18rem]"
+                  >
+                    <img
+                      src={thumbnail}
+                      alt={title}
+                      className="absolute inset-0 h-full w-full rounded-lg object-cover object-center"
+                    />
+                  </div>
+                ))}
+              </ScrollVelocity>
+            ))}
+            <ScrollVelocity velocity={5}>
+              <span className="mx-4 font-display text-4xl text-brand">我們就像是你的事業夥伴!</span>
+              <span className="mx-4 font-display text-4xl text-brand">Like your parner!</span>
+            </ScrollVelocity>
+          </div>
+        </div>
+      </div>
       {/* Guarantees real scrollable room past the point the mask fully covers
           the screen, so both the EXIT_AFTER_PX heading exit and the later
           RELEASE_AFTER_PX hand-off to the sections below are reachable. */}
@@ -102,7 +143,6 @@ export default function CircleReveal() {
           ))}
         </h2>
       </section>
-        <div><h2>212e3wrf4egtrhb</h2></div>
     </>
   )
 }

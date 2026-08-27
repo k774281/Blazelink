@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { ArrowUpRightIcon } from '@animateicons/react/lucide'
 import { gsap } from '../lib/gsap.js'
 
 const HEADING = '我們深入理解您的需求，打造真正見效的行銷成長策略'
@@ -26,6 +27,10 @@ const PARALLAX_PHOTOS = [
 
 export default function AboutSection() {
   const sectionRef = useRef(null)
+  // ArrowUpRightIcon only animates on its own internal hover (its own small
+  // box), not the wider CTA — driven imperatively off the button's hover
+  // instead, same as the Hero CTA this button now matches.
+  const arrowRef = useRef(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -111,26 +116,13 @@ export default function AboutSection() {
           <div className="btn-border-wrap btn-border-wrap--accent hero-cta-wrap">
             <button
               type="button"
-              className="btn btn-cta group inline-flex items-center justify-center gap-2 rounded-[50px] bg-brand text-white px-7 py-3.5 text-xl font-medium max-sm:px-5 max-sm:py-3 max-sm:text-sm"
+              className="btn btn-cta btn-cta--outline inline-flex items-center justify-center gap-2 rounded-[50px] px-7 py-3.5 text-xl font-medium max-sm:px-5 max-sm:py-3 max-sm:text-sm"
+              onMouseEnter={() => arrowRef.current?.startAnimation()}
+              onMouseLeave={() => arrowRef.current?.stopAnimation()}
             >
               <span className="btn-cta__label relative z-[2]">了解內容行銷</span>
               <span className="btn-cta__icon-wrap relative z-[2] flex items-center justify-center bg-white/15 rounded-[50px] p-1.5">
-                <svg
-                  className="btn-cta__icon text-white transition-transform duration-300 group-hover:-rotate-45"
-                  width="28"
-                  height="28"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4 9H14M14 9L9.5 4.5M14 9L9.5 13.5"
-                    stroke="currentColor"
-                    strokeWidth="1.6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <ArrowUpRightIcon ref={arrowRef} size={32} duration={1} color="#ffffff" />
               </span>
             </button>
           </div>
