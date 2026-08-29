@@ -1,12 +1,14 @@
 import { useEffect, useRef } from 'react'
+import { ArrowUpRightIcon } from '@animateicons/react/lucide'
 import { gsap } from '../lib/gsap.js'
+import TextLoop from './TextLoop.jsx'
 
 const STEPS = ['精準行銷策略', '內容成長執行', '數據優化迭代']
 
 const PROCESS_IMAGES = [
   'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80',
   'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&q=80',
-  'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&q=80',
+  'img-6.jpg',
   'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&q=80',
   'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&q=80',
   'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&q=80',
@@ -30,6 +32,10 @@ const SMALL_FLOATS = [
 
 export default function ProcessSection() {
   const sectionRef = useRef(null)
+  // ArrowUpRightIcon only animates on its own internal hover (its own small
+  // box), not the wider CTA — driven imperatively off the button's hover
+  // instead, same as the other CTAs on the site.
+  const arrowRef = useRef(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -45,12 +51,10 @@ export default function ProcessSection() {
         })
       })
 
-      const steps = sectionRef.current.querySelectorAll("[data-anim='steps'] > div")
-      gsap.from(steps, {
+      gsap.from("[data-anim='steps']", {
         opacity: 0,
         x: -40,
         duration: 0.7,
-        stagger: 0.15,
         ease: 'power3.out',
         scrollTrigger: { trigger: "[data-anim='steps']", start: 'top 80%' },
       })
@@ -91,7 +95,7 @@ export default function ProcessSection() {
           <div
             key={i}
             data-anim="float"
-            className="absolute overflow-hidden bg-mist"
+            className="absolute overflow-hidden rounded-[50px] bg-mist"
             style={{ ...f.style, width: f.w, aspectRatio: f.aspect }}
           >
             <img src={PROCESS_IMAGES[f.idx]} className="size-full object-cover" alt="" />
@@ -102,7 +106,7 @@ export default function ProcessSection() {
         {SMALL_FLOATS.map((f, i) => (
           <div
             key={i}
-            className="absolute overflow-hidden bg-mist"
+            className="absolute overflow-hidden rounded-[20px] bg-mist"
             style={{ ...f.style, width: 54, height: 54 }}
           >
             <img src={PROCESS_IMAGES[f.idx]} className="size-full object-cover" alt="" />
@@ -111,35 +115,27 @@ export default function ProcessSection() {
       </div>
 
       <div className="relative z-10 flex flex-col items-center gap-10">
-        <span data-anim="hand" className="font-hand text-brand text-3xl uppercase whitespace-nowrap">
+        <span data-anim="hand" className="font-hand text-ink text-3xl uppercase whitespace-nowrap">
           你可以對我們有期待
         </span>
-        <div data-anim="steps" className="flex flex-col gap-2 items-center pl-6">
-          {STEPS.map((step, i) => (
-            <div key={step} className="relative inline-flex items-start uppercase">
-              <p className="font-hand absolute -left-6 top-0 text-brand text-3xl">{`0${i + 1}`}</p>
-              <p className="font-heading font-bold text-[32px] md:text-[48px] lg:text-[64px] leading-[0.96] tracking-[-2.56px] text-ink">
-                {step}
-              </p>
-            </div>
-          ))}
+        <div data-anim="steps" className="flex items-center pl-6">
+          <TextLoop
+            staticText="我們可以"
+            rotatingTexts={STEPS}
+            className="font-heading font-bold text-[32px] md:text-[48px] lg:text-[64px] leading-[0.96] tracking-[-2.56px] text-ink uppercase"
+          />
         </div>
-        <div data-anim="reveal">
+        <div data-anim="reveal" className="btn-border-wrap btn-border-wrap--accent hero-cta-wrap">
           <a
             href="#contact"
-            className="group relative inline-flex items-center gap-1.5 pt-0.5 pb-1 text-sm uppercase text-ink font-body"
+            className="btn btn-cta btn-cta--brand bg-[#f7f7f7] inline-flex items-center justify-center gap-2 rounded-[50px] px-7 py-3.5 text-xl font-medium max-sm:px-5 max-sm:py-3 max-sm:text-sm"
+            onMouseEnter={() => arrowRef.current?.startAnimation()}
+            onMouseLeave={() => arrowRef.current?.stopAnimation()}
           >
-            <span className="absolute left-0 right-0 bottom-0.5 h-px bg-ink" />
-            <span>了解網頁</span>
-            <svg
-              className="w-3 h-3 group-hover:translate-x-0.5 transition-transform"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M5 12h14M13 5l7 7-7 7" />
-            </svg>
+            <span className="btn-cta__label relative z-[2]">了解行銷內容</span>
+            <span className="btn-cta__icon-wrap relative z-[2] flex items-center justify-center bg-ink/15 rounded-[50px] p-1.5">
+              <ArrowUpRightIcon ref={arrowRef} size={32} duration={1} color="#281d38" />
+            </span>
           </a>
         </div>
       </div>

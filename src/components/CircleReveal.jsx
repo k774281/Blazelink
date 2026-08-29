@@ -133,7 +133,7 @@ export default function CircleReveal() {
         className={`circle-reveal-content${revealed ? ' is-revealed' : ''} fixed inset-0 z-[51] flex items-center justify-center px-6 pointer-events-none transition-opacity duration-500 ${released ? 'opacity-0' : 'opacity-100'}`}
         aria-hidden={!revealed}
       >
-        <h2 className="circle-reveal__heading max-w-[900px] m-0 text-center font-body text-[40px] font-semibold leading-[1.4] text-ink">
+        <h2 className="circle-reveal__heading max-w-[900px] m-0 text-center font-hand text-[40px] font-semibold leading-[1.4] text-ink">
           {HEADING_TEXT.split('').map((ch, i) => (
             <span className="char-wrap" key={i}>
               <span className="char" style={{ transitionDelay: `${i * 0.03}s` }}>

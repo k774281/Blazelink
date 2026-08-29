@@ -1,35 +1,19 @@
 import { useEffect, useRef } from 'react'
 import { ArrowUpRightIcon } from '@animateicons/react/lucide'
 import { gsap } from '../lib/gsap.js'
+import ShuffleHero from './ShuffleHero.jsx'
 
-const HEADING = '我們深入理解您的需求，打造真正見效的行銷成長策略'
-
-const PARALLAX_PHOTOS = [
-  {
-    src: '/img-1.png',
-    rotate: 'rotate-[10deg]',
-    className: 'pt-8 -mr-20',
-    speed: 0.5,
-  },
-  {
-    src: '/img-2.png',
-    rotate: '-rotate-2',
-    className: 'pt-[120px] -mr-20',
-    speed: 0.2,
-  },
-  {
-    src: '/img-3.png',
-    rotate: '-rotate-[8deg]',
-    className: '',
-    speed: 0.6,
-  },
+const FEATURES = [
+  { icon: '/social-marketing_17675704.gif', title: '精準行銷策略', subtitle: 'Precision Marketing' },
+  { icon: '/filter_19016344.gif', title: '自動化銷售漏斗', subtitle: 'MarTech Automation' },
+  { icon: '/movement.gif', title: 'SEO跨國內容行銷', subtitle: 'Content Marketing' },
 ]
 
 export default function AboutSection() {
   const sectionRef = useRef(null)
   // ArrowUpRightIcon only animates on its own internal hover (its own small
   // box), not the wider CTA — driven imperatively off the button's hover
-  // instead, same as the Hero CTA this button now matches.
+  // instead, same as the Hero CTA this button matches.
   const arrowRef = useRef(null)
 
   useEffect(() => {
@@ -56,21 +40,13 @@ export default function AboutSection() {
         })
       })
 
-      gsap.utils.toArray("[data-anim='parallax']").forEach((el) => {
-        const speed = parseFloat(el.dataset.speed || '0.3')
-        gsap.to(el, {
-          yPercent: -50 * speed,
-          ease: 'none',
-          scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true },
-        })
-      })
     }, sectionRef)
 
     return () => ctx.revert()
   }, [])
 
   return (
-    <section id="about" ref={sectionRef} className="relative p-6 min-h-[900px] flex flex-col">
+    <section id="about" ref={sectionRef} className="relative flex min-h-[1080px] flex-col justify-between p-6">
       <div className="flex items-start justify-between w-full">
         <p data-anim="reveal" className="font-body text-sm uppercase tracking-[0.14px] leading-tight max-w-[140px]">
           資深行銷顧問
@@ -82,37 +58,22 @@ export default function AboutSection() {
         </p>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center relative">
-        <div className="relative max-w-[824px] w-full">
-          <h2
-            data-anim="reveal"
-            className="font-heading font-bold uppercase text-[40px] md:text-[64px] lg:text-[96px] leading-[0.96] tracking-[-2px] lg:tracking-[-3.84px] text-center text-ink"
-          >
-            {HEADING}
-          </h2>
-          <span data-anim="hand" className="font-hand text-brand text-3xl uppercase absolute -top-8 right-[15%] whitespace-nowrap">
-            About Us
-          </span>
-          <span data-anim="hand" className="font-hand text-brand text-3xl uppercase absolute -left-12 top-[calc(50%-83px)]">
-            Pro
-          </span>
-          <span data-anim="hand" className="font-hand text-brand text-3xl uppercase absolute -bottom-8 left-[200px] whitespace-nowrap">
-            Since 2023
-          </span>
+      {/* <div className="flex w-full items-center justify-between gap-10 max-lg:flex-col">
+        <div data-anim="reveal" className="flex flex-col gap-6 max-w-[380px]">
+          <p className="font-body text-lg max-w-[280px] text-ink">自動化獲客的成長引擎，讓品牌擁有可持續的正向循環。</p>
 
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pt-16 hidden md:flex items-start justify-center pointer-events-none">
-            {PARALLAX_PHOTOS.map((photo, i) => (
-              <div key={i} data-anim="parallax" data-speed={photo.speed} className={`${photo.className} shrink-0`}>
-                <div className={photo.rotate}>
-                  <div className="relative w-[200px] h-[267px] border-[3px] border-white shadow-md bg-mist rounded-[150px] flex items-center justify-center">
-                    <img src={photo.src} className="w-[260px] max-w-none h-auto object-contain" alt="" />
-                  </div>
+          <div className="flex flex-col gap-3">
+            {FEATURES.map((feature) => (
+              <div key={feature.title} className="flex items-center gap-3">
+                <img src={feature.icon} alt="" className="h-9 w-9 shrink-0" />
+                <div className="flex flex-col">
+                  <span className="font-body text-sm font-medium text-ink">{feature.title}</span>
+                  <span className="font-body text-xs uppercase tracking-[0.08em] text-muted">{feature.subtitle}</span>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-        <div data-anim="reveal" className="mt-10 md:mt-[280px]">
+
           <div className="btn-border-wrap btn-border-wrap--accent hero-cta-wrap">
             <button
               type="button"
@@ -127,21 +88,13 @@ export default function AboutSection() {
             </button>
           </div>
         </div>
-      </div>
 
-      <div className="flex items-end justify-between w-full gap-8">
-        <p data-anim="reveal" className="font-body text-sm uppercase max-w-[140px]">
-          專業行銷服務
-        </p>
-        <div data-anim="reveal" className="flex flex-col gap-4 max-w-[330px]">
-          <p className="font-body text-lg max-w-[240px] text-ink">自動化獲客的成長引擎。</p>
-          <a
-            href="#services"
-            className="group relative inline-flex items-center gap-1.5 pt-0.5 pb-1 text-sm uppercase text-ink font-body w-fit"
-          >
-          </a>
-        </div>
-      </div>
+      </div> */}
+        <ShuffleHero />
+
+      <p data-anim="reveal" className="font-body text-sm uppercase max-w-[140px]">
+        專業行銷服務
+      </p>
     </section>
   )
 }
