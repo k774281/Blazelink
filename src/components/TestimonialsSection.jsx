@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { MessageSquareTextIcon } from '@animateicons/react/lucide'
 import { gsap } from '../lib/gsap.js'
+import { useScrollReveal } from '../hooks/useScrollReveal.js'
 
 const TESTIMONIALS = [
   {
@@ -62,33 +63,7 @@ export default function TestimonialsSection() {
   const prevIndex = (index - 1 + N) % N
   const nextIndex = (index + 1) % N
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray("[data-anim='hand']").forEach((el) => {
-        gsap.from(el, {
-          opacity: 0,
-          scale: 0.4,
-          rotate: -8,
-          duration: 0.7,
-          ease: 'back.out(1.8)',
-          transformOrigin: 'center',
-          scrollTrigger: { trigger: el, start: 'top 90%' },
-        })
-      })
-
-      gsap.utils.toArray("[data-anim='reveal']").forEach((el) => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 60,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 85%' },
-        })
-      })
-    }, sectionRef)
-
-    return () => ctx.revert()
-  }, [])
+  useScrollReveal(sectionRef)
 
   useEffect(() => {
     const d = dirRef.current
@@ -146,7 +121,7 @@ export default function TestimonialsSection() {
         </svg>
       </button>
 
-      <div className="relative flex items-center justify-center w-full mt-12 h-[480px]">
+      <div className="relative mx-auto flex w-full max-w-[1440px] items-center justify-center mt-12 h-[480px]">
         <div className="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -ml-[240px] z-0 pointer-events-none">
           <div ref={leftFrameRef} className="opacity-50 scale-75 rotate-[5deg]">
             <article className="bg-white border-[3px] border-mist w-[400px] h-[480px] flex flex-col overflow-hidden rounded-[50px] font-body">

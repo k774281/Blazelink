@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'motion/react'
-import { ArrowUpRightIcon } from '@animateicons/react/lucide'
 import TextGenerateEffect from './TextGenerateEffect.jsx'
+import CtaButton from './CtaButton.jsx'
 
 const IMAGES = ['/img-1.jpg', '/img-2.jpg', '/img-3.jpg', '/img-4.jpg', '/img-5.jpg']
 
@@ -19,17 +19,22 @@ function shuffle(array) {
   return result
 }
 
-// motion's `layout` prop animates each cell's position via FLIP whenever its
-// on-screen slot changes between renders — re-shuffling SQUARE_DATA's order
-// (keys stay stable, only array position changes) is all that's needed to
-// get the swap animation; nothing manually computes the transition.
+// motion's `layout="position"` animates each cell's position via FLIP
+// whenever its on-screen slot changes between renders — re-shuffling
+// SQUARE_DATA's order (keys stay stable, only array position changes) is
+// all that's needed to get the swap animation; nothing manually computes
+// the transition. Scoped to "position" rather than plain `layout` (which
+// also interpolates size) because every cell is already the same size via
+// the CSS Grid track — animating size too made Motion briefly write
+// explicit pixel width/height inline during the FLIP measurement, fighting
+// the grid's own 1fr sizing and visibly displacing the cells each reshuffle.
 function generateSquares() {
   return shuffle(SQUARE_DATA).map((sq) => (
     <motion.div
       key={sq.id}
-      layout
+      layout="position"
       transition={{ duration: 1.5, type: 'spring' }}
-      className="rounded-4xl"
+      className="rounded-2xl"
       style={{ backgroundImage: `url(${sq.src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
     />
   ))
@@ -48,18 +53,10 @@ function ShuffleGrid() {
     return () => clearTimeout(timeoutRef.current)
   }, [])
 
-  {/* Cells are now a fixed 500x500px each (see generateSquares), so the
-      grid's own height has to size to that content instead of forcing a
-      fixed 450px total that would compress/clip the enlarged circles. */}
   return <div className="grid h-[450px] grid-cols-4 grid-rows-4 gap-1 max-sm:h-[300px]">{squares}</div>
 }
 
 export default function ShuffleHero() {
-  // ArrowUpRightIcon only animates on its own internal hover (its own small
-  // box), not the wider CTA — driven imperatively off the button's hover
-  // instead, same as the other CTAs on the site.
-  const arrowRef = useRef(null)
-
   // Drives both the h1/p text-generate reveal and the feature icons' pop-in
   // — toggles on every scroll in/out of view (no `once`), so leaving and
   // re-entering replays both animations instead of only firing the first time.
@@ -67,8 +64,8 @@ export default function ShuffleHero() {
   const isInView = useInView(copyRef, { amount: 0.3 })
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-10 md:flex-row">
-      <div ref={copyRef} className="flex-1">
+    <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center gap-6 md:flex-row">
+      <div ref={copyRef} className="w-2/5 max-lg:w-4/5">
         <span className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ink/5 px-4 py-1.5 mb-5 text-xs font-medium uppercase tracking-wide text-brand-dark">
             <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
             MARTECH
@@ -84,63 +81,53 @@ export default function ShuffleHero() {
         >
           自動化獲客的成長引擎，讓品牌擁有可持續的正向循環。
         </TextGenerateEffect>
-        {/* <a
-          href="#services"
-          className="inline-flex items-center gap-1.5 rounded-full bg-brand px-5 py-2.5 text-sm uppercase text-white transition-colors hover:bg-brand-dark"
-        >
-          了解服務
-        </a> */}
-        <div className="features flex flex-col gap-3">
-          <div className="item flex items-center gap-3">
-            <motion.img
-              src="/social-marketing_17675704.gif"
-              alt=""
-              className="h-[100px] w-[100px] object-contain"
-              initial={{ scale: 0 }}
-              animate={isInView ? { scale: 1 } : { scale: 0 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 12, delay: 0 }}
-            />
-            <p className="text-xl">精準行銷策略</p>
+        <div className="max-lg:flex max-lg:flex-col max-lg:items-center">
+          <div className="features flex flex-col gap-3 max-lg:items-center">
+            <div className="item flex items-center gap-3">
+              <motion.img
+                src="/social-marketing_17675704.gif"
+                alt=""
+                className="h-[100px] w-[100px] object-contain"
+                initial={{ scale: 0 }}
+                animate={isInView ? { scale: 1 } : { scale: 0 }}
+                transition={{ type: 'spring', stiffness: 260, damping: 12, delay: 0 }}
+              />
+              <p className="text-xl">精準行銷策略</p>
+            </div>
+            <div className="item flex items-center gap-3">
+              <motion.img
+                src="/movement.gif"
+                alt=""
+                className="h-[100px] w-[100px] object-contain"
+                initial={{ scale: 0 }}
+                animate={isInView ? { scale: 1 } : { scale: 0 }}
+                transition={{ type: 'spring', stiffness: 260, damping: 12, delay: 0.15 }}
+              />
+              <p className="text-xl">SEO跨國內容行銷</p>
+            </div>
+            <div className="item flex items-center gap-3">
+              <motion.img
+                src="/filter_19016344.gif"
+                alt=""
+                className="h-[100px] w-[100px] object-contain"
+                initial={{ scale: 0 }}
+                animate={isInView ? { scale: 1 } : { scale: 0 }}
+                transition={{ type: 'spring', stiffness: 260, damping: 12, delay: 0.3 }}
+              />
+              <p className="text-xl">自動化銷售漏斗</p>
+            </div>
           </div>
-          <div className="item flex items-center gap-3">
-            <motion.img
-              src="/movement.gif"
-              alt=""
-              className="h-[100px] w-[100px] object-contain"
-              initial={{ scale: 0 }}
-              animate={isInView ? { scale: 1 } : { scale: 0 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 12, delay: 0.15 }}
-            />
-            <p className="text-xl">SEO跨國內容行銷</p>
-          </div>
-          <div className="item flex items-center gap-3">
-            <motion.img
-              src="/filter_19016344.gif"
-              alt=""
-              className="h-[100px] w-[100px] object-contain"
-              initial={{ scale: 0 }}
-              animate={isInView ? { scale: 1 } : { scale: 0 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 12, delay: 0.3 }}
-            />
-            <p className="text-xl">自動化銷售漏斗</p>
-          </div>
-        </div>
 
-        <div className="btn-border-wrap btn-border-wrap--accent hero-cta-wrap mt-10 opacity-0 animate-fade-up-sm [animation-delay:3.2s]">
-          <button
-            type="button"
-            className="btn btn-cta btn-cta--brand bg-[#f7f7f7] inline-flex items-center justify-center gap-2 rounded-[50px] px-7 py-3.5 text-xl font-medium max-sm:px-5 max-sm:py-3 max-sm:text-sm"
-            onMouseEnter={() => arrowRef.current?.startAnimation()}
-            onMouseLeave={() => arrowRef.current?.stopAnimation()}
-          >
-            <span className="btn-cta__label relative z-[2]">了解內容行銷</span>
-            <span className="btn-cta__icon-wrap relative z-[2] flex items-center justify-center bg-ink/15 rounded-[50px] p-1.5">
-              <ArrowUpRightIcon ref={arrowRef} size={32} duration={1} color="#281d38" />
-            </span>
-          </button>
+          <CtaButton
+            label="了解內容行銷"
+            variant="brand"
+            iconWrapClassName="bg-ink/15"
+            iconColor="#281d38"
+            wrapClassName="mt-10 opacity-0 animate-fade-up-sm [animation-delay:3.2s]"
+          />
         </div>
       </div>
-      <div className="flex-1">
+      <div className="w-2/5 max-lg:w-4/5">
         <ShuffleGrid />
       </div>
     </div>

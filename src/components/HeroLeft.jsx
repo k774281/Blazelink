@@ -1,6 +1,5 @@
-import { useRef } from 'react'
-import { ArrowUpRightIcon } from '@animateicons/react/lucide'
 import TypewriterHeading from './TypewriterHeading.jsx'
+import CtaButton from './CtaButton.jsx'
 
 const HEADING_TEXT =
   '為 B2B 企業、知識服務、跨國品牌打造，\n自動化獲客的成長引擎，讓品牌擁有可持續的正向循環。'
@@ -18,17 +17,8 @@ const CLOSING_PHRASE_COLORS = [
 ]
 
 export default function HeroLeft() {
-  // ArrowUpRightIcon only animates on its own internal hover — which fires
-  // solely when the cursor is over the icon's own small box, not the wider
-  // CTA. Driving it imperatively off each button's hover instead makes it
-  // trigger whenever any part of that CTA is hovered — each button needs
-  // its own ref, since sharing one means only the last-mounted icon ever
-  // actually receives the imperative calls.
-  const arrowRef = useRef(null)
-  const arrowRef2 = useRef(null)
-
   return (
-    <section className="hero-left relative flex-[0_1_600px] pt-10 animate-fade-up max-lg:max-w-[600px] max-lg:w-full">
+    <section className="hero-left relative flex-[0_1_600px] pt-10 animate-fade-up max-lg:max-w-[600px] max-lg:w-full max-[1079px]:flex max-[1079px]:flex-none max-[1079px]:flex-col max-[1079px]:items-center max-[1079px]:text-center">
       <TypewriterHeading
         text={HEADING_TEXT}
         splitIndex={39}
@@ -38,31 +28,20 @@ export default function HeroLeft() {
         accentColors={CLOSING_PHRASE_COLORS}
       />
 
-      <div className="btn-border-wrap btn-border-wrap--accent hero-cta-wrap mt-10 opacity-0 animate-fade-up-sm [animation-delay:3.2s]">
-        <button
-          type="button"
-          className="btn btn-cta btn-cta--outline inline-flex items-center justify-center gap-2 rounded-[50px] px-7 py-3.5 text-xl font-medium max-sm:px-5 max-sm:py-3 max-sm:text-sm"
-          onMouseEnter={() => arrowRef.current?.startAnimation()}
-          onMouseLeave={() => arrowRef.current?.stopAnimation()}
-        >
-          <span className="btn-cta__label relative z-[2]">了解內容行銷</span>
-          <span className="btn-cta__icon-wrap relative z-[2] flex items-center justify-center bg-white/15 rounded-[50px] p-1.5">
-            <ArrowUpRightIcon ref={arrowRef} size={32} duration={1} color="#ffffff" />
-          </span>
-        </button>
-      </div>
-      <div className="btn-border-wrap btn-border-wrap--accent hero-cta-wrap mt-10 ml-4 opacity-0 animate-fade-up-sm [animation-delay:3.2s]">
-        <button
-          type="button"
-          className="btn btn-cta btn-cta--outline inline-flex items-center justify-center gap-2 rounded-[50px] bg-[#190964] px-7 py-3.5 text-xl font-medium max-sm:px-5 max-sm:py-3 max-sm:text-sm"
-          onMouseEnter={() => arrowRef2.current?.startAnimation()}
-          onMouseLeave={() => arrowRef2.current?.stopAnimation()}
-        >
-          <span className="btn-cta__label relative z-[2]">了解網站案例</span>
-          <span className="btn-cta__icon-wrap relative z-[2] flex items-center justify-center bg-white/15 rounded-[50px] p-1.5">
-            <ArrowUpRightIcon ref={arrowRef2} size={32} duration={1} color="#ffffff" />
-          </span>
-        </button>
+      <div className="max-[1079px]:mt-10 max-[1079px]:flex max-[1079px]:flex-row max-[1079px]:items-center max-[1079px]:gap-4">
+        <CtaButton
+          label="了解內容行銷"
+          variant="outline"
+          iconWrapClassName="bg-white/15"
+          wrapClassName="mt-10 opacity-0 animate-fade-up-sm [animation-delay:3.2s] max-[1079px]:mt-0"
+        />
+        <CtaButton
+          label="了解網站案例"
+          variant="outline"
+          buttonClassName="bg-[#190964]"
+          iconWrapClassName="bg-white/15"
+          wrapClassName="mt-10 ml-4 opacity-0 animate-fade-up-sm [animation-delay:3.2s] max-[1079px]:mt-0 max-[1079px]:ml-0"
+        />
       </div>
     </section>
   )

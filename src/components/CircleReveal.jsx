@@ -96,7 +96,7 @@ export default function CircleReveal() {
     <>
       <div ref={trackRef} className="scroll-reveal-track relative h-screen overflow-hidden flex items-center">
         <div className="w-full">
-          <div className="flex flex-col gap-5 py-10 mt-115">
+          <div className="flex flex-col gap-5 py-10 mt-80">
             {MARQUEE_VELOCITIES.map((v, index) => (
               <ScrollVelocity key={index} velocity={v}>
                 {MARQUEE_IMAGES.map(({ title, thumbnail }) => (

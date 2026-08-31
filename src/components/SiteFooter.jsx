@@ -1,32 +1,17 @@
-import { useEffect, useRef } from 'react'
-import { gsap } from '../lib/gsap.js'
+import { useRef } from 'react'
+import { useScrollReveal } from '../hooks/useScrollReveal.js'
 
 const CONTACT_INFO = ['02-66039088', 'service@blazelink.co']
 const LANGUAGES = ['中文', 'English', '日本語']
 
 export default function SiteFooter() {
   const sectionRef = useRef(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray("[data-anim='reveal']").forEach((el) => {
-        gsap.from(el, {
-          opacity: 0,
-          y: 60,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 85%' },
-        })
-      })
-    }, sectionRef)
-
-    return () => ctx.revert()
-  }, [])
+  useScrollReveal(sectionRef, { hand: false })
 
   return (
     <div className="pt-12">
       <footer ref={sectionRef} className="border-t border-hairline flex flex-col items-center overflow-hidden p-6 w-full">
-        <div className="flex flex-col gap-5 lg:gap-[50px] items-center max-w-[1968px] w-full">
+        <div className="flex flex-col gap-5 lg:gap-[50px] items-center max-w-[1440px] w-full">
           <div data-anim="reveal" className="flex flex-col gap-12 items-center w-full">
             <div className="flex flex-col gap-10 items-center min-w-0">
               <img src="/鏈客Logo-Horizontal.png" alt="" className="w-[300px]" />

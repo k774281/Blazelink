@@ -1,27 +1,14 @@
-import { useEffect, useRef } from 'react'
-import { gsap } from '../lib/gsap.js'
+import { useRef } from 'react'
+import { useScrollReveal } from '../hooks/useScrollReveal.js'
 import SpotlightBackground from './SpotlightBackground.jsx'
 
 export default function BigCta() {
-  const wrapRef = useRef(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(wrapRef.current, {
-        opacity: 0,
-        y: 60,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: wrapRef.current, start: 'top 85%' },
-      })
-    })
-
-    return () => ctx.revert()
-  }, [])
+  const sectionRef = useRef(null)
+  useScrollReveal(sectionRef, { hand: false })
 
   return (
-    <section className="px-6 pt-12">
-      <div ref={wrapRef}>
+    <section ref={sectionRef} className="mx-auto w-full max-w-[1440px] px-6 pt-12">
+      <div data-anim="reveal">
         <a
           href="#contact"
           className="bg-ink relative block overflow-hidden hover:opacity-90 transition w-full py-12 lg:!py-[72px] px-8 lg:!px-12"

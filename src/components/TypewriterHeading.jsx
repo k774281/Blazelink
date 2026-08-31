@@ -34,7 +34,7 @@ export default function TypewriterHeading({
 
   return (
     <h1
-      className={`hero-heading m-0 font-heading text-[64px] font-semibold leading-[80px] tracking-[-1.5px] min-md:max-lg:text-[48px] min-md:max-lg:leading-[52px] min-sm:max-md:text-[36px] min-sm:max-md:leading-[42px] min-sm:max-md:tracking-[-1px] max-sm:text-[28px] max-sm:leading-[34px] max-sm:tracking-[-0.5px] ${className}`}
+      className={`hero-heading m-0 font-heading text-[40px] font-semibold leading-[40px] tracking-[-1.5px] min-md:max-lg:text-[40px] min-md:max-lg:leading-[40px] min-sm:max-md:text-[28px] min-sm:max-md:leading-[28px] min-sm:max-md:tracking-[-1px] max-sm:text-[28px] max-sm:leading-[28px] max-sm:tracking-[-0.5px] ${className}`}
     >
       {visible.split('').map((ch, idx) =>
         ch === '\n' ? (

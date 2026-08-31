@@ -32,9 +32,9 @@ export default function App() {
 
         {heroReady && <Header />}
 
-        <main className="hero relative min-h-screen flex-1 flex items-center max-w-[1920px] w-full mx-auto px-16 pb-[220px] min-sm:max-md:px-8 max-sm:px-5 max-sm:pb-[200px]">
+        <main className="hero relative min-h-screen flex-1 flex items-center max-w-[1440px] w-full mx-auto px-16 pb-[220px] min-sm:max-md:px-4 max-sm:px-2 max-sm:pb-[200px]">
           {heroReady && (
-            <div className="hero-row w-full flex items-center justify-between gap-10 max-lg:flex-col max-lg:items-center max-lg:text-left">
+            <div className="hero-row w-full flex items-center justify-center gap-12 max-lg:flex-col max-lg:items-center max-lg:text-left">
               <HeroLeft />
               <HeroRight />
             </div>

@@ -108,7 +108,7 @@ export default function HeroRight() {
 
   return (
     <section
-      className="hero-right flex-none flex items-center justify-center opacity-0 animate-scale-in [animation-delay:0.3s] w-[calc(720px*var(--circle-scale))] h-[calc(720px*var(--circle-scale))] min-lg:max-xl:[--circle-scale:0.85] min-md:max-lg:[--circle-scale:0.7] min-sm:max-md:[--circle-scale:0.5] max-sm:[--circle-scale:0.4]"
+      className="hero-right flex-none flex items-center justify-center opacity-0 animate-scale-in [animation-delay:0.3s] w-[calc(720px*var(--circle-scale))] h-[calc(720px*var(--circle-scale))] min-xl:max-2xl:[--circle-scale:0.5] min-lg:max-xl:[--circle-scale:0.4] min-md:max-lg:[--circle-scale:0.4] min-sm:max-md:[--circle-scale:0.3] max-sm:hidden"
     >
       <div className="circles">
         <div className="orbit orbit-4">

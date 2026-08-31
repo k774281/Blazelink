@@ -273,21 +273,45 @@
     width: 10px;
     border-radius: 50%;
     left: 50%;
+    /* Travel distance as a variable rather than baked into the keyframes,
+       so the smaller tablet/phone pill (60px tall vs 100px) can scale it
+       down to match — otherwise the dot travels past the shorter pill's
+       bottom edge instead of staying inside it. */
+    --scroll-travel: 80px;
     transform: translateX(-50%);
     animation: scroll-dot-move 2s linear infinite;
   }
 
+  /* Tablet and phone (below Tailwind's lg, <1024px) — same smaller pill on
+     both. Must come AFTER the base .mouse/.move rules above: at equal
+     specificity (#id .class in both), CSS ties go to whichever rule is
+     later in source order regardless of the @media wrapper, so placed
+     before the base rules this override would lose even while its media
+     query matches the viewport. */
+  @media (max-width: 1023.98px) {
+    #scroll-down-animation .mouse {
+      width: 25px;
+      height: 60px;
+    }
+
+    #scroll-down-animation .move {
+      width: 5px;
+      height: 5px;
+      --scroll-travel: 50px;
+    }
+  }
+
   @keyframes scroll-dot-move {
     0% {
-      transform: translate(-50%, 10px);
+      transform: translate(-50%, calc(var(--scroll-travel) * 0.125));
       opacity: 0;
     }
     50% {
-      transform: translate(-50%, 40px);
+      transform: translate(-50%, calc(var(--scroll-travel) * 0.5));
       opacity: 1;
     }
     100% {
-      transform: translate(-50%, 80px);
+      transform: translate(-50%, var(--scroll-travel));
       opacity: 0;
     }
   }
