@@ -3,7 +3,7 @@ import { ScrollTrigger } from '../lib/gsap.js'
 
 const pages = [
   {
-    leftBgImage: '/img-1.png',
+    leftBgImage: '/img-1.webp',
     rightBgImage: null,
     leftContent: null,
     rightContent: {
@@ -14,7 +14,7 @@ const pages = [
   {
     leftBgImage: null,
     rightBgImage:
-      '/img-2.png',
+      '/img-2.webp',
     leftContent: {
       heading: '你還在為了名單的問題煩惱嗎？',
       description: '流量報表好看，名單卻進不了業務手上',
@@ -23,7 +23,7 @@ const pages = [
   },
   {
     leftBgImage:
-      '/img-3.png',
+      '/img-3.webp',
     rightBgImage: null,
     leftContent: null,
     rightContent: {
@@ -34,7 +34,7 @@ const pages = [
   {
     leftBgImage: null,
     rightBgImage:
-      '/img-4.png',
+      '/img-4.webp',
     leftContent: {
       heading: '你還在為了無法持續的問題煩惱嗎？',
       description: '專案結束即斷線，沒有持續迭代',
@@ -43,7 +43,7 @@ const pages = [
   },
   {
     leftBgImage:
-      '/img-5.png',
+      '/img-5.webp',
     rightBgImage: null,
     leftContent: null,
     rightContent: {
@@ -89,11 +89,19 @@ export default function ScrollAdventure() {
           const downOff = 'translateY(100%)'
           const leftTrans = isActive ? 'translateY(0)' : downOff
           const rightTrans = isActive ? 'translateY(0)' : upOff
+          // On mobile the text (black-background) half gets 80% of the width
+          // and the image half gets 20% — whichever side holds leftContent
+          // vs rightContent flips per page, so both halves' width/offset
+          // swap together depending on which one is the text side.
+          const leftIsText = !!page.leftContent
 
           return (
             <div key={idx} className="absolute inset-0">
               {/* Left Half */}
-              <div className="absolute top-0 left-0 w-1/2 h-full transition-transform duration-[1000ms]" style={{ transform: leftTrans }}>
+              <div
+                className={`absolute top-0 left-0 h-full transition-transform duration-[1000ms] ${leftIsText ? 'w-1/2 max-sm:w-[80%]' : 'w-1/2 max-sm:w-[20%]'}`}
+                style={{ transform: leftTrans }}
+              >
                 <div
                   className="w-full h-full bg-cover bg-center bg-no-repeat"
                   style={{ backgroundImage: page.leftBgImage ? `url(${page.leftBgImage})` : undefined }}
@@ -101,8 +109,8 @@ export default function ScrollAdventure() {
                   <div className="flex flex-col items-center justify-center h-full text-white p-8">
                     {page.leftContent && (
                       <>
-                        <h2 className="text-5xl uppercase mb-4 text-center">{page.leftContent.heading}</h2>
-                        <p className="text-3xl text-center">{page.leftContent.description}</p>
+                        <h2 className="text-2xl md:text-4xl max-sm:text-[24px] uppercase mb-4 text-center">{page.leftContent.heading}</h2>
+                        <p className="text-xl md:text-2xl max-sm:text-[18px] text-center">{page.leftContent.description}</p>
                       </>
                     )}
                   </div>
@@ -110,7 +118,10 @@ export default function ScrollAdventure() {
               </div>
 
               {/* Right Half */}
-              <div className="absolute top-0 left-1/2 w-1/2 h-full transition-transform duration-[1000ms]" style={{ transform: rightTrans }}>
+              <div
+                className={`absolute top-0 h-full transition-transform duration-[1000ms] ${leftIsText ? 'left-1/2 w-1/2 max-sm:left-[80%] max-sm:w-[20%]' : 'left-1/2 w-1/2 max-sm:left-[20%] max-sm:w-[80%]'}`}
+                style={{ transform: rightTrans }}
+              >
                 <div
                   className="w-full h-full bg-cover bg-center bg-no-repeat"
                   style={{ backgroundImage: page.rightBgImage ? `url(${page.rightBgImage})` : undefined }}
@@ -118,11 +129,11 @@ export default function ScrollAdventure() {
                   <div className="flex flex-col items-center justify-center h-full text-white p-8">
                     {page.rightContent && (
                       <>
-                        <h2 className="text-5xl uppercase mb-4 text-center">{page.rightContent.heading}</h2>
+                        <h2 className="text-2xl md:text-4xl max-sm:text-[24px] uppercase mb-4 text-center">{page.rightContent.heading}</h2>
                         {typeof page.rightContent.description === 'string' ? (
-                          <p className="text-3xl text-center">{page.rightContent.description}</p>
+                          <p className="text-xl md:text-2xl max-sm:text-[18px] text-center">{page.rightContent.description}</p>
                         ) : (
-                          <div className="text-3xl text-center">{page.rightContent.description}</div>
+                          <div className="text-xl md:text-2xl max-sm:text-[18px] text-center">{page.rightContent.description}</div>
                         )}
                       </>
                     )}

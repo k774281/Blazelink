@@ -18,7 +18,7 @@ const CLOSING_PHRASE_COLORS = [
 
 export default function HeroLeft() {
   return (
-    <section className="hero-left relative flex-[0_1_600px] pt-10 animate-fade-up max-lg:max-w-[600px] max-lg:w-full max-[1079px]:flex max-[1079px]:flex-none max-[1079px]:flex-col max-[1079px]:items-center max-[1079px]:text-center">
+    <section className="hero-left relative flex-[0_1_600px] max-w-[450px] pt-10 animate-fade-up max-lg:max-w-[600px] max-lg:w-full max-[1079px]:flex max-[1079px]:flex-none max-[1079px]:flex-col max-[1079px]:items-center max-[1079px]:text-center">
       <TypewriterHeading
         text={HEADING_TEXT}
         splitIndex={39}

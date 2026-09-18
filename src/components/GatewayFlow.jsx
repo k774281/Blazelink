@@ -111,5 +111,5 @@ export default function GatewayFlow({ className = '' }) {
     }
   }, [])
 
-  return <canvas ref={canvasRef} className={`gateway-flow absolute inset-0 w-full h-full pointer-events-none ${className}`} />
+  return <canvas ref={canvasRef} className={`gateway-flow absolute inset-0 w-full h-screen pointer-events-none ${className}`} />
 }

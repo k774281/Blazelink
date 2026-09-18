@@ -2,16 +2,16 @@ import { useEffect, useRef, useState } from 'react'
 import { ScrollVelocity } from './ScrollVelocity.jsx'
 
 const MARQUEE_IMAGES = [
-  { title: 'Moonbeam', thumbnail: 'img-1.jpg' },
-  { title: 'Cursor', thumbnail: 'img-2.jpg' },
-  { title: 'Rogue', thumbnail: 'img-3.jpg' },
-  { title: 'Editorially', thumbnail: 'img-4.jpg' },
-  { title: 'Editrix AI', thumbnail: 'img-5.jpg' },
-  { title: 'Moonbeam 2', thumbnail: 'img-1.jpg' },
-  { title: 'Cursor 2', thumbnail: 'img-2.jpg' },
-  { title: 'Rogue 2', thumbnail: 'img-3.jpg' },
-  { title: 'Editorially 2', thumbnail: 'img-4.jpg' },
-  { title: 'Editrix AI 2', thumbnail: 'img-5.jpg' },
+  { title: 'Moonbeam', thumbnail: 'marquee-img-1.webp' },
+  { title: 'Cursor', thumbnail: 'marquee-img-2.webp' },
+  { title: 'Rogue', thumbnail: 'marquee-img-3.webp' },
+  { title: 'Editorially', thumbnail: 'marquee-img-4.webp' },
+  { title: 'Editrix AI', thumbnail: 'marquee-img-5.webp' },
+  { title: 'Moonbeam 2', thumbnail: 'marquee-img-1.webp' },
+  { title: 'Cursor 2', thumbnail: 'marquee-img-2.webp' },
+  { title: 'Rogue 2', thumbnail: 'marquee-img-3.webp' },
+  { title: 'Editorially 2', thumbnail: 'marquee-img-4.webp' },
+  { title: 'Editrix AI 2', thumbnail: 'marquee-img-5.webp' },
 ]
 
 const MARQUEE_VELOCITIES = [3, -3]

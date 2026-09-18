@@ -40,7 +40,7 @@ function TestimonialCard({ t, iconRef }) {
         <div className="h-[3px] w-[50px] bg-brand-dark" />
         <div className="flex items-start gap-2">
           <MessageSquareTextIcon ref={iconRef} size={30} className="mt-1 shrink-0" color="#031846" />
-          <p className="text-2xl leading-[1.4] font-body text-ink">{t.title}</p>
+          <p className="text-2xl max-sm:text-xl leading-[1.4] font-body text-ink">{t.title}</p>
         </div>
       </div>
     </>
@@ -124,14 +124,14 @@ export default function TestimonialsSection() {
       <div className="relative mx-auto flex w-full max-w-[1440px] items-center justify-center mt-12 h-[480px]">
         <div className="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -ml-[240px] z-0 pointer-events-none">
           <div ref={leftFrameRef} className="opacity-50 scale-75 rotate-[5deg]">
-            <article className="bg-white border-[3px] border-mist w-[400px] h-[480px] flex flex-col overflow-hidden rounded-[50px] font-body">
+            <article className="bg-white border-[3px] border-mist w-[400px] h-[480px] flex flex-col overflow-hidden rounded-[50px] font-body max-sm:w-[320px]">
               <TestimonialCard t={TESTIMONIALS[prevIndex]} />
             </article>
           </div>
         </div>
         <div className="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ml-[240px] z-0 pointer-events-none">
           <div ref={rightFrameRef} className="opacity-50 scale-75 -rotate-[5deg]">
-            <article className="bg-white border-[3px] border-mist w-[400px] h-[480px] flex flex-col overflow-hidden rounded-[50px] font-body">
+            <article className="bg-white border-[3px] border-mist w-[400px] h-[480px] flex flex-col overflow-hidden rounded-[50px] font-body max-sm:w-[320px]">
               <TestimonialCard t={TESTIMONIALS[nextIndex]} />
             </article>
           </div>
@@ -139,7 +139,7 @@ export default function TestimonialsSection() {
         <div className="relative z-10">
           <article
             ref={centerRef}
-            className="bg-white border-[3px] border-mist w-[400px] h-[480px] flex flex-col overflow-hidden rounded-[50px] font-body"
+            className="bg-white border-[3px] border-mist w-[400px] h-[480px] flex flex-col overflow-hidden rounded-[50px] font-body max-sm:w-[320px]"
             onMouseEnter={() => iconRef.current?.startAnimation()}
             onMouseLeave={() => iconRef.current?.stopAnimation()}
           >

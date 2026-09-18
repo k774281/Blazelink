@@ -30,7 +30,7 @@ export function FeatureSteps({ features, title, autoPlayInterval = 3000, imageHe
         <h2 className="mb-10 text-center text-3xl font-bold text-white md:text-4xl lg:text-5xl">{title}</h2>
       )}
       <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-8">
-        <div className="order-2 flex flex-col gap-6 md:order-1">
+        <div className="order-2 flex flex-col gap-6 md:order-1 max-md:items-center">
           {features.map((ft, index) => (
             <button
               type="button"
@@ -39,20 +39,20 @@ export function FeatureSteps({ features, title, autoPlayInterval = 3000, imageHe
                 setCurrentFeature(index)
                 setProgress(0)
               }}
-              className="flex items-start gap-5 text-left"
+              className="flex items-start gap-5 text-left max-md:flex-col max-md:items-center max-md:text-center"
             >
               <span
                 className={cn(
-                  'flex h-15 w-15 shrink-0 items-center justify-center rounded-full border text-2xl font-semibold transition-colors',
+                  'flex h-15 w-15 shrink-0 items-center justify-center rounded-full border text-xl md:text-3xl max-sm:text-[20px] font-semibold transition-colors max-md:h-[40px] max-md:w-[40px]',
                   index === currentFeature ? 'border-brand bg-brand text-ink' : 'border-white/20 text-white/80',
                 )}
               >
                 {index + 1}
               </span>
-              <div className="flex flex-1 flex-col gap-5">
+              <div className="flex flex-1 flex-col gap-5 max-md:items-center">
                 <p
                   className={cn(
-                    'font-display text-xl font-medium uppercase tracking-wide',
+                    'font-display text-lg md:text-base max-sm:text-[16px] font-medium uppercase tracking-wide',
                     index === currentFeature ? 'text-brand' : 'text-white/40',
                   )}
                 >
@@ -60,7 +60,7 @@ export function FeatureSteps({ features, title, autoPlayInterval = 3000, imageHe
                 </p>
                 <h3
                   className={cn(
-                    'font-heading text-5xl font-semibold transition-colors',
+                    'font-heading text-3xl md:text-2xl max-sm:text-[24px] font-semibold transition-colors',
                     index === currentFeature ? 'text-white' : 'text-white/60',
                   )}
                 >
@@ -73,7 +73,7 @@ export function FeatureSteps({ features, title, autoPlayInterval = 3000, imageHe
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="overflow-hidden font-body text-xl text-white/60"
+                      className="overflow-hidden font-body text-xl md:text-lg max-sm:text-[16px] text-white/60"
                     >
                       {ft.content}
                     </motion.p>
