@@ -1,25 +1,26 @@
 import { useRef } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal.js'
 import SpotlightBackground from './SpotlightBackground.jsx'
+import CtaButton from './CtaButton.jsx'
+
+const BODY_TEXT =
+  '我們深入了解需求，依品牌創造最適合的行銷策略與方法，進而不斷優化與改進，品牌的成長就是我們共同的目標。無論您是一家小型新創企業，還是一個已經穩固的品牌，我們都將全心投入，幫助您實現成功。與鏈客團隊合作，您不僅得到了專業的行銷服務，還擁有一個真正關心您業務成長的夥伴。我們的成功建立在您的成功之上，這就是我們為之努力的原因。'
 
 export default function BigCta() {
   const sectionRef = useRef(null)
   useScrollReveal(sectionRef, { hand: false })
 
   return (
-    <section ref={sectionRef} className="mx-auto w-full max-w-[1440px] px-6 pt-12">
+    <section ref={sectionRef} className="mx-auto w-full max-w-[1440px]">
       <div data-anim="reveal">
-        <a
-          href="#contact"
-          className="bg-ink relative block overflow-hidden hover:opacity-90 transition w-full py-12 lg:!py-[72px] px-8 lg:!px-12"
-        >
-          <SpotlightBackground className="flex items-center justify-center text-white font-heading font-bold uppercase whitespace-nowrap text-[32px] lg:!text-[64px] tracking-[-2.56px] gap-5">
-            <span>現在馬上諮詢</span>
-            <svg className="size-8 lg:size-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M5 12h14M13 5l7 7-7 7" />
-            </svg>
+        <div className="bg-ink relative block overflow-hidden w-full py-12 lg:!py-[72px] px-8 lg:!px-12 bg-[url('/bg%202.png')] bg-cover bg-center">
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-16 lg:h-28 bg-gradient-to-b from-[#10141b] to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-16 lg:h-28 bg-gradient-to-t from-[#10141b] to-transparent" />
+          <SpotlightBackground className="flex flex-col items-center justify-center gap-8 text-center">
+            <p className="max-w-[720px] font-body text-base leading-relaxed text-white/90 md:text-lg">{BODY_TEXT}</p>
+            <CtaButton label="馬上諮詢" variant="outline" iconWrapClassName="bg-white/15" />
           </SpotlightBackground>
-        </a>
+        </div>
       </div>
     </section>
   )

@@ -1,20 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { ScrollVelocity } from './ScrollVelocity.jsx'
-
-const MARQUEE_IMAGES = [
-  { title: 'Moonbeam', thumbnail: 'marquee-img-1.webp' },
-  { title: 'Cursor', thumbnail: 'marquee-img-2.webp' },
-  { title: 'Rogue', thumbnail: 'marquee-img-3.webp' },
-  { title: 'Editorially', thumbnail: 'marquee-img-4.webp' },
-  { title: 'Editrix AI', thumbnail: 'marquee-img-5.webp' },
-  { title: 'Moonbeam 2', thumbnail: 'marquee-img-1.webp' },
-  { title: 'Cursor 2', thumbnail: 'marquee-img-2.webp' },
-  { title: 'Rogue 2', thumbnail: 'marquee-img-3.webp' },
-  { title: 'Editorially 2', thumbnail: 'marquee-img-4.webp' },
-  { title: 'Editrix AI 2', thumbnail: 'marquee-img-5.webp' },
-]
-
-const MARQUEE_VELOCITIES = [3, -3]
 
 const HEADING_TEXT = '想了解我們有什麼服務嗎？'
 const MIN_PERCENT = 0
@@ -26,20 +10,11 @@ const MAX_PERCENT = 150
 // Heading appears once the mask's clip-path reaches this percentage —
 // earlier than full coverage (150%), while the circle is still growing.
 const HEADING_REVEAL_PERCENT = 65
-// Once fully revealed, scrolling this much further makes the heading exit
-// again (same per-char translateY transition, just reversed).
-const EXIT_AFTER_PX = 100
-// Once the heading has had room to finish exiting, the whole fixed overlay
-// (mask + heading) fades away and stops covering the viewport, so the
-// sections placed after CircleReveal in normal document flow become visible
-// and scrollable instead of being permanently hidden underneath it.
-const RELEASE_AFTER_PX = 150
 
 export default function CircleReveal() {
   const trackRef = useRef(null)
   const maskRef = useRef(null)
   const [revealed, setRevealed] = useState(false)
-  const [released, setReleased] = useState(false)
 
   useEffect(() => {
     // Progress is driven by the track's OWN position relative to the
@@ -47,9 +22,7 @@ export default function CircleReveal() {
     // gone from the page top. That matters because the page's total
     // scrollable range depends on the hero's rendered height, which varies
     // a lot by breakpoint — tying progress to an absolute scrollY distance
-    // could simply be unreachable on layouts that are short. Progress
-    // reaching 1 here only requires there to be *any* content after the
-    // track (even 0px), which always holds.
+    // could simply be unreachable on layouts that are short.
     //
     // The mask is a full-viewport layer with clip-path: circle(R% at 50%
     // 100%), R animated by scroll — not transform: scale(), which blurs
@@ -61,18 +34,13 @@ export default function CircleReveal() {
       if (!track) return
 
       const rect = track.getBoundingClientRect()
-      const vh = window.innerHeight
-      const trackHeight = track.offsetHeight
-      const rawDistance = vh - rect.top
-      const progress = Math.min(Math.max(rawDistance / trackHeight, 0), 1)
+      const progress = Math.min(Math.max((window.innerHeight - rect.top) / track.offsetHeight, 0), 1)
       const percent = MIN_PERCENT + progress * (MAX_PERCENT - MIN_PERCENT)
-      const overshoot = rawDistance - trackHeight
 
       if (maskRef.current) {
         maskRef.current.style.clipPath = `circle(${percent}% at 50% 100%)`
       }
-      setRevealed(percent >= HEADING_REVEAL_PERCENT && overshoot < EXIT_AFTER_PX)
-      setReleased(overshoot >= RELEASE_AFTER_PX)
+      setRevealed(percent >= HEADING_REVEAL_PERCENT)
     }
 
     update()
@@ -94,43 +62,25 @@ export default function CircleReveal() {
 
   return (
     <>
-      <div ref={trackRef} className="scroll-reveal-track relative h-screen overflow-hidden flex items-center">
-        <div className="w-full">
-          <div className="flex flex-col gap-5 py-10 mt-80">
-            {MARQUEE_VELOCITIES.map((v, index) => (
-              <ScrollVelocity key={index} velocity={v}>
-                {MARQUEE_IMAGES.map(({ title, thumbnail }) => (
-                  <div
-                    key={title}
-                    className="relative h-[6rem] w-[9rem] mx-2.5 md:h-[8rem] md:w-[12rem] xl:h-[12rem] xl:w-[18rem]"
-                  >
-                    <img
-                      src={thumbnail}
-                      alt={title}
-                      className="absolute inset-0 h-full w-full rounded-lg object-cover object-center"
-                    />
-                  </div>
-                ))}
-              </ScrollVelocity>
-            ))}
-            <ScrollVelocity velocity={5}>
-              <span className="mx-4 font-display text-4xl text-brand">我們就像是你的事業夥伴!</span>
-              <span className="mx-4 font-display text-4xl text-brand">Like your parner!</span>
-            </ScrollVelocity>
-          </div>
-        </div>
-      </div>
-      {/* Guarantees real scrollable room past the point the mask fully covers
-          the screen, so both the EXIT_AFTER_PX heading exit and the later
-          RELEASE_AFTER_PX hand-off to the sections below are reachable. */}
-      <div className="scroll-reveal-exit-buffer h-[200px]" aria-hidden="true" />
+      {/* Pure scroll distance — the circle's growth is mapped onto this
+          element's travel through the viewport, so the effect needs a
+          viewport's worth of scroll to play out. It renders nothing: the
+          hero shows through until the mask's circle wipes across it. */}
+      <div ref={trackRef} className="scroll-reveal-track h-screen" aria-hidden="true" />
+      {/* Holds the heading fully landed for a beat before AboutSection
+          reaches it. */}
+      <div className="scroll-reveal-buffer h-[200px]" aria-hidden="true" />
+      {/* The overlay stays pinned rather than fading out. `.app` is an
+          `isolate` stacking context, so everything after it paints above
+          this z-50 layer — AboutSection simply scrolls up over the heading
+          and covers it, the same way the later sections stack. */}
       <div
         ref={maskRef}
-        className={`circle-reveal-mask fixed inset-0 z-50 bg-page-bg pointer-events-none transition-opacity duration-500 ${released ? 'opacity-0' : 'opacity-100'}`}
+        className="circle-reveal-mask fixed inset-0 z-50 bg-page-bg pointer-events-none"
         aria-hidden="true"
       />
       <section
-        className={`circle-reveal-content${revealed ? ' is-revealed' : ''} fixed inset-0 z-[51] flex items-center justify-center px-6 pointer-events-none transition-opacity duration-500 ${released ? 'opacity-0' : 'opacity-100'}`}
+        className={`circle-reveal-content${revealed ? ' is-revealed' : ''} fixed inset-0 z-[51] flex items-center justify-center px-6 pointer-events-none`}
         aria-hidden={!revealed}
       >
         <h2 className="circle-reveal__heading max-w-[900px] m-0 text-center font-hand text-[40px] font-semibold leading-[1.4] text-ink">

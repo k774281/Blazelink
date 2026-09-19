@@ -48,13 +48,35 @@ export default function App() {
 
       <div className="bg-white text-ink w-full overflow-x-hidden relative">
         <AboutSection />
+        {/* Sections from here on stack: each sticky wrapper sticks to the
+            viewport top, so the next one slides up over it instead of
+            pushing it off in normal flow — DOM order alone puts each later
+            section's paint layer above the one before it. Only sections
+            that fit within one viewport get wrapped — a sticky element
+            taller than the viewport freezes showing just its top slice, so
+            content past the fold inside it (Services' feature carousel +
+            CTA) would become permanently unreachable. Services and
+            WideBanner stay in normal flow so all their content stays
+            scrollable; WideBanner also pins itself internally via its own
+            ScrollTrigger (see WideBanner.jsx), which a sticky wrapper here
+            would conflict with anyway. */}
         <ServicesSection />
         <WideBanner />
-        <LogoTicker />
-        <ProcessSection />
-        <TestimonialsSection />
-        <BigCta />
-        <SiteFooter />
+        <div className="sticky top-0">
+          <LogoTicker />
+        </div>
+        <div className="sticky top-0">
+          <ProcessSection />
+        </div>
+        <div className="sticky top-0">
+          <TestimonialsSection />
+        </div>
+        <div className="sticky top-0">
+          <BigCta />
+        </div>
+        <div className="sticky top-0">
+          <SiteFooter />
+        </div>
       </div>
     </>
   )

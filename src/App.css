@@ -181,45 +181,6 @@
     overflow: hidden;
   }
 
-  /* Lives on .btn-border-wrap (the outer wrap), NOT .btn-cta — .btn-cta--outline's
-     fill is transparent, so if this sat on the button itself there'd be
-     nothing opaque left to hide its resting state behind, and it would
-     show straight through, dimming the label underneath. Attached to the
-     wrap instead, with z-index:-1 and opacity:0 at rest, it stays fully
-     invisible until hover regardless of what the button's own fill does.
-     Uses an explicit brand gradient rather than background:inherit, since
-     filter:blur (which blurs the pseudo-element's OWN paint, unlike
-     backdrop-filter which blurs what's behind it) needs its own color to
-     work with. */
-  .btn-border-wrap::after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    height: 100%;
-    width: 90%;
-    opacity: 0;
-    border-radius: 50px;
-    background: linear-gradient(to right, #780aff, #c83ac1);
-    filter: blur(1px);
-    transition: opacity 0.2s ease, filter 0.2s ease, width 0.2s ease, bottom 0.2s ease, left 0.2s ease;
-    pointer-events: none;
-  }
-
-  .btn-border-wrap:hover::after {
-    opacity: 0.8;
-    filter: blur(24px);
-    width: 100%;
-    bottom: -5px;
-    left: 0;
-  }
-
-  .btn-border-wrap:active::after {
-    filter: blur(10px);
-  }
-
   /* ---------- CTA — outline variant ---------- */
   /* Only the hero CTA uses this (see HeroLeft.jsx) — sits inside the
      existing .btn-border-wrap--accent spinning conic-gradient ring, so
@@ -839,5 +800,153 @@
   .spotlight-content {
     position: relative;
     z-index: 10;
+  }
+
+  /* ---------- Kinetic fullscreen nav (tablet and below) ---------- */
+  /* Ported from the pasted "sterling gate" reference, which shipped only its
+     :root variables — everything structural below is written to match what
+     its GSAP timeline animates. Every class is kn- prefixed because the
+     reference's .nav-link / .overlay / .menu-* names collide with the
+     header link styles already defined further up this file. */
+
+  .kn-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  /* GSAP flips this to display:block on open and back on close. */
+  .kn-overlay-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+  }
+
+  .kn-scrim {
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 24, 70, 0.55);
+    backdrop-filter: blur(4px);
+  }
+
+  .kn-panel {
+    position: absolute;
+    inset: 0 0 0 auto;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .kn-panel {
+      width: 70%;
+      max-width: 620px;
+    }
+  }
+
+  .kn-panel-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  /* Three opaque panels sliding in one after another (xPercent 101 -> 0)
+     is what gives the open its layered, kinetic feel. */
+  .kn-backdrop-layer {
+    position: absolute;
+    inset: 0;
+    background: var(--color-ink);
+  }
+
+  .kn-backdrop-layer--first {
+    background: var(--color-brand-dark);
+  }
+
+  .kn-backdrop-layer--second {
+    background: #2a1b6b;
+  }
+
+  .kn-shapes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .kn-shape {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  .kn-shape.is-active {
+    opacity: 1;
+  }
+
+  .kn-toggle--close {
+    position: absolute;
+    top: 1.5rem;
+    right: clamp(1.5rem, 6vw, 4rem);
+    z-index: 2;
+  }
+
+  .kn-panel-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 2rem clamp(1.5rem, 6vw, 4rem);
+  }
+
+  .kn-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  /* Masks .kn-link's yPercent:140 start position so each label wipes up
+     into view instead of appearing over the panel. */
+  .kn-item {
+    overflow: hidden;
+  }
+
+  .kn-link {
+    position: relative;
+    display: block;
+    padding: 0.18em 0.2em;
+  }
+
+  .kn-link-text {
+    position: relative;
+    z-index: 1;
+    display: block;
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 7vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #ffffff;
+    transition: transform 0.45s cubic-bezier(0.65, 0.05, 0, 1);
+  }
+
+  .kn-link:hover .kn-link-text {
+    transform: translateX(0.6rem);
+  }
+
+  .kn-link-hover-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.45s cubic-bezier(0.65, 0.05, 0, 1);
+  }
+
+  .kn-link:hover .kn-link-hover-bg {
+    transform: scaleX(1);
   }
 }

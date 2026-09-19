@@ -1,3 +1,5 @@
+import KineticNavMenu from './KineticNavMenu.jsx'
+
 const NAV_LINKS = ['關於我們', '跨國SEO行銷', '網站案例', 'Pricing']
 
 export default function Header() {
@@ -9,13 +11,18 @@ export default function Header() {
           src="https://blazelink.co/wp-content/uploads/2025/11/%E9%8F%88%E5%AE%A2Logo-Horizontal.png"
           alt="Blazelink 鏈客"
         />
-        <nav className="site-header__nav flex items-center gap-8 max-lg:gap-4 max-md:hidden">
+        <nav className="site-header__nav flex items-center gap-8 max-lg:gap-4 max-lg:hidden">
           {NAV_LINKS.map((label) => (
             <a key={label} href="#" className="nav-link text-white text-[20px] font-normal">
               {label}
             </a>
           ))}
         </nav>
+      </div>
+
+      {/* Below lg the inline links give way to the fullscreen kinetic menu. */}
+      <div className="lg:hidden">
+        <KineticNavMenu links={NAV_LINKS} />
       </div>
     </header>
   )

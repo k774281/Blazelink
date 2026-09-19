@@ -30,7 +30,7 @@ export function FeatureSteps({ features, title, autoPlayInterval = 3000, imageHe
         <h2 className="mb-10 text-center text-3xl font-bold text-white md:text-4xl lg:text-5xl">{title}</h2>
       )}
       <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-8">
-        <div className="order-2 flex flex-col gap-6 md:order-1 max-md:items-center">
+        <div className="order-2 flex flex-col gap-6 max-md:items-center">
           {features.map((ft, index) => (
             <button
               type="button"
@@ -91,7 +91,7 @@ export function FeatureSteps({ features, title, autoPlayInterval = 3000, imageHe
             </button>
           ))}
         </div>
-        <div className={cn('relative order-1 w-full overflow-hidden rounded-2xl md:order-2', imageHeight)}>
+        <div className={cn('relative order-1 w-full overflow-hidden rounded-2xl', imageHeight)}>
           <AnimatePresence mode="wait">
             <motion.img
               key={currentFeature}
