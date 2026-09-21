@@ -12,15 +12,21 @@ export default function BigCta() {
 
   return (
     <section ref={sectionRef} className="mx-auto w-full max-w-[1440px]">
-      <div data-anim="reveal">
-        <div className="bg-ink relative block overflow-hidden w-full py-12 lg:!py-[72px] px-8 lg:!px-12 bg-[url('/bg%202.png')] bg-cover bg-center">
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-16 lg:h-28 bg-gradient-to-b from-[#10141b] to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-16 lg:h-28 bg-gradient-to-t from-[#10141b] to-transparent" />
-          <SpotlightBackground className="flex flex-col items-center justify-center gap-8 text-center">
-            <p className="max-w-[720px] font-body text-base leading-relaxed text-white/90 md:text-lg">{BODY_TEXT}</p>
-            <CtaButton label="馬上諮詢" variant="outline" iconWrapClassName="bg-white/15" />
-          </SpotlightBackground>
-        </div>
+      {/* The reveal is on the copy and the button, not on the wrapper — with
+          it on the whole block the backdrop faded in too, so until the
+          animation fired this was just a gap in the page. */}
+      <div className="bg-ink relative block overflow-hidden w-full py-12 lg:!py-[72px] px-8 lg:!px-12 bg-[url('/bg%202.png')] bg-cover bg-center">
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-16 lg:h-28 bg-gradient-to-b from-[#10141b] to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-16 lg:h-28 bg-gradient-to-t from-[#10141b] to-transparent" />
+        <SpotlightBackground className="flex flex-col items-center justify-center gap-8 text-center">
+          <p
+            data-anim="reveal"
+            className="max-w-[720px] font-body text-base leading-relaxed text-white/90 md:text-lg"
+          >
+            {BODY_TEXT}
+          </p>
+          <CtaButton label="馬上諮詢" variant="outline" iconWrapClassName="bg-white/15" dataAnim="reveal" />
+        </SpotlightBackground>
       </div>
     </section>
   )
