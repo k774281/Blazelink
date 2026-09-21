@@ -1,6 +1,14 @@
 import KineticNavMenu from './KineticNavMenu.jsx'
 
-const NAV_LINKS = ['關於我們', '跨國SEO行銷', '網站案例', 'Contact']
+// The in-page sections aren't anchored yet, so those stay on '#'. 鏈客商學院
+// points at the separate WordPress site, which opens in its own tab.
+const NAV_LINKS = [
+  { label: '關於我們', href: '#' },
+  { label: '跨國SEO行銷', href: '#' },
+  { label: '網站案例', href: '#' },
+  { label: '鏈客商學院', href: 'https://blazelink.co/academy/' },
+  { label: 'Contact', href: '#' },
+]
 
 export default function Header() {
   return (
@@ -12,8 +20,13 @@ export default function Header() {
           alt="Blazelink 鏈客"
         />
         <nav className="site-header__nav flex items-center gap-8 max-lg:gap-4 max-lg:hidden">
-          {NAV_LINKS.map((label) => (
-            <a key={label} href="#" className="nav-link text-white text-[20px] font-normal">
+          {NAV_LINKS.map(({ label, href }) => (
+            <a
+              key={label}
+              href={href}
+              {...(href.startsWith('http') && { target: '_blank', rel: 'noopener noreferrer' })}
+              className="nav-link text-white text-[20px] font-normal"
+            >
               {label}
             </a>
           ))}
