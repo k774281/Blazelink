@@ -21,6 +21,10 @@ const HIDE_AFTER_EXTRA_PX = 400
 export default function CircleReveal() {
   const trackRef = useRef(null)
   const maskRef = useRef(null)
+  // Last radius update() computed, so a remount can paint the current circle
+  // instead of the stylesheet's circle(0%). Starts collapsed: on the very
+  // first mount the hero has to show through, not sit behind a full mask.
+  const percentRef = useRef(MIN_PERCENT)
   const [revealed, setRevealed] = useState(false)
   const [covered, setCovered] = useState(false)
 
@@ -45,6 +49,7 @@ export default function CircleReveal() {
       const progress = Math.min(Math.max((window.innerHeight - rect.top) / track.offsetHeight, 0), 1)
       const percent = MIN_PERCENT + progress * (MAX_PERCENT - MIN_PERCENT)
 
+      percentRef.current = percent
       if (maskRef.current) {
         maskRef.current.style.clipPath = `circle(${percent}% at 50% 100%)`
       }
@@ -105,11 +110,10 @@ export default function CircleReveal() {
           <div
             ref={(node) => {
               maskRef.current = node
-              // Remounting after being covered starts from the stylesheet's
-              // circle(0%), which would flash the hero back through the mask
-              // for a frame. Scrolling back up can only re-enter here with the
-              // circle fully grown, so paint that immediately.
-              if (node) node.style.clipPath = `circle(${MAX_PERCENT}% at 50% 100%)`
+              // Paint whatever radius update() last computed, so remounting
+              // after being covered doesn't flash the hero through a
+              // collapsed mask for a frame.
+              if (node) node.style.clipPath = `circle(${percentRef.current}% at 50% 100%)`
             }}
             className="circle-reveal-mask fixed inset-0 z-50 bg-page-bg pointer-events-none"
             aria-hidden="true"
