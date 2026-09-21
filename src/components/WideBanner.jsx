@@ -68,7 +68,11 @@ export default function ScrollAdventure() {
       trigger: sectionRef.current,
       start: 'top top',
       end: 'bottom bottom',
-      pin: pinRef.current,
+      // Temporarily disabled — removing pin also removes the .pin-spacer
+      // element GSAP injects. Restore this line to bring back the pinned
+      // slideshow (the slides still advance on scroll without it, just
+      // without the section holding still while they change).
+      // pin: pinRef.current,
       scrub: true,
       onUpdate: (self) => {
         const page = Math.min(numOfPages, Math.max(1, Math.round(self.progress * (numOfPages - 1)) + 1))
