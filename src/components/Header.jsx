@@ -1,6 +1,6 @@
 import KineticNavMenu from './KineticNavMenu.jsx'
 
-const NAV_LINKS = ['關於我們', '跨國SEO行銷', '網站案例', 'Pricing']
+const NAV_LINKS = ['關於我們', '跨國SEO行銷', '網站案例', 'Contact']
 
 export default function Header() {
   return (
