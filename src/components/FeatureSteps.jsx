@@ -30,7 +30,7 @@ export function FeatureSteps({ features, title, autoPlayInterval = 3000, imageHe
         <h2 className="mb-10 text-center text-3xl font-bold text-white md:text-4xl lg:text-5xl">{title}</h2>
       )}
       <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-8">
-        <div className="order-2 flex flex-col gap-6 max-md:items-center">
+        <div className="order-2 flex flex-col gap-6">
           {features.map((ft, index) => (
             <button
               type="button"
@@ -39,7 +39,7 @@ export function FeatureSteps({ features, title, autoPlayInterval = 3000, imageHe
                 setCurrentFeature(index)
                 setProgress(0)
               }}
-              className="flex items-start gap-5 text-left max-md:flex-col max-md:items-center max-md:text-center"
+              className="flex items-start gap-5 text-left"
             >
               <span
                 className={cn(
@@ -49,7 +49,7 @@ export function FeatureSteps({ features, title, autoPlayInterval = 3000, imageHe
               >
                 {index + 1}
               </span>
-              <div className="flex flex-1 flex-col gap-5 max-md:items-center">
+              <div className="flex flex-1 flex-col gap-5">
                 <p
                   className={cn(
                     'font-display text-lg md:text-base max-sm:text-[16px] font-medium uppercase tracking-wide',
