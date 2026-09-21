@@ -32,7 +32,7 @@ export default function ShuffleHero() {
           <div className="features flex flex-col gap-3 max-lg:items-center">
             <div className="item flex items-center gap-3">
               <motion.img
-                src="/social-marketing_17675704.gif"
+                src="/social-marketing_17675704.webp"
                 alt=""
                 className="h-[100px] w-[100px] object-contain max-lg:h-[70px] max-lg:w-[70px]"
                 initial={{ scale: 0 }}
@@ -43,7 +43,7 @@ export default function ShuffleHero() {
             </div>
             <div className="item flex items-center gap-3">
               <motion.img
-                src="/movement.gif"
+                src="/movement.webp"
                 alt=""
                 className="h-[100px] w-[100px] object-contain max-lg:h-[70px] max-lg:w-[70px]"
                 initial={{ scale: 0 }}
@@ -54,7 +54,7 @@ export default function ShuffleHero() {
             </div>
             <div className="item flex items-center gap-3">
               <motion.img
-                src="/filter_19016344.gif"
+                src="/filter_19016344.webp"
                 alt=""
                 className="h-[100px] w-[100px] object-contain max-lg:h-[70px] max-lg:w-[70px]"
                 initial={{ scale: 0 }}
