@@ -4,11 +4,11 @@ import TextGenerateEffect from './TextGenerateEffect.jsx'
 import CtaButton from './CtaButton.jsx'
 
 export default function ShuffleHero() {
-  // Drives both the h1/p text-generate reveal and the feature icons' pop-in
-  // — toggles on every scroll in/out of view (no `once`), so leaving and
-  // re-entering replays both animations instead of only firing the first time.
+  // Drives both the h1/p text-generate reveal and the feature icons' pop-in.
+  // `once` so scrolling back up doesn't replay them — re-running the reveal
+  // on every re-entry made the text look like it was reloading.
   const copyRef = useRef(null)
-  const isInView = useInView(copyRef, { amount: 0.3 })
+  const isInView = useInView(copyRef, { amount: 0.3, once: true })
 
   return (
     <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center gap-6 md:flex-row">

@@ -66,27 +66,24 @@ export function FeatureSteps({ features, title, autoPlayInterval = 3000, imageHe
                 >
                   {ft.title}
                 </h3>
-                <AnimatePresence initial={false}>
-                  {index === currentFeature && (
-                    <motion.p
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden font-body text-xl md:text-lg max-sm:text-[16px] text-white/60"
-                    >
-                      {ft.content}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-                {index === currentFeature && (
-                  <div className="mt-2 h-0.5 w-full max-w-[220px] overflow-hidden rounded-full bg-white/10">
-                    <div
-                      className="h-full bg-brand"
-                      style={{ width: `${progress}%`, transition: 'width 100ms linear' }}
-                    />
-                  </div>
-                )}
+                {/* Both of these used to mount only for the active step, and
+                    the description animated height 0 -> auto. Because height
+                    is a layout property, every 4s swap resized this section by
+                    20px and shifted everything below it — visible as a jump
+                    while scrolling further down the page. They now stay
+                    mounted so the block's height never changes. */}
+                <p className="font-body text-xl md:text-lg max-sm:text-[16px] text-white/60">
+                  {ft.content}
+                </p>
+                <div className="mt-2 h-0.5 w-full max-w-[220px] overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="h-full bg-brand"
+                    style={{
+                      width: index === currentFeature ? `${progress}%` : '0%',
+                      transition: 'width 100ms linear',
+                    }}
+                  />
+                </div>
               </div>
             </button>
           ))}

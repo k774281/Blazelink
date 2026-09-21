@@ -32,10 +32,9 @@ export default function ServicesSection() {
   useScrollReveal(sectionRef, { hand: false })
 
   // Same char-stagger blur/fade reveal as AboutSection's title (ShuffleHero's
-  // TextGenerateEffect) — toggles on every scroll in/out (no `once`) so it
-  // replays on re-entry too.
+  // TextGenerateEffect). `once` so scrolling back up doesn't replay it.
   const headingRef = useRef(null)
-  const headingInView = useInView(headingRef, { amount: 0.3 })
+  const headingInView = useInView(headingRef, { amount: 0.3, once: true })
 
   return (
     <section id="services" ref={sectionRef} className="relative bg-[#0c1e4f] px-6 py-[120px] lg:py-[200px] overflow-hidden">
