@@ -1,4 +1,5 @@
-import { motion } from 'motion/react'
+import { useRef } from 'react'
+import { motion, useInView } from 'motion/react'
 import { cn } from '../lib/utils.js'
 
 // Converted from the pasted framer-motion reference to this project's
@@ -10,8 +11,16 @@ function Spotlight({ className, ...props }) {
 }
 
 export default function SpotlightBackground({ children, className }) {
+  const containerRef = useRef(null)
+  // Three large blobs under filter: blur(80px), each on an infinite loop, are
+  // expensive to recompute every frame — and this block sits at the very
+  // bottom of the page, so they used to animate the whole way down. Only
+  // mount them while the block is actually on screen.
+  const inView = useInView(containerRef)
+
   return (
-    <div className="spotlight-container">
+    <div ref={containerRef} className="spotlight-container">
+      {inView && (
       <div className="spotlight-overlay">
         <Spotlight
           initial={{ x: '-50%', y: '-50%', rotate: '0deg' }}
@@ -63,6 +72,7 @@ export default function SpotlightBackground({ children, className }) {
           className="spotlight-right"
         />
       </div>
+      )}
 
       <div className={cn('spotlight-content', className)}>{children}</div>
     </div>

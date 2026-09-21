@@ -43,6 +43,19 @@ export default function CircleReveal() {
       setRevealed(percent >= HEADING_REVEAL_PERCENT)
     }
 
+    // getBoundingClientRect() forces a synchronous layout, and scroll fires
+    // far more often than the screen refreshes — especially on touch. Coalesce
+    // bursts of events down to one measurement per frame.
+    let queued = false
+    const onScroll = () => {
+      if (queued) return
+      queued = true
+      requestAnimationFrame(() => {
+        queued = false
+        update()
+      })
+    }
+
     update()
     // The initial call above runs before the custom web fonts (LXGWFasmartGothic,
     // GlowSansJP, Urbanist — all loaded from external font hosts) have finished
@@ -52,11 +65,11 @@ export default function CircleReveal() {
     // value baked in from the pre-font layout instead of starting fully
     // collapsed offscreen.
     document.fonts.ready.then(update)
-    window.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', update)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
     return () => {
-      window.removeEventListener('scroll', update)
-      window.removeEventListener('resize', update)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
     }
   }, [])
 
