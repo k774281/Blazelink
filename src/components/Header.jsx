@@ -1,11 +1,11 @@
 import KineticNavMenu from './KineticNavMenu.jsx'
 
-// The in-page sections aren't anchored yet, so those stay on '#'. 鏈客商學院
-// points at the separate WordPress site, which opens in its own tab.
+// Temporary: these four point at the old WordPress site until their pages
+// exist on this one. 聯繫我們 has no old-site equivalent, so it stays on '#'.
 const NAV_LINKS = [
-  { label: '關於我們', href: '#' },
-  { label: '跨國SEO行銷', href: '#' },
-  { label: '網站案例', href: '#' },
+  { label: '關於我們', href: 'https://blazelink.co/about/' },
+  { label: '跨國SEO行銷', href: 'https://blazelink.co/global-seo/' },
+  { label: '網站案例', href: 'https://blazelink.co/cases/' },
   { label: '鏈客商學院', href: 'https://blazelink.co/academy/' },
   { label: '聯繫我們', href: '#' },
 ]

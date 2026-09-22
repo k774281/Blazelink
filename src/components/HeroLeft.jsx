@@ -29,14 +29,18 @@ export default function HeroLeft() {
       />
 
       <div className="max-[1079px]:mt-10 max-[1079px]:flex max-[1079px]:flex-row max-[1079px]:items-center max-[1079px]:gap-4">
+        {/* Temporary: both point at the old WordPress site until their pages
+            exist on this one. */}
         <CtaButton
           label="內容行銷"
+          href="https://blazelink.co"
           variant="outline"
           iconWrapClassName="bg-white/15"
           wrapClassName="mt-10 opacity-0 animate-fade-up-sm [animation-delay:3.2s] max-[1079px]:mt-0"
         />
         <CtaButton
-          label="網站案例"
+          label="網站架設"
+          href="https://blazelink.co/cases/"
           variant="outline"
           buttonClassName="bg-[#190964]"
           iconWrapClassName="bg-white/15"

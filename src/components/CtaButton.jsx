@@ -24,7 +24,9 @@ export default function CtaButton({
   return (
     <div data-anim={dataAnim} className={cn('btn-border-wrap btn-border-wrap--accent hero-cta-wrap', wrapClassName)}>
       <Tag
-        {...(href ? { href } : { type: 'button' })}
+        {...(href
+          ? { href, ...(href.startsWith('http') && { target: '_blank', rel: 'noopener noreferrer' }) }
+          : { type: 'button' })}
         onClick={onClick}
         className={cn(
           'btn btn-cta inline-flex items-center justify-center gap-2 rounded-[50px] px-5 py-2.5 text-xl font-medium max-sm:px-4 max-sm:py-2 max-sm:text-base',
