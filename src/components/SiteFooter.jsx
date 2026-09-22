@@ -36,7 +36,7 @@ export default function SiteFooter() {
           </div>
 
           <div className="flex flex-row justify-around items-center w-full max-lg:flex-col max-lg:gap-4">
-            <p className="text-white/90">Copyright 2026 © 鏈客策略行銷股份有限公司</p>
+            <p className="text-[11px] text-white/90">Copyright 2026 © 鏈客策略行銷股份有限公司</p>
             <div className="flex flex-row gap-6 items-center">
               <a href="#" className="font-body text-sm uppercase text-white/90 hover:opacity-60 transition">
                 隱私權政策
