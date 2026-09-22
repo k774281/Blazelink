@@ -20,10 +20,6 @@ export default function AboutSection() {
       </div>
 
       <ShuffleHero />
-
-      <p data-anim="reveal" className="font-body text-sm uppercase max-w-[140px]">
-        專業行銷服務
-      </p>
     </section>
   )
 }

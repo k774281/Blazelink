@@ -7,7 +7,7 @@ const NAV_LINKS = [
   { label: '跨國SEO行銷', href: '#' },
   { label: '網站案例', href: '#' },
   { label: '鏈客商學院', href: 'https://blazelink.co/academy/' },
-  { label: 'Contact', href: '#' },
+  { label: '聯繫我們', href: '#' },
 ]
 
 export default function Header() {
