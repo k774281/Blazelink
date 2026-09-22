@@ -25,7 +25,15 @@ export default function BigCta() {
           >
             {BODY_TEXT}
           </p>
-          <CtaButton label="馬上諮詢" variant="outline" iconWrapClassName="bg-white/15" dataAnim="reveal" />
+          {/* Temporary: points at the old WordPress site until this page
+              exists on this one. */}
+          <CtaButton
+            label="馬上諮詢"
+            href="https://blazelink.co/contact/"
+            variant="outline"
+            iconWrapClassName="bg-white/15"
+            dataAnim="reveal"
+          />
         </SpotlightBackground>
       </div>
     </section>

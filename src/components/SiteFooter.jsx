@@ -38,11 +38,23 @@ export default function SiteFooter() {
           <div className="flex flex-row justify-around items-center w-full max-lg:flex-col max-lg:gap-4">
             <p className="text-[11px] text-white/90">Copyright 2026 © 鏈客策略行銷股份有限公司</p>
             <div className="flex flex-row gap-6 items-center">
-              <a href="#" className="font-body text-sm uppercase text-white/90 hover:opacity-60 transition">
+              {/* Temporary: both point at the old WordPress site until these
+                  pages exist on this one. */}
+              <a
+                href="https://blazelink.co/privacy-policy/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-body text-sm uppercase text-white/90 hover:opacity-60 transition"
+              >
                 隱私權政策
               </a>
               <div className="bg-white/20 h-px w-16" />
-              <a href="#" className="font-body text-sm uppercase text-white/90 hover:opacity-60 transition">
+              <a
+                href="https://blazelink.co/term-of-use/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-body text-sm uppercase text-white/90 hover:opacity-60 transition"
+              >
                 服務條款
               </a>
             </div>
