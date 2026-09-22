@@ -14,7 +14,7 @@ export default function SiteFooter() {
         <div className="flex flex-col gap-5 lg:gap-[50px] items-center max-w-[1440px] w-full">
           <div data-anim="reveal" className="flex flex-col gap-12 items-center w-full">
             <div className="flex flex-col gap-10 items-center min-w-0">
-              <img src="/鏈客Logo-Horizontal.png" alt="" className="w-[300px]" />
+              <img src="/blazelink-logo-light.png" alt="" className="w-[300px]" />
               <div className="flex flex-col gap-2 items-center">
                 {CONTACT_INFO.map((line) => (
                   <span key={line} className="font-body text-sm uppercase text-white/90">
