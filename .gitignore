@@ -1,6 +1,7 @@
 node_modules/
 dist/
 dist-ssr/
+dist-wp/
 *.local
 
 # Editor/IDE
@@ -20,3 +21,6 @@ npm-debug.log*
 .claude/
 .vercel
 .env*
+
+# Credentials — never commit
+pass.rtf
