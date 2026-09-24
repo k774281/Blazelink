@@ -1,0 +1,4 @@
+/* Next.js mounts the app inside #__next; give it the full height so src/App.css's `#root { height: 100% }` resolves as it did under Vite. */
+#__next {
+  height: 100%;
+}
