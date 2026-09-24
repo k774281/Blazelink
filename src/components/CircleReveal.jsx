@@ -10,11 +10,23 @@ const MAX_PERCENT = 150
 // Heading appears once the mask's clip-path reaches this percentage —
 // earlier than full coverage (150%), while the circle is still growing.
 const HEADING_REVEAL_PERCENT = 65
+// Once AboutSection has scrolled up far enough to cover the viewport, the
+// overlay is invisible but still a full-viewport fixed layer — and the mask
+// still carries a clip-path. Leaving it mounted made the compositor blend
+// two dead full-screen layers on every scroll, which showed up as stutter
+// when scrolling back and forth in place. Unmount it past this margin
+// (measured from the track's top edge leaving the viewport).
+const HIDE_AFTER_EXTRA_PX = 400
 
 export default function CircleReveal() {
   const trackRef = useRef(null)
   const maskRef = useRef(null)
+  // Last radius update() computed, so a remount can paint the current circle
+  // instead of the stylesheet's circle(0%). Starts collapsed: on the very
+  // first mount the hero has to show through, not sit behind a full mask.
+  const percentRef = useRef(MIN_PERCENT)
   const [revealed, setRevealed] = useState(false)
+  const [covered, setCovered] = useState(false)
 
   useEffect(() => {
     // Progress is driven by the track's OWN position relative to the
@@ -37,10 +49,28 @@ export default function CircleReveal() {
       const progress = Math.min(Math.max((window.innerHeight - rect.top) / track.offsetHeight, 0), 1)
       const percent = MIN_PERCENT + progress * (MAX_PERCENT - MIN_PERCENT)
 
+      percentRef.current = percent
       if (maskRef.current) {
         maskRef.current.style.clipPath = `circle(${percent}% at 50% 100%)`
       }
       setRevealed(percent >= HEADING_REVEAL_PERCENT)
+      // -rect.top is how far the track's top has travelled above the
+      // viewport; the sections after it start one viewport + buffer later,
+      // so past that the overlay is fully hidden behind AboutSection.
+      setCovered(-rect.top >= window.innerHeight + HIDE_AFTER_EXTRA_PX)
+    }
+
+    // getBoundingClientRect() forces a synchronous layout, and scroll fires
+    // far more often than the screen refreshes — especially on touch. Coalesce
+    // bursts of events down to one measurement per frame.
+    let queued = false
+    const onScroll = () => {
+      if (queued) return
+      queued = true
+      requestAnimationFrame(() => {
+        queued = false
+        update()
+      })
     }
 
     update()
@@ -52,11 +82,11 @@ export default function CircleReveal() {
     // value baked in from the pre-font layout instead of starting fully
     // collapsed offscreen.
     document.fonts.ready.then(update)
-    window.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', update)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
     return () => {
-      window.removeEventListener('scroll', update)
-      window.removeEventListener('resize', update)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
     }
   }, [])
 
@@ -73,26 +103,37 @@ export default function CircleReveal() {
       {/* The overlay stays pinned rather than fading out. `.app` is an
           `isolate` stacking context, so everything after it paints above
           this z-50 layer — AboutSection simply scrolls up over the heading
-          and covers it, the same way the later sections stack. */}
-      <div
-        ref={maskRef}
-        className="circle-reveal-mask fixed inset-0 z-50 bg-page-bg pointer-events-none"
-        aria-hidden="true"
-      />
-      <section
-        className={`circle-reveal-content${revealed ? ' is-revealed' : ''} fixed inset-0 z-[51] flex items-center justify-center px-6 pointer-events-none`}
-        aria-hidden={!revealed}
-      >
-        <h2 className="circle-reveal__heading max-w-[900px] m-0 text-center font-hand text-[40px] font-semibold leading-[1.4] text-ink">
-          {HEADING_TEXT.split('').map((ch, i) => (
-            <span className="char-wrap" key={i}>
-              <span className="char" style={{ transitionDelay: `${i * 0.03}s` }}>
-                {ch}
-              </span>
-            </span>
-          ))}
-        </h2>
-      </section>
+          and covers it, the same way the later sections stack. It unmounts
+          once covered so it stops costing a composite on every scroll. */}
+      {!covered && (
+        <>
+          <div
+            ref={(node) => {
+              maskRef.current = node
+              // Paint whatever radius update() last computed, so remounting
+              // after being covered doesn't flash the hero through a
+              // collapsed mask for a frame.
+              if (node) node.style.clipPath = `circle(${percentRef.current}% at 50% 100%)`
+            }}
+            className="circle-reveal-mask fixed inset-0 z-50 bg-page-bg pointer-events-none"
+            aria-hidden="true"
+          />
+          <section
+            className={`circle-reveal-content${revealed ? ' is-revealed' : ''} fixed inset-0 z-[51] flex items-center justify-center px-6 pointer-events-none`}
+            aria-hidden={!revealed}
+          >
+            <h2 className="circle-reveal__heading max-w-[900px] m-0 text-center font-hand text-[40px] font-semibold leading-[1.4] text-ink">
+              {HEADING_TEXT.split('').map((ch, i) => (
+                <span className="char-wrap" key={i}>
+                  <span className="char" style={{ transitionDelay: `${i * 0.03}s` }}>
+                    {ch}
+                  </span>
+                </span>
+              ))}
+            </h2>
+          </section>
+        </>
+      )}
     </>
   )
 }

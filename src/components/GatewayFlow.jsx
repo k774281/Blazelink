@@ -100,12 +100,38 @@ export default function GatewayFlow({ className = '' }) {
         })
       })
 
-      rafId = requestAnimationFrame(render)
     }
-    rafId = requestAnimationFrame(render)
+
+    // This canvas only ever sits behind the hero, but the loop used to keep
+    // repainting all NUM_PATHS dashed beziers at 60fps for the entire page —
+    // the main source of scroll jank on phones, where the work continued long
+    // after the hero had scrolled away. Park it whenever the canvas is
+    // off-screen or the tab is backgrounded.
+    let inView = false
+
+    const tick = () => {
+      rafId = null
+      if (!inView || document.hidden) return
+      render()
+      rafId = requestAnimationFrame(tick)
+    }
+
+    const ensureRunning = () => {
+      if (rafId == null && inView && !document.hidden) rafId = requestAnimationFrame(tick)
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting
+      ensureRunning()
+    })
+    observer.observe(canvas)
+
+    document.addEventListener('visibilitychange', ensureRunning)
 
     return () => {
-      cancelAnimationFrame(rafId)
+      if (rafId != null) cancelAnimationFrame(rafId)
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', ensureRunning)
       window.removeEventListener('resize', resize)
       window.removeEventListener('click', handleClick)
     }

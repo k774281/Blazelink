@@ -457,19 +457,38 @@
     object-fit: cover;
     opacity: 0;
     box-shadow: 0 0 28px 4px var(--avatar-glow);
-    animation: avatar-fly-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    /* Split in two on purpose. fill-mode: forwards pins every property the
+       keyframes mention, so keeping blur in the same animation left all nine
+       avatars on filter: blur(0px) forever — and a zero-radius blur still
+       costs a compositing layer. The unblur runs without a fill-mode, so
+       filter falls back to none the moment it finishes. */
+    animation:
+      avatar-fly-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+      avatar-unblur 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @keyframes avatar-unblur {
+    from {
+      filter: blur(8px);
+    }
+    to {
+      filter: blur(0);
+    }
   }
 
   @keyframes avatar-fly-in {
     from {
       opacity: 0;
       transform: scale(0.3) rotate(-180deg);
-      filter: blur(8px);
     }
+    /* filter is deliberately absent here. Naming it — even as none, which
+       interpolates as blur(0) — would let animation-fill-mode: forwards pin
+       a zero-radius blur on every avatar for good, and a blur(0) still costs
+       its own compositing layer. Leaving it out lets filter fall back to the
+       element's own value once the animation ends. */
     to {
       opacity: 1;
       transform: scale(1) rotate(0deg);
-      filter: blur(0);
     }
   }
 

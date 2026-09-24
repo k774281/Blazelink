@@ -54,7 +54,7 @@ export default function ProcessSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative mx-auto w-full max-w-[1440px] px-6 py-24 min-h-[900px] flex flex-col items-center justify-center overflow-hidden max-[993px]:min-h-[500px] max-[993px]:py-12"
+      className="relative mx-auto w-full max-w-[1440px] px-6 py-24 min-h-[900px] flex flex-col items-center justify-center overflow-hidden max-[993px]:min-h-0 max-[993px]:py-12"
     >
       <div className="hidden lg:block pointer-events-none absolute inset-0">
         {BIG_FLOATS.map((f, i) => (

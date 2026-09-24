@@ -13,8 +13,8 @@ if (!gsap.parseEase(EASE)) {
 }
 
 // Each link lights up its own background shape on hover; index maps to
-// .kn-shape-1 … .kn-shape-4.
-const SHAPE_COUNT = 4
+// .kn-shape-1 … .kn-shape-5, wrapping if the nav ever outgrows them.
+const SHAPE_COUNT = 5
 
 export default function KineticNavMenu({ links }) {
   const overlayRef = useRef(null)
@@ -184,6 +184,12 @@ export default function KineticNavMenu({ links }) {
                     fill="rgba(236,72,153,0.25)"
                   />
                 </svg>
+
+                <svg className="kn-shape kn-shape-5" viewBox="0 0 400 400" fill="none">
+                  <line className="kn-shape-element" x1="0" y1="100" x2="300" y2="400" stroke="rgba(99,102,241,0.35)" strokeWidth="30" />
+                  <line className="kn-shape-element" x1="100" y1="0" x2="400" y2="300" stroke="rgba(139,92,246,0.3)" strokeWidth="25" />
+                  <line className="kn-shape-element" x1="200" y1="0" x2="400" y2="200" stroke="rgba(236,72,153,0.25)" strokeWidth="20" />
+                </svg>
               </div>
             </div>
 
@@ -199,8 +205,9 @@ export default function KineticNavMenu({ links }) {
             </button>
 
             <div className="kn-panel-content">
+              <img src="/blazelink-logo-light.png" alt="Blazelink 鏈客" className="mb-8 w-[160px]" />
               <ul className="kn-list">
-                {links.map((label, index) => {
+                {links.map(({ label, href }, index) => {
                   const shapeIndex = (index % SHAPE_COUNT) + 1
                   return (
                     <li
@@ -209,7 +216,12 @@ export default function KineticNavMenu({ links }) {
                       onMouseEnter={() => activateShape(shapeIndex)}
                       onMouseLeave={() => releaseShape(shapeIndex)}
                     >
-                      <a href="#" className="kn-link" onClick={() => setOpen(false)}>
+                      <a
+                        href={href}
+                        {...(href.startsWith('http') && { target: '_blank', rel: 'noopener noreferrer' })}
+                        className="kn-link"
+                        onClick={() => setOpen(false)}
+                      >
                         <span className="kn-link-text">{label}</span>
                         <span className="kn-link-hover-bg" />
                       </a>

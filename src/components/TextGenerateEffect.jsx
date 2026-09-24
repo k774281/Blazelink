@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'motion/react'
 import { cn } from '../lib/utils.js'
 
@@ -18,6 +18,39 @@ export default function TextGenerateEffect({
 }) {
   const chars = useMemo(() => Array.from(children), [children])
   const MotionTag = motion[as]
+  const [settled, setSettled] = useState(false)
+
+  // Each character animates its own filter, and a finished character is left
+  // holding filter: blur(0px) — which is not the same as `none` and keeps its
+  // compositing layer alive. Across the page's headings that came to 112 live
+  // layers, all re-composited on every scroll. Once the stagger has played
+  // out, swap to plain spans that render identically without the layers.
+  useEffect(() => {
+    if (!trigger || !filter) {
+      setSettled(false)
+      return
+    }
+    const seconds = (chars.length - 1) * staggerDuration + (transition?.duration ?? 0.5)
+    const id = setTimeout(() => setSettled(true), seconds * 1000 + 100)
+    return () => clearTimeout(id)
+  }, [trigger, filter, chars.length, staggerDuration, transition?.duration])
+
+  if (settled) {
+    return (
+      <MotionTag aria-label={children} className={cn('inline-block', className)}>
+        <span className="sr-only">{children}</span>
+        {chars.map((char, i) => (
+          <span
+            aria-hidden="true"
+            className={cn('inline-block whitespace-pre', wordClassName)}
+            key={`${i}-${char}`}
+          >
+            {char}
+          </span>
+        ))}
+      </MotionTag>
+    )
+  }
 
   return (
     <MotionTag aria-label={children} className={cn('inline-block', className)}>

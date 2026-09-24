@@ -4,11 +4,11 @@ import TextGenerateEffect from './TextGenerateEffect.jsx'
 import CtaButton from './CtaButton.jsx'
 
 export default function ShuffleHero() {
-  // Drives both the h1/p text-generate reveal and the feature icons' pop-in
-  // — toggles on every scroll in/out of view (no `once`), so leaving and
-  // re-entering replays both animations instead of only firing the first time.
+  // Drives both the h1/p text-generate reveal and the feature icons' pop-in.
+  // `once` so scrolling back up doesn't replay them — re-running the reveal
+  // on every re-entry made the text look like it was reloading.
   const copyRef = useRef(null)
-  const isInView = useInView(copyRef, { amount: 0.3 })
+  const isInView = useInView(copyRef, { amount: 0.3, once: true })
 
   return (
     <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center gap-6 md:flex-row">
@@ -32,7 +32,7 @@ export default function ShuffleHero() {
           <div className="features flex flex-col gap-3 max-lg:items-center">
             <div className="item flex items-center gap-3">
               <motion.img
-                src="/social-marketing_17675704.gif"
+                src="/social-marketing_17675704.webp"
                 alt=""
                 className="h-[100px] w-[100px] object-contain max-lg:h-[70px] max-lg:w-[70px]"
                 initial={{ scale: 0 }}
@@ -43,7 +43,7 @@ export default function ShuffleHero() {
             </div>
             <div className="item flex items-center gap-3">
               <motion.img
-                src="/movement.gif"
+                src="/movement.webp"
                 alt=""
                 className="h-[100px] w-[100px] object-contain max-lg:h-[70px] max-lg:w-[70px]"
                 initial={{ scale: 0 }}
@@ -54,7 +54,7 @@ export default function ShuffleHero() {
             </div>
             <div className="item flex items-center gap-3">
               <motion.img
-                src="/filter_19016344.gif"
+                src="/filter_19016344.webp"
                 alt=""
                 className="h-[100px] w-[100px] object-contain max-lg:h-[70px] max-lg:w-[70px]"
                 initial={{ scale: 0 }}
@@ -65,8 +65,11 @@ export default function ShuffleHero() {
             </div>
           </div>
 
+          {/* Temporary: points at the old WordPress site until this page
+              exists on this one. */}
           <CtaButton
-            label="了解內容行銷"
+            label="內容行銷"
+            href="https://blazelink.co"
             variant="brand"
             iconWrapClassName="bg-ink/15"
             iconColor="#281d38"

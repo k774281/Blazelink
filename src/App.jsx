@@ -61,7 +61,9 @@ export default function App() {
             ScrollTrigger (see WideBanner.jsx), which a sticky wrapper here
             would conflict with anyway. */}
         <ServicesSection />
-        <WideBanner />
+        {/* Temporarily hidden for review — this is the block that sat between
+            Services and the stacked sections. Uncomment to bring it back. */}
+        {/* <WideBanner /> */}
         <div className="sticky top-0">
           <LogoTicker />
         </div>
