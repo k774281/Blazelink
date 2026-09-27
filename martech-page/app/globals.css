@@ -1,1 +1,84 @@
 @import "tailwindcss";
+
+/* Taipei Sans TC Beta is not on Google Fonts: it renders where installed locally, otherwise falls back to Noto Sans TC. */
+@theme inline {
+  --font-sans: "Taipei Sans TC Beta", var(--font-noto-sans-tc), sans-serif;
+  --font-noto: var(--font-noto-sans-tc), sans-serif;
+  --font-grotesk: var(--font-space-grotesk), var(--font-noto-sans-tc), sans-serif;
+}
+
+@theme {
+  --color-ink: #031846;
+  --color-primary: #704de3;
+  --color-primary-dark: #5334ba;
+  --color-lavender: #a78bfa;
+  --color-body: #3b4658;
+  --color-muted: #5b6472;
+  --color-faint: #8d94a3;
+  --color-line: #e3e5ea;
+  --color-line-strong: #d6d9e1;
+  --color-surface: #f4f5f7;
+  --color-footer: #021031;
+
+  --shadow-card: 0 2px 8px 0 rgb(15 12 16 / 0.25);
+
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-word-in: word-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-up: fade-up 0.4s ease-out both;
+
+  @keyframes fade-up {
+    from {
+      transform: translateY(8px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes word-in {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    color: var(--color-ink);
+    background: #ffffff;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+}
