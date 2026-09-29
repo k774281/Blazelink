@@ -20,3 +20,6 @@ npm-debug.log*
 .claude/
 .vercel
 .env*
+
+# Credentials — must never be committed
+pass.rtf
