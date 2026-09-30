@@ -20,7 +20,7 @@ export const latest = {
         { label: "主辦", value: "LMI台灣" },
       ],
       cta: "立即報名",
-      href: "#contact", // TODO: point at the real registration page
+      href: "https://www.accupass.com/event/2609171216224165557800",
     },
     {
       tag: "LMI",
@@ -34,7 +34,7 @@ export const latest = {
         { label: "主辦", value: "LMI台灣" },
       ],
       cta: "立即報名",
-      href: "#contact", // TODO: point at the real registration page
+      href: "#contact", // TODO: no registration link supplied for this one yet
     },
   ],
 };
@@ -60,39 +60,57 @@ export const topics = {
 export const columns = {
   title: "行銷與財稅，兩條專欄",
   more: "更多內容",
-  // TODO: swap for real posts once the CMS is wired up — these carry no hrefs yet.
+  // Articles come from WordPress at build time — see app/_lib/wp.js. The slugs
+  // are the live category slugs on blazelink.co: 行銷科技艙 and 財稅必修課.
   tabs: [
     {
       id: "marketing",
       label: "行銷專欄",
-      items: [
-        { title: "破除翻譯迷思：台灣品牌打入歐美市場的「跨國 SEO」落地實戰指南", date: "2026-08-14" },
-        { title: "2026 年，台灣品牌進攻歐美市場，做 SEO 還有效嗎？", date: "2026-08-01" },
-        { title: "為什麼「網站翻譯」根本不是「國際SEO」？跨境擴張的四大隱形大坑", date: "2026-07-25" },
-        { title: "你的 SEO 只是「排名看爽的」嗎？名單型SEO與 Landing Page 才是企業獲利的唯一解", date: "2026-04-26" },
-        { title: "破除 SEO 迷思：別讓「排名第一」成了企業轉型的虛榮指標！", date: "2026-04-15" },
-        { title: "捷徑往往最遠：寫給 B2B 品牌的一封 SEO 信", date: "2026-04-01" },
-      ],
+      category: "martech",
+      more: "https://blazelink.co/category/martech/",
     },
     {
-      // The design names this tab but supplies no articles for it, and inventing
-      // titles would imply posts that do not exist. Left empty until real ones land.
       id: "finance",
       label: "財稅專欄",
-      items: [],
-      empty: "財稅專欄的文章正在準備中，敬請期待。",
+      category: "start-up",
+      more: "https://blazelink.co/category/start-up/",
     },
   ],
+  empty: "文章載入中，請稍後再試。",
 };
 
-// TODO: the design repeats one past event to fill the strip. Needs real records —
-// these are the company's own history, so nothing here is invented.
+// The four events the client named. Titles, links and artwork come from their
+// WordPress product pages; the dates are the event dates stated in each page's
+// own copy, which is not a structured field, so they are recorded here.
 export const pastEvents = {
   items: [
-    { date: "2026/9/17", title: "LMI 學習分享會｜台北實體場", note: "過往講座　圖片待補" },
-    { date: "2026/4/24", title: "萊特的社交品酒會：商務 × 人脈 × 交友", note: "過往講座　圖片待補" },
-    { date: "2026/4/24", title: "萊特的社交品酒會：商務 × 人脈 × 交友", note: "過往講座　圖片待補" },
-    { date: "2026/4/24", title: "萊特的社交品酒會：商務 × 人脈 × 交友", note: "過往講座　圖片待補" },
+    {
+      date: "2026/9/17",
+      title: "LMI 學習分享會｜台北實體場",
+      href: "https://blazelink.co/product/lmi-20260917/",
+      image: "https://blazelink.co/wp-content/uploads/2026/09/1788833348003.jpg",
+    },
+    {
+      date: "2026/4/24",
+      title: "萊特的社交品酒會：商務 × 人脈 × 交友",
+      href: "https://blazelink.co/product/wright-0424/",
+      image:
+        "https://blazelink.co/wp-content/uploads/2026/03/Gemini_Generated_Image_tztscttztscttzts-1.jpg",
+    },
+    {
+      date: "2026/3/6",
+      title: "手沖咖啡品鑑課：進軍全球市場的咖啡職人教你喝咖啡",
+      href: "https://blazelink.co/product/attracafe/",
+      image:
+        "https://blazelink.co/wp-content/uploads/2026/02/attracafe-cover-2-sim.jpg",
+    },
+    {
+      date: "2025/11/4",
+      title: "佳世達轉型策略與投後管理心法——以醫療佈局為例",
+      href: "https://blazelink.co/product/qisda/",
+      image:
+        "https://blazelink.co/wp-content/uploads/2025/10/qista-banner-square.png",
+    },
   ],
 };
 
