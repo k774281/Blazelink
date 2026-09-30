@@ -35,12 +35,66 @@ const FACES = [
   { file: "NotoSansTC-500.ttf", dir: "noto-500", family: "Noto Sans TC", weight: 500 },
 ];
 
-/** Every character the site's own source files can render. */
+const WP = process.env.WP_BASE_URL || "https://blazelink.co";
+
+/** Mirrors the decoding app/_lib/wp.js does before the text reaches the page. */
+function decodeEntities(text) {
+  return text
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, "\u00A0")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&");
+}
+
+/*
+ * The pages also render copy that lives in WordPress, not in this repo — the
+ * column lists, the homepage's articles, the lectures. Those characters have to
+ * be pinned too: anything outside the pinned chunk resolves from an auto chunk
+ * instead, and one of those costs ~70KB for the sake of a handful of glyphs.
+ * Leaving them out took the homepage from 998KB of webfont to 2063KB.
+ *
+ * Best effort, like everything else here: if the CMS cannot be reached the
+ * build carries on with the source charset alone.
+ */
+async function cmsCharset() {
+  // Deliberately wider than what the pages show, so the next article or lecture
+  // published is already covered and does not cost an auto chunk on its own.
+  const endpoints = [
+    "posts?categories=71&per_page=25&_fields=title,excerpt",
+    "posts?categories=73&per_page=25&_fields=title,excerpt",
+    "product?product_cat=69&per_page=25&orderby=date&order=desc&_fields=title,excerpt",
+  ];
+
+  const chars = new Set();
+  for (const endpoint of endpoints) {
+    try {
+      const res = await fetch(`${WP}/wp-json/wp/v2/${endpoint}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      for (const item of await res.json()) {
+        const text = `${item.title?.rendered ?? ""}${item.excerpt?.rendered ?? ""}`;
+        // WordPress hands these back with entities — `&#8211;` and friends. The
+        // page renders the character they stand for, so that is what has to be
+        // pinned, not the seven ASCII letters that spell it.
+        for (const ch of decodeEntities(text)) chars.add(ch);
+      }
+    } catch (err) {
+      console.warn(`WARNING: could not read ${endpoint} for the charset — ${err.message}`);
+    }
+  }
+  return chars;
+}
+
+/** Every character the site can render — its own source, and the CMS copy. */
 async function siteCharset() {
   const chars = new Set();
   for await (const file of glob(path.join(ROOT, "app", "**", "*.{js,jsx,mjs}"))) {
     for (const ch of readFileSync(file, "utf8")) chars.add(ch);
   }
+  for (const ch of await cmsCharset()) chars.add(ch);
   // Latin, CJK punctuation and fullwidth forms always travel with the text.
   const always = [
     [0x20, 0x7e],

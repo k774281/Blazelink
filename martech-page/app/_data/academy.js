@@ -80,17 +80,12 @@ export const columns = {
   empty: "文章載入中，請稍後再試。",
 };
 
-// The four events the client named. Titles, links and artwork come from their
-// WordPress product pages; the dates are the event dates stated in each page's
-// own copy, which is not a structured field, so they are recorded here.
+// Past events the client named. 【LMI 學習分享會】 was among them but now leads
+// 最新講座 instead, so it is not repeated here. Titles, links and artwork come
+// from their WordPress product pages; the dates are the event dates stated in
+// each page's own copy, which is not a structured field, so they live here.
 export const pastEvents = {
   items: [
-    {
-      date: "2026/9/17",
-      title: "LMI 學習分享會｜台北實體場",
-      href: "https://blazelink.co/product/lmi-20260917/",
-      image: "https://blazelink.co/wp-content/uploads/2026/09/1788833348003.jpg",
-    },
     {
       date: "2026/4/24",
       title: "萊特的社交品酒會：商務 × 人脈 × 交友",

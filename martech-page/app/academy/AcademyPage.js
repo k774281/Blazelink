@@ -356,9 +356,11 @@ function PastEvents() {
           <Eyebrow zh="過往講座" en="PAST EVENTS" />
         </div>
 
+        {/* auto-fit rather than a fixed count, so the row stays even however
+            many past events are listed. */}
         <ul
           data-reveal-cards
-          className="grid gap-[24px] sm:grid-cols-2 lg:grid-cols-4"
+          className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-[24px]"
         >
           {pastEvents.items.map((item) => (
             <li key={item.href}>
