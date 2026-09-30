@@ -293,8 +293,7 @@ function Results() {
     return () => mm.revert();
   }, [steps]);
 
-  // Each swap: the figure opens upward from its bottom edge while the copy
-  // fades in up beside it.
+  // Each swap: the figure fades in while the copy fades in up beside it.
   useEffect(() => {
     if (!stacked) return;
 
@@ -310,8 +309,8 @@ function Results() {
       .timeline()
       .fromTo(
         card.querySelector("[data-result-figure]"),
-        { clipPath: "inset(100% 0% 0% 0%)" },
-        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.8, ease: "power3.out" },
+        { opacity: 0 },
+        { opacity: 1, duration: 0.7, ease: "power2.out" },
         0,
       )
       .fromTo(
