@@ -246,7 +246,7 @@ function Philosophy() {
   );
 }
 
-const BLURB = 30; // characters of the WordPress description the card shows
+const BLURB = 50; // characters of the WordPress description the card shows
 
 /** Array.from, so a surrogate pair counts as the one character it prints as. */
 function blurb(text) {
