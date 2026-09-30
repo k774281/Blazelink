@@ -416,7 +416,7 @@ function NextPanel() {
         </p>
       </div>
 
-      <CtaLink href="mailto:service@blazelink.co" tone="light" size="lg" gap={32}>
+      <CtaLink href="/contact" tone="light" size="lg" gap={32}>
         {nextStep.cta}
       </CtaLink>
     </div>
