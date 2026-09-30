@@ -30,7 +30,7 @@ export const hero = {
 
 export const philosophy = {
   title: "共創成功",
-  image: "/img-1.webp", // placeholder until the real philosophy visual lands
+  image: "/img-2.webp", // placeholder until the real philosophy visual lands
   body: "策略行銷應該是一場冒險，一場啟發，而我們是您的冒險夥伴，為您鏈接品牌的成功。我們不只是提供服務，更是深入理解品牌的事業夥伴。",
   closingTitle: "我們的成功建立在您的成功之上，",
   closingBody: "這就是我們為之努力的原因。",
@@ -50,19 +50,19 @@ export const services = {
       id: "02",
       name: "自動化銷售漏斗",
       body: "把表單、名單分級與 CRM 串成一條動線，讓每一筆進站行為都有對應的後續動作，業務接手時已經知道對方走到哪一步。",
-      image: "/img-1.webp", // placeholder for service-02
+      image: "/img-3.webp", // placeholder for service-02
     },
     {
       id: "03",
       name: "SEO 跨國內容行銷",
       body: "以在地語意而非直譯建立內容結構，讓不同市場的搜尋需求都能對應到正確的落地頁，把自然流量收斂成可追蹤的名單。",
-      image: "/img-1.webp", // placeholder for service-03
+      image: "/img-4.webp", // placeholder for service-03
     },
     {
       id: "04",
       name: "市場洞察／競品分析",
       body: "盤點市場需求與競品佈局，找出尚未被滿足的切角，讓預算配置有依據，而不是跟著同業的投放節奏走。",
-      image: "/img-1.webp", // placeholder for service-04
+      image: "/img-5.webp", // placeholder for service-04
     },
   ],
   crossLinks: [

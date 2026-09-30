@@ -246,6 +246,14 @@ function Philosophy() {
   );
 }
 
+const BLURB = 30; // characters of the WordPress description the card shows
+
+/** Array.from, so a surrogate pair counts as the one character it prints as. */
+function blurb(text) {
+  const chars = Array.from(text ?? "");
+  return chars.length > BLURB ? `${chars.slice(0, BLURB).join("")}…` : chars.join("");
+}
+
 function Academy({ items }) {
   const scope = useSectionReveal();
 
@@ -299,8 +307,8 @@ function Academy({ items }) {
                   ) : null}
                 </div>
 
-                <p className="font-display line-clamp-4 w-full text-[14px] leading-[1.85] font-light text-muted">
-                  {item.excerpt}
+                <p className="font-display w-full text-[14px] leading-[1.85] font-light text-muted">
+                  {blurb(item.excerpt)}
                 </p>
               </div>
 
