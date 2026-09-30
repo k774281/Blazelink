@@ -262,7 +262,7 @@ function Academy() {
           title={academy.title}
           className="pb-[46px]"
         >
-          <CtaPill href="#academy" tone="outline">
+          <CtaPill href="/academy" tone="outline">
             {academy.cta}
           </CtaPill>
         </SectionHead>

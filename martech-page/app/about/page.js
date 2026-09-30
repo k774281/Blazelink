@@ -10,6 +10,7 @@ import Header from "../_components/Header";
 import SiteFooter from "../_components/SiteFooter";
 import CtaLink from "../_components/CtaLink";
 import Eyebrow from "../_components/Eyebrow";
+import ImagePlaceholder from "../_components/ImagePlaceholder";
 import useSectionReveal from "../_components/useSectionReveal";
 import {
   philosophy,
@@ -394,12 +395,10 @@ function Founder() {
     >
       <div className="mx-auto flex max-w-[1200px] flex-col gap-10 lg:flex-row lg:gap-[80px]">
         <div data-reveal-stagger className="w-full lg:w-[440px] lg:shrink-0">
-          <div className="flex h-[360px] w-full flex-col items-center justify-center gap-[12px] rounded-[50px] border border-dashed border-line-dash bg-panel lg:h-[576px]">
-            <img src="/figma/icon-image-lg.svg" alt="" width={24} height={24} />
-            <p className="font-mono-brand text-[12px] font-medium tracking-[1.44px] whitespace-nowrap text-muted">
-              {founder.portraitNote}
-            </p>
-          </div>
+          <ImagePlaceholder
+            label={founder.portraitNote}
+            className="h-[360px] w-full rounded-[50px] lg:h-[576px]"
+          />
         </div>
 
         <div className="flex flex-1 flex-col justify-between gap-10">
