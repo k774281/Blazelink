@@ -6,12 +6,16 @@ export const hero = {
   bannerNote: "主視覺　圖片待補",
 };
 
+// The two lectures to feature, newest first. Title, artwork and link come from
+// WordPress; the info rows do not exist as fields there — each product states
+// them in prose, under labels that differ from one to the next — so they are
+// recorded here alongside the card's own summary.
 export const latest = {
+  tag: "LMI",
+  cta: "立即報名",
   items: [
     {
-      tag: "LMI",
-      image: "/figma/academy-card.webp",
-      title: "人生十字路口沙盤——沉浸式抉擇推演，預見下一個十年",
+      slug: "lmi-board-1003",
       body: "一個下午，用桌遊沙盤把「如果當初……」提前演一遍。安教練特別從大連返台，帶站在事業轉折點的企業主與主管，看清下一步。",
       info: [
         { label: "日期", value: "2026/10/3（六）14:00–17:00" },
@@ -19,13 +23,11 @@ export const latest = {
         { label: "名額", value: "限 25 位，額滿為止" },
         { label: "主辦", value: "LMI台灣" },
       ],
-      cta: "立即報名",
+      // The Accupass listing, which the product's own 短網址 also points at.
       href: "https://www.accupass.com/event/2609171216224165557800",
     },
     {
-      tag: "LMI",
-      image: "/figma/academy-card.webp",
-      title: "「你設定的目標，真的正在帶你前進嗎？」90 分鐘目標實踐工作坊",
+      slug: "lmi-20260917",
       body: "結合 LMI 全球60年的「全人發展」，專為面臨戰術焦慮與工時失衡的中小企業主、高階經理人量身打造，現場完成專屬的「目標實踐循環藍圖」。",
       info: [
         { label: "日期", value: "9/17（星期四）15:00–16:30" },
@@ -33,8 +35,7 @@ export const latest = {
         { label: "名額", value: "小班制僅限 9 席（免費審核制）" },
         { label: "主辦", value: "LMI台灣" },
       ],
-      cta: "立即報名",
-      href: "#contact", // TODO: no registration link supplied for this one yet
+      // No Accupass listing for this one, so registration goes via the product page.
     },
   ],
 };

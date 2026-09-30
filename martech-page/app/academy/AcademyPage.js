@@ -68,7 +68,7 @@ function Hero() {
   );
 }
 
-function Latest() {
+function Latest({ items }) {
   const scope = useSectionReveal();
 
   return (
@@ -83,24 +83,26 @@ function Latest() {
         </div>
 
         <div data-reveal-cards className="grid gap-[24px] lg:grid-cols-2">
-          {latest.items.map((item, i) => (
+          {items.map((item) => (
             <article
-              key={i}
+              key={item.slug}
               className="relative flex flex-col items-start overflow-hidden rounded-[50px] border border-solid border-line bg-white pb-[44px]"
             >
-              <div className="relative h-[249px] w-full shrink-0">
-                <Image
-                  src={item.image}
-                  alt=""
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 588px"
-                  className="object-cover"
-                />
+              <div className="relative h-[249px] w-full shrink-0 bg-panel">
+                {item.image ? (
+                  <Image
+                    src={item.image}
+                    alt=""
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 588px"
+                    className="object-cover"
+                  />
+                ) : null}
               </div>
 
               {/* Sits over the artwork, as the design has it */}
               <span className="absolute top-[20px] left-[20px] flex h-[28px] items-center rounded-[999px] bg-brand-pale px-[14px] text-[13px] font-medium whitespace-nowrap text-brand-deep md:top-[44px] md:left-[48px]">
-                {item.tag}
+                {latest.tag}
               </span>
 
               <div className="flex w-full flex-col items-start gap-[8px] px-6 py-[32px] md:px-[44px]">
@@ -123,7 +125,7 @@ function Latest() {
 
               <div className="mt-auto flex w-full flex-col items-center pt-[8px]">
                 <CtaPill href={item.href} compact>
-                  {item.cta}
+                  {latest.cta}
                 </CtaPill>
               </div>
             </article>
@@ -419,14 +421,14 @@ function NextPanel() {
   );
 }
 
-export default function AcademyPage({ columnTabs }) {
+export default function AcademyPage({ columnTabs, lectures }) {
   return (
     <>
       <Header />
       {/* Opaque and above the footer, so scrolling the last screen uncovers it. */}
       <main className="relative z-10 bg-white">
         <Hero />
-        <Latest />
+        <Latest items={lectures} />
         <Why />
         <Topics />
         <Columns tabs={columnTabs} />

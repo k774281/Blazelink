@@ -1,5 +1,5 @@
-import { getPostsByCategory } from "@/app/_lib/wp";
-import { columns } from "@/app/_data/academy";
+import { getLectures, getPostsByCategory } from "@/app/_lib/wp";
+import { columns, latest } from "@/app/_data/academy";
 import AcademyPage from "./AcademyPage";
 
 /*
@@ -9,12 +9,25 @@ import AcademyPage from "./AcademyPage";
  * reveals — lives in AcademyPage.
  */
 export default async function Academy() {
-  const tabs = await Promise.all(
-    columns.tabs.map(async (tab) => ({
-      ...tab,
-      items: await getPostsByCategory(tab.category),
-    })),
-  );
+  const [tabs, products] = await Promise.all([
+    Promise.all(
+      columns.tabs.map(async (tab) => ({
+        ...tab,
+        items: await getPostsByCategory(tab.category),
+      })),
+    ),
+    getLectures({ slugs: latest.items.map((item) => item.slug) }),
+  ]);
 
-  return <AcademyPage columnTabs={tabs} />;
+  // WordPress owns each lecture's title, artwork and link; the rows beside them
+  // are editorial and stay in _data. A lecture WordPress cannot return is left
+  // out rather than rendered half-empty.
+  const lectures = latest.items
+    .map((item) => {
+      const product = products.find((p) => p.slug === item.slug);
+      return product ? { ...item, ...product, href: item.href ?? product.href } : null;
+    })
+    .filter(Boolean);
+
+  return <AcademyPage columnTabs={tabs} lectures={lectures} />;
 }

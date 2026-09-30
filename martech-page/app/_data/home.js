@@ -72,17 +72,10 @@ export const services = {
   cta: "直接聊聊你的需求",
 };
 
-const lecture = {
-  date: "2026 / 10 / 3(六) 14:00-17:00",
-  title: "公司每年都做年度計畫，你的人生上一次推演是什麼時候？",
-  body: "一個下午，用桌遊沙盤把「如果當初……」提前演一遍。安教練特別從大連返台，帶站在事業轉折點的企業主與主管，走過固守現狀、猶豫徘徊、主動轉型三條路，看清下一步。",
-  image: "/figma/lecture-card.webp",
-};
-
+// 最新講座 comes from WordPress — the newest three products in 課程.
 export const academy = {
   title: "最新講座",
   cta: "查看全部講座",
-  items: [lecture, lecture, lecture],
 };
 
 export const ctaBanner = {
@@ -97,17 +90,10 @@ export const partners = {
   brands: brandLogos,
 };
 
-const post = {
-  tag: "跨國實例",
-  date: "2026 / 10 / 3",
-  title: "破除翻譯迷思：台灣品牌打入歐美市場的「跨國 SEO」落地實戰指南",
-  image: "/figma/blog-card.webp",
-};
-
+// 最新文章 comes from WordPress — the newest three posts in 行銷科技艙.
 export const blog = {
   title: "最新文章",
   cta: "查看全部文章",
-  items: [post, post, post],
 };
 
 export const contact = {
