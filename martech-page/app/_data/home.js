@@ -1,10 +1,9 @@
 // Homepage copy, kept in one place so it can be swapped for headless WP data later.
 
 // The header rides on every page, so these have to resolve from anywhere.
-// TODO: point 跨國SEO行銷 at its own page once it exists.
 export const nav = [
   { label: "關於我們", href: "/about" },
-  { label: "跨國SEO行銷", href: "/#services" },
+  { label: "跨國SEO行銷", href: "/seo" },
   { label: "鏈客商學院", href: "/academy" },
 ];
 
@@ -67,7 +66,7 @@ export const services = {
     },
   ],
   crossLinks: [
-    { label: "跨國SEO行銷", href: "#seo" },
+    { label: "跨國SEO行銷", href: "/seo" },
     { label: "網站架設服務", href: "#web" },
   ],
   cta: "直接聊聊你的需求",
@@ -131,10 +130,9 @@ export const footer = {
     { label: "部落格", href: "#blog" },
   ],
   // Shared by every page, so these are absolute.
-  // TODO: point 跨國SEO行銷 at its own page once it exists.
   sitemap: [
     { label: "關於我們", href: "/about" },
-    { label: "跨國SEO行銷", href: "/#services" },
+    { label: "跨國SEO行銷", href: "/seo" },
     { label: "鏈客商學院", href: "/academy" },
     { label: "聯繫我們", href: "#contact" },
   ],
