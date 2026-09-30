@@ -202,9 +202,9 @@ function Philosophy() {
         PHILOSOPHY
       </p>
 
-      <div className="relative mx-auto flex max-w-[1200px] flex-col gap-10 [perspective:1400px] lg:flex-row lg:gap-[233px]">
+      <div className="relative mx-auto flex max-w-[1200px] flex-col gap-10 lg:flex-row lg:gap-[233px]">
         <div
-          data-door
+          data-fade
           className="relative h-[396px] w-full shrink-0 overflow-hidden rounded-[50px] lg:w-[305px]"
         >
           <Image

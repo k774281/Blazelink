@@ -9,7 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
  * to the section, then mark the pieces inside it:
  *   [data-reveal-stagger] — its direct children fade up one after another
  *   [data-reveal-cards]   — same, but the children also zoom up to full size
- *   [data-door]           — swings open on a hinge at its left edge
+ *   [data-fade]           — fades in where it stands
  * Targets are hidden by CSS only while scripting is on (see globals.css).
  */
 export default function useSectionReveal() {
@@ -26,18 +26,11 @@ export default function useSectionReveal() {
         once: true,
       };
 
-      if (self.selector("[data-door]").length) {
+      if (self.selector("[data-fade]").length) {
         gsap.fromTo(
-          "[data-door]",
-          { rotationY: -92, opacity: 0 },
-          {
-            rotationY: 0,
-            opacity: 1,
-            duration: 1.1,
-            ease: "power3.out",
-            transformOrigin: "left center",
-            scrollTrigger,
-          },
+          "[data-fade]",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.9, ease: "power2.out", scrollTrigger },
         );
       }
 

@@ -60,9 +60,9 @@ function Philosophy() {
           </p>
         </div>
 
-        <div className="flex flex-col gap-10 pt-[60px] [perspective:1400px] lg:flex-row lg:gap-[96px]">
+        <div className="flex flex-col gap-10 pt-[60px] lg:flex-row lg:gap-[96px]">
           <div
-            data-door
+            data-fade
             className="relative h-[360px] w-full overflow-hidden rounded-[50px] lg:h-[537px] lg:flex-1"
           >
             <Image
@@ -293,7 +293,8 @@ function Results() {
     return () => mm.revert();
   }, [steps]);
 
-  // Each swap: the figure fades in while the copy fades in up beside it.
+  // Each swap: the figure opens upward from its bottom edge while the copy
+  // fades in up beside it.
   useEffect(() => {
     if (!stacked) return;
 
@@ -309,8 +310,8 @@ function Results() {
       .timeline()
       .fromTo(
         card.querySelector("[data-result-figure]"),
-        { opacity: 0 },
-        { opacity: 1, duration: 0.7, ease: "power2.out" },
+        { clipPath: "inset(100% 0% 0% 0%)" },
+        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.8, ease: "power3.out" },
         0,
       )
       .fromTo(
