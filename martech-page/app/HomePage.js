@@ -114,7 +114,7 @@ function Hero() {
           </p>
 
           <div data-hero>
-            <CtaPill href="#contact">預約免費諮詢</CtaPill>
+            <CtaPill href="/contact">預約免費諮詢</CtaPill>
           </div>
 
           <dl
@@ -239,7 +239,7 @@ function Philosophy() {
             </p>
           </div>
 
-          <CtaLink href="#contact">{philosophy.cta}</CtaLink>
+          <CtaLink href="/contact">{philosophy.cta}</CtaLink>
         </div>
       </div>
     </section>
@@ -354,7 +354,7 @@ function Partners() {
       <div className="mx-auto max-w-[1200px]">
         <div className="flex flex-wrap items-center justify-between gap-6 pb-[38px]">
           <Eyebrow zh="我們的夥伴" en="PARTNERS" note={partners.note} />
-          <CtaLink href="#contact" tone="ink">
+          <CtaLink href="/contact" tone="ink">
             {partners.cta}
           </CtaLink>
         </div>
@@ -606,7 +606,7 @@ function Services() {
               </Link>
             ))}
           </div>
-          <CtaLink href="#contact" tone="ink">
+          <CtaLink href="/contact" tone="ink">
             {services.cta}
           </CtaLink>
         </div>

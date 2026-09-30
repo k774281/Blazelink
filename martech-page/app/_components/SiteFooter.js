@@ -14,8 +14,9 @@ import { footer } from "@/app/_data/home";
  * The block is pinned to the bottom of the viewport behind <main>; scrolling the
  * last screen slides the page off it, so it is revealed rather than scrolled to,
  * and its contents lift into place as that happens. The spacer keeps the same
- * height in normal flow so the page still scrolls, and carries #contact so every
- * CTA on the page still has something real to anchor to.
+ * height in normal flow so the page still scrolls. It keeps the #contact id it
+ * was given when the CTAs anchored here rather than at /contact, so anything
+ * already linking to /#contact still lands somewhere sensible.
  *
  * A block taller than the viewport cannot simply be pinned to the bottom: its
  * top edge would sit permanently out of reach. Those anchor to the top instead
@@ -117,7 +118,7 @@ export default function SiteFooter({ children, onThisPage }) {
 
   return (
     <>
-      {/* Holds the block's place in the flow, and is what #contact scrolls to. */}
+      {/* Holds the block's place in the flow; #contact is kept for old links. */}
       <div
         ref={spacerRef}
         id="contact"

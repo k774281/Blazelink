@@ -11,7 +11,7 @@ const TONES = {
  * left on hover, and the arrow slides out to the right while a second one takes
  * its place from the left — the same swap the pill CTA uses.
  */
-export default function CtaLink({ children, href = "#contact", tone = "brand", size = "md", gap = 10 }) {
+export default function CtaLink({ children, href = "/contact", tone = "brand", size = "md", gap = 10 }) {
   const t = TONES[tone];
   const large = size === "lg";
   const iconSize = large ? 40 : 17;

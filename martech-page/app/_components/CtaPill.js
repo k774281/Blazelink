@@ -32,7 +32,7 @@ const TONES = {
  */
 export default function CtaPill({
   children,
-  href = "#contact",
+  href = "/contact",
   tone = "solid",
   compact = false,
   as = "link",
