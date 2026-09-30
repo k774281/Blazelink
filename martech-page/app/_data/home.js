@@ -120,7 +120,7 @@ export const footer = {
     { label: "關於我們", href: "/about" },
     { label: "跨國SEO行銷", href: "/seo" },
     { label: "鏈客商學院", href: "/academy" },
-    { label: "聯繫我們", href: "#contact" },
+    { label: "聯繫我們", href: "/contact" },
   ],
   copyright: "Copyright 2026 © 鏈客策略行銷股份有限公司",
   wordmark: "BLAZELINK.CO",

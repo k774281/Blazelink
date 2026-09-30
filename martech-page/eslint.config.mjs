@@ -6,7 +6,7 @@ const eslintConfig = defineConfig([
   {
     // These icons are sub-1KB local SVGs. next/image does not optimize SVG
     // without `dangerouslyAllowSVG`, so a plain <img> is correct here.
-    files: ["app/_components/**/*.js", "app/HomePage.js", "app/about/page.js", "app/academy/AcademyPage.js", "app/seo/page.js"],
+    files: ["app/_components/**/*.js", "app/HomePage.js", "app/about/page.js", "app/academy/AcademyPage.js", "app/seo/page.js", "app/contact/page.js"],
     rules: {
       "@next/next/no-img-element": "off",
     },

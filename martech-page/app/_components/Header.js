@@ -134,7 +134,7 @@ export default function Header() {
 
             {/* md and up: the CTA stays in the bar */}
             <div className="hidden md:block">
-              <CtaPill href="#contact" compact>
+              <CtaPill href="/contact" compact>
                 聯繫我們
               </CtaPill>
             </div>
@@ -189,7 +189,7 @@ export default function Header() {
 
         {/* Sits straight under the last nav item, with a rule between them. */}
         <div className="mt-[32px] border-t border-solid border-line pt-[32px]">
-          <CtaPill href="#contact" compact>
+          <CtaPill href="/contact" compact>
             聯繫我們
           </CtaPill>
         </div>

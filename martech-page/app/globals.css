@@ -16,6 +16,8 @@
   --color-faint: #8d94a3;
   --color-warn: #9c3227;
   --color-warn-tint: #f3dedb;
+  --color-error: #b3261e;
+  --color-error-tint: #fdf6f5;
 
   /* Surfaces */
   --color-canvas: #f4f5f7;

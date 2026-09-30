@@ -24,7 +24,10 @@ import { footer } from "@/app/_data/home";
  * every size, rather than only on screens the block happens to fit.
  *
  * `onThisPage` overrides the first link column, which names the sections of
- * whichever page the footer is closing.
+ * whichever page the footer is closing; pass null on a page that has no
+ * sections of its own to leave the column out. `children` is optional too —
+ * the contact page is its own closing panel and needs nothing above the
+ * footer proper.
  */
 const LIFT = 96; // how far the block rises as the page uncovers it
 
@@ -42,9 +45,12 @@ export default function SiteFooter({ children, onThisPage }) {
   const overflow = Math.max(0, height - viewport);
 
   const columns = [
-    { title: "ON THIS PAGE", links: onThisPage ?? footer.onThisPage },
+    // undefined falls back to the homepage's sections; null leaves it out.
+    onThisPage === null
+      ? null
+      : { title: "ON THIS PAGE", links: onThisPage ?? footer.onThisPage },
     { title: "SITEMAP", links: footer.sitemap },
-  ];
+  ].filter(Boolean);
 
   // Measure the block against the viewport it has to be revealed in.
   useLayoutEffect(() => {

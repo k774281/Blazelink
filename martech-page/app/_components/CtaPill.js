@@ -25,16 +25,32 @@ const TONES = {
   },
 };
 
-/** The pill CTA with a trailing circled arrow — the design's primary button. */
-export default function CtaPill({ children, href = "#contact", tone = "solid", compact = false }) {
+/**
+ * The pill CTA with a trailing circled arrow — the design's primary button.
+ * Renders a link by default; `as="button"` makes it a real button, which is
+ * what the contact form's submit needs.
+ */
+export default function CtaPill({
+  children,
+  href = "#contact",
+  tone = "solid",
+  compact = false,
+  as = "link",
+  type,
+  disabled = false,
+}) {
   const t = TONES[tone];
   const size = compact ? 18 : 24;
   const arrows = ARROWS[size];
 
+  const Tag = as === "button" ? "button" : Link;
+  const tagProps =
+    as === "button" ? { type: type ?? "button", disabled } : { href };
+
   return (
-    <Link
-      href={href}
-      className={`group inline-flex shrink-0 items-center justify-center gap-[10px] rounded-[50px] transition-colors duration-500 ease-in-out ${
+    <Tag
+      {...tagProps}
+      className={`group inline-flex shrink-0 items-center justify-center gap-[10px] rounded-[50px] transition-colors duration-500 ease-in-out disabled:cursor-not-allowed disabled:opacity-60 ${
         t.shell
       } ${compact ? "h-[38px] pr-[4px] pl-[24px]" : "h-[60px] pr-[8px] pl-[34px]"}`}
     >
@@ -64,6 +80,6 @@ export default function CtaPill({ children, href = "#contact", tone = "solid", c
           className="absolute top-1/2 left-1/2 -translate-x-[280%] -translate-y-1/2 transition-transform duration-500 ease-in-out group-hover:-translate-x-1/2"
         />
       </span>
-    </Link>
+    </Tag>
   );
 }
