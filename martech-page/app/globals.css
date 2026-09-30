@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand */
+  --color-brand: #704de3;
+  --color-brand-deep: #5334ba;
+  --color-brand-soft: #a78bfa;
+  --color-brand-tint: rgba(112, 77, 227, 0.1);
+
+  /* Text */
+  --color-ink: #031846;
+  --color-body: #3b4658;
+  --color-muted: #5b6472;
+  --color-faint: #8d94a3;
+
+  /* Surfaces */
+  --color-canvas: #f4f5f7;
+  --color-panel: #eef0f5;
+  --color-ghost: #f2f3f7;
+  --color-night: #031846;
+  --color-night-deep: #021031;
+
+  /* Lines */
+  --color-line: #e3e5ea;
+  --color-line-strong: #d6d9e1;
+  --color-line-cool: #dfe3ee;
+  --color-line-dash: #c9ccd6;
+
+  /* Footer */
+  --color-footer-body: #98a3ba;
+  --color-footer-link: #dfe3ee;
+  --color-footer-head: #8d97b0;
+  --color-footer-meta: #7f8ba6;
+  --color-contact-body: #c3cbdd;
+
+  /* Type */
+  --font-display: "Taipei Sans TC Beta", var(--font-noto-tc), "PingFang TC", sans-serif;
+  --font-sans: var(--font-noto-tc), "PingFang TC", sans-serif;
+  --font-mono-brand: var(--font-space-grotesk), var(--font-noto-tc), "PingFang TC", sans-serif;
+
+  /* The single drop shadow used throughout the design */
+  --shadow-card: 0 2px 8px 0 rgba(15, 12, 16, 0.25);
+}
+
+:root {
+  /* Header height. The hero pulls itself up by this to sit behind the header. */
+  --header-h: 68px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Anchored sections stop clear of the floating header instead of underneath it. */
+section[id] {
+  scroll-margin-top: calc(var(--header-h) + 28px);
+}
+
+/* Hero entrance. The gradient is masked off above --reveal, so sweeping that
+   value down soaks the colour in from the top over the card's white ground. */
+@property --reveal {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 118%;
+}
+
+.hero-wash {
+  --reveal: 118%;
+  -webkit-mask-image: linear-gradient(to bottom, #000 var(--reveal), transparent calc(var(--reveal) + 18%));
+  mask-image: linear-gradient(to bottom, #000 var(--reveal), transparent calc(var(--reveal) + 18%));
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+/* Hide the animated pieces only where a script can bring them back. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .hero-wash {
+    --reveal: -18%;
+  }
+
+  [data-hero],
+  [data-whisper],
+  [data-door],
+  [data-reveal-stagger] > *,
+  [data-reveal-cards] > * {
+    opacity: 0;
+  }
+}
+
+/* Underline that draws itself in from the left on hover.
+   Offset the line with [--underline-offset:…] where the default sits too tight. */
+.underline-grow {
+  position: relative;
+}
+
+.underline-grow::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: var(--underline-offset, 0px);
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 300ms ease-in-out;
+}
+
+.underline-grow:hover::after,
+.underline-grow:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Hero logo strip: a continuous marquee, since the design clips a row wider than its frame. */
+@keyframes logo-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.logo-marquee {
+  animation: logo-marquee 32s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee {
+    animation: none;
+  }
+  .underline-grow::after {
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

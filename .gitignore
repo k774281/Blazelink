@@ -1,4 +1,8 @@
 node_modules/
+
+# Build output — root site (Next) and the older Vite/WordPress bundles
+.next/
+out/
 dist/
 dist-ssr/
 dist-wp/
@@ -22,5 +26,5 @@ npm-debug.log*
 .vercel
 .env*
 
-# Credentials — never commit
+# Credentials — must never be committed
 pass.rtf
