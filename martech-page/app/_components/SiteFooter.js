@@ -17,32 +17,45 @@ import { footer } from "@/app/_data/home";
  * height in normal flow so the page still scrolls, and carries #contact so every
  * CTA on the page still has something real to anchor to.
  *
- * Pinning only makes sense while the block fits on screen — a fixed element
- * taller than the viewport would have its top edge permanently out of reach —
- * so on short viewports it falls back to sitting in the flow like any footer.
+ * A block taller than the viewport cannot simply be pinned to the bottom: its
+ * top edge would sit permanently out of reach. Those anchor to the top instead
+ * and are revealed from there, then the part that does not fit is carried up
+ * past the viewport over the rest of the spacer — so the effect is the same at
+ * every size, rather than only on screens the block happens to fit.
  *
  * `onThisPage` overrides the first link column, which names the sections of
  * whichever page the footer is closing.
  */
+const LIFT = 96; // how far the block rises as the page uncovers it
+
 export default function SiteFooter({ children, onThisPage }) {
   const [height, setHeight] = useState(0);
+  const [viewport, setViewport] = useState(0);
   const [pinned, setPinned] = useState(false);
 
   const blockRef = useRef(null);
   const innerRef = useRef(null);
   const spacerRef = useRef(null);
 
+  // What will not fit on screen, and so has to be scrolled through rather than
+  // simply uncovered.
+  const overflow = Math.max(0, height - viewport);
+
   const columns = [
     { title: "ON THIS PAGE", links: onThisPage ?? footer.onThisPage },
     { title: "SITEMAP", links: footer.sitemap },
   ];
 
-  // Measure the block and decide whether it can be pinned.
+  // Measure the block against the viewport it has to be revealed in.
   useLayoutEffect(() => {
     const measure = () => {
       const h = blockRef.current?.offsetHeight ?? 0;
+      const vh = window.innerHeight;
       setHeight(h);
-      setPinned(h > 0 && h <= window.innerHeight);
+      setViewport(vh);
+      // With motion turned down it stays an ordinary footer at the end of the page.
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      setPinned(!reduced && h > 0 && vh > 0);
     };
 
     measure();
@@ -59,32 +72,42 @@ export default function SiteFooter({ children, onThisPage }) {
   // block is uncovered — and runs backwards when the page scrolls away again.
   useLayoutEffect(() => {
     if (!pinned) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     gsap.registerPlugin(ScrollTrigger);
 
     const inner = innerRef.current; // captured for the cleanup below
-    const tween = gsap.fromTo(
-      inner,
-      { y: 96 },
-      {
-        y: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: spacerRef.current,
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: 0.4,
-        },
-      },
-    );
+    const scrollTrigger = {
+      trigger: spacerRef.current,
+      start: "top bottom",
+      end: "bottom bottom",
+      scrub: 0.4,
+    };
+
+    // The spacer is exactly as tall as the block, so its travel is `height`.
+    // A block that fits spends all of it being uncovered; a taller one spends
+    // one viewport being uncovered and the remainder carrying its overflow up.
+    const anim =
+      overflow > 0
+        ? gsap
+            .timeline({ scrollTrigger })
+            .fromTo(
+              inner,
+              { y: LIFT },
+              { y: 0, ease: "none", duration: viewport / height },
+            )
+            .to(inner, {
+              y: -overflow,
+              ease: "none",
+              duration: overflow / height,
+            })
+        : gsap.fromTo(inner, { y: LIFT }, { y: 0, ease: "none", scrollTrigger });
 
     ScrollTrigger.refresh();
     return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
+      anim.scrollTrigger?.kill();
+      anim.kill();
       gsap.set(inner, { clearProps: "transform" });
     };
-  }, [pinned, height]);
+  }, [pinned, height, viewport, overflow]);
 
   return (
     <>
@@ -98,7 +121,11 @@ export default function SiteFooter({ children, onThisPage }) {
 
       <footer
         ref={blockRef}
-        className={pinned ? "fixed inset-x-0 bottom-0 z-0" : "relative z-0"}
+        className={
+          pinned
+            ? `fixed inset-x-0 z-0 ${overflow > 0 ? "top-0" : "bottom-0"}`
+            : "relative z-0"
+        }
       >
         <div ref={innerRef}>
           {children}
