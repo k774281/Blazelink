@@ -1,9 +1,11 @@
 // Homepage copy, kept in one place so it can be swapped for headless WP data later.
 
+// The header rides on every page, so these have to resolve from anywhere.
+// TODO: point 跨國SEO行銷 at its own page once it exists.
 export const nav = [
-  { label: "關於我們", href: "#about" },
-  { label: "跨國SEO行銷", href: "#seo" },
-  { label: "鏈客商學院", href: "#academy" },
+  { label: "關於我們", href: "/about" },
+  { label: "跨國SEO行銷", href: "/#services" },
+  { label: "鏈客商學院", href: "/#academy" },
 ];
 
 // Brand logos 01-12. 11 is an SVG, the rest are WebP.
@@ -121,27 +123,20 @@ export const footer = {
   hours: "營業時間：週一至週五  上午10：00 至 下午6：00",
   phone: "電話：02-66039088",
   email: "信箱：service@blazelink.co",
-  columns: [
-    {
-      title: "ON THIS PAGE",
-      // anchors into the homepage's own sections
-      links: [
-        { label: "公司理念", href: "#about" },
-        { label: "提供的服務", href: "#services" },
-        { label: "鏈客商學院", href: "#academy" },
-        { label: "部落格", href: "#blog" },
-      ],
-    },
-    {
-      title: "SITEMAP",
-      // TODO: point these at the other pages once they exist
-      links: [
-        { label: "關於我們", href: "#" },
-        { label: "跨國SEO行銷", href: "#" },
-        { label: "鏈客商學院", href: "#academy" },
-        { label: "聯繫我們", href: "#contact" },
-      ],
-    },
+  // The homepage's own sections. Other pages pass their own list to <SiteFooter>.
+  onThisPage: [
+    { label: "公司理念", href: "#about" },
+    { label: "提供的服務", href: "#services" },
+    { label: "鏈客商學院", href: "#academy" },
+    { label: "部落格", href: "#blog" },
+  ],
+  // Shared by every page, so these are absolute.
+  // TODO: point 跨國SEO行銷 at its own page once it exists.
+  sitemap: [
+    { label: "關於我們", href: "/about" },
+    { label: "跨國SEO行銷", href: "/#services" },
+    { label: "鏈客商學院", href: "/#academy" },
+    { label: "聯繫我們", href: "#contact" },
   ],
   copyright: "Copyright 2026 © 鏈客策略行銷股份有限公司",
   wordmark: "BLAZELINK.CO",

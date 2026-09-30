@@ -2,14 +2,16 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
 
 import Header from "./_components/Header";
 import SiteFooter from "./_components/SiteFooter";
+import ContactPanel from "./_components/ContactPanel";
 import CtaPill from "./_components/CtaPill";
 import CtaLink from "./_components/CtaLink";
+import Eyebrow from "./_components/Eyebrow";
+import useSectionReveal from "./_components/useSectionReveal";
 import {
   hero,
   philosophy,
@@ -21,11 +23,9 @@ import {
 } from "@/app/_data/home";
 
 /*
- * Sections that only ever appear on the homepage live here. Anything reused by
- * other pages — Header, Footer, Contact, the CTA pair and the heading helpers —
- * stays in ./_components. Services is the one homepage-only section kept apart,
- * because its tab switching needs "use client" and merging it in would push the
- * whole page onto the client.
+ * Sections that only ever appear on the homepage live here. Anything a second
+ * page reuses — Header, Footer, the contact panel, the CTA pair, the Eyebrow
+ * label and the reveal hook — stays in ./_components.
  */
 
 function Hero() {
@@ -183,80 +183,6 @@ function Hero() {
       </div>
     </section>
   );
-}
-
-/**
- * Reveals a section the first time it scrolls into view.
- *   [data-reveal-stagger] — its direct children fade up one after another
- *   [data-reveal-cards]   — same, but the children also zoom up to full size
- *   [data-door]           — swings open on a hinge at its left edge
- * Targets are hidden by CSS only while scripting is on (see globals.css).
- */
-function useSectionReveal() {
-  const scope = useRef(null);
-
-  useLayoutEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context((self) => {
-      const scrollTrigger = {
-        trigger: scope.current,
-        start: "top 72%",
-        once: true,
-      };
-
-      if (self.selector("[data-door]").length) {
-        gsap.fromTo(
-          "[data-door]",
-          { rotationY: -92, opacity: 0 },
-          {
-            rotationY: 0,
-            opacity: 1,
-            duration: 1.1,
-            ease: "power3.out",
-            transformOrigin: "left center",
-            scrollTrigger,
-          },
-        );
-      }
-
-      if (self.selector("[data-reveal-stagger] > *").length) {
-        gsap.fromTo(
-          "[data-reveal-stagger] > *",
-          { opacity: 0, y: 28 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: "power2.out",
-            stagger: 0.12,
-            scrollTrigger,
-          },
-        );
-      }
-
-      if (self.selector("[data-reveal-cards] > *").length) {
-        gsap.fromTo(
-          "[data-reveal-cards] > *",
-          { opacity: 0, y: 28, scale: 0.92 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.75,
-            ease: "power2.out",
-            stagger: 0.12,
-            scrollTrigger,
-          },
-        );
-      }
-    }, scope);
-
-    return () => ctx.revert();
-  }, []);
-
-  return scope;
 }
 
 function Philosophy() {
@@ -509,20 +435,6 @@ function Blog() {
   );
 }
 
-function Eyebrow({ zh, en, note }) {
-  return (
-    <div className="flex flex-wrap items-center gap-[10px]">
-      <p className="font-display text-[13px] font-bold text-ink">{zh}</p>
-      <p className="font-mono-brand text-[12px] font-bold tracking-[2.4px] text-brand">
-        {en}
-      </p>
-      {note ? (
-        <p className="font-display text-[15px] font-light text-muted">{note}</p>
-      ) : null}
-    </div>
-  );
-}
-
 function SectionHead({ zh, en, title, note, children, className = "" }) {
   return (
     <div
@@ -703,7 +615,9 @@ export default function Home() {
         <Partners />
         <Blog />
       </main>
-      <SiteFooter />
+      <SiteFooter>
+        <ContactPanel />
+      </SiteFooter>
     </>
   );
 }
