@@ -35,9 +35,9 @@
   --color-contact-body: #c3cbdd;
 
   /* Type */
-  --font-display: "Taipei Sans TC Beta", var(--font-noto-tc), "PingFang TC", sans-serif;
-  --font-sans: var(--font-noto-tc), "PingFang TC", sans-serif;
-  --font-mono-brand: var(--font-space-grotesk), var(--font-noto-tc), "PingFang TC", sans-serif;
+  --font-display: "Taipei Sans TC Beta", "Noto Sans TC", "PingFang TC", sans-serif;
+  --font-sans: "Noto Sans TC", "PingFang TC", sans-serif;
+  --font-mono-brand: var(--font-space-grotesk), "Noto Sans TC", "PingFang TC", sans-serif;
 
   /* The single drop shadow used throughout the design */
   --shadow-card: 0 2px 8px 0 rgba(15, 12, 16, 0.25);

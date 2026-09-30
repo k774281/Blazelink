@@ -1,11 +1,18 @@
 /**
- * Builds the Taipei Sans TC Beta webfonts.
+ * Builds the site's Chinese webfonts: Taipei Sans TC Beta for headings and body
+ * copy, Noto Sans TC for the interface chrome the design sets in it — nav, button
+ * labels, chips, breadcrumbs.
  *
- * cn-font-split cuts each weight into unicode-range chunks so a visitor downloads
+ * cn-font-split cuts each face into unicode-range chunks so a visitor downloads
  * only the slices their text needs. On top of that we pin one chunk to the exact
- * character set this site's source files use, so the pages we ship render their
- * headings from a single request instead of dozens of scattered chunks. Anything
- * outside that set — CMS copy added later — still resolves, from an auto chunk.
+ * character set this site's source files use, so the pages we ship render from a
+ * single request instead of dozens of scattered chunks. Anything outside that set
+ * — CMS copy added later — still resolves, from an auto chunk.
+ *
+ * Noto Sans TC ships from Google as one variable font. Splitting that directly is
+ * a trap: every glyph carries all nine masters, which came out at 215 chunks and
+ * 8.9MB. The two static instances in fonts-src were cut from it with fontTools at
+ * the only weights the design actually uses.
  *
  *   npm run fonts:build
  *
@@ -21,9 +28,11 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SRC_DIR = process.env.FONT_SRC_DIR || path.join(ROOT, "fonts-src");
 const OUT_DIR = path.join(ROOT, "public", "fonts");
 
-const WEIGHTS = [
-  { file: "TaipeiSansTCBeta-Bold.ttf", dir: "taipei-bold", weight: 700 },
-  { file: "TaipeiSansTCBeta-Light.ttf", dir: "taipei-light", weight: 300 },
+const FACES = [
+  { file: "TaipeiSansTCBeta-Bold.ttf", dir: "taipei-bold", family: "Taipei Sans TC Beta", weight: 700 },
+  { file: "TaipeiSansTCBeta-Light.ttf", dir: "taipei-light", family: "Taipei Sans TC Beta", weight: 300 },
+  { file: "NotoSansTC-400.ttf", dir: "noto-400", family: "Noto Sans TC", weight: 400 },
+  { file: "NotoSansTC-500.ttf", dir: "noto-500", family: "Noto Sans TC", weight: 500 },
 ];
 
 /** Every character the site's own source files can render. */
@@ -32,7 +41,7 @@ async function siteCharset() {
   for await (const file of glob(path.join(ROOT, "app", "**", "*.{js,jsx,mjs}"))) {
     for (const ch of readFileSync(file, "utf8")) chars.add(ch);
   }
-  // Latin, CJK punctuation and fullwidth forms always travel with the headings.
+  // Latin, CJK punctuation and fullwidth forms always travel with the text.
   const always = [
     [0x20, 0x7e],
     [0xa0, 0xff],
@@ -46,10 +55,10 @@ async function siteCharset() {
   return [...chars].map((c) => c.codePointAt(0)).filter((c) => c > 0x1f);
 }
 
-const missing = WEIGHTS.filter((w) => !existsSync(path.join(SRC_DIR, w.file)));
+const missing = FACES.filter((f) => !existsSync(path.join(SRC_DIR, f.file)));
 if (missing.length) {
   console.error(`Missing source fonts in ${SRC_DIR}:`);
-  for (const w of missing) console.error(`  - ${w.file}`);
+  for (const f of missing) console.error(`  - ${f.file}`);
   console.error("Set FONT_SRC_DIR or drop the .ttf files in place, then re-run.");
   process.exit(1);
 }
@@ -57,19 +66,19 @@ if (missing.length) {
 const subset = await siteCharset();
 console.log(`site charset: ${subset.length} codepoints pinned to their own chunk`);
 
-for (const w of WEIGHTS) {
-  const outDir = path.join(OUT_DIR, w.dir);
+for (const face of FACES) {
+  const outDir = path.join(OUT_DIR, face.dir);
   rmSync(outDir, { recursive: true, force: true });
   try {
     await fontSplit({
-      input: readFileSync(path.join(SRC_DIR, w.file)),
+      input: readFileSync(path.join(SRC_DIR, face.file)),
       outDir,
       targetType: "woff2",
       chunkSize: 70 * 1024,
       subsets: [subset],
       css: {
-        fontFamily: "Taipei Sans TC Beta",
-        fontWeight: String(w.weight),
+        fontFamily: face.family,
+        fontWeight: String(face.weight),
         fontDisplay: "swap",
       },
       silent: true,
@@ -77,12 +86,12 @@ for (const w of WEIGHTS) {
       testHTML: false,
       previewImage: false,
     });
-    console.log(`built ${w.dir}`);
+    console.log(`built ${face.dir}`);
   } catch (err) {
     // cn-font-split runs through a native binding. If it cannot run on this
-    // platform, say so and carry on: headings fall back to Noto Sans TC, which
+    // platform, say so and carry on: the text falls back to PingFang TC, which
     // is far better than failing the whole deploy over a font.
-    console.warn(`WARNING: could not build ${w.dir} — ${err.message}`);
+    console.warn(`WARNING: could not build ${face.dir} — ${err.message}`);
   }
 }
 

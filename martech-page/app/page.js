@@ -157,7 +157,7 @@ function Hero() {
 
         <p
           data-hero
-          className="pb-[8px] text-[13px] font-light tracking-[0.26px] text-muted"
+          className="font-display pb-[8px] text-[13px] font-light tracking-[0.26px] text-muted"
         >
           {hero.proof}
         </p>

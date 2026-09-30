@@ -54,7 +54,7 @@ export default function ContactPanel() {
           <div className="h-[68px] w-full max-w-[420px] overflow-hidden">
             <p
               ref={wordRef}
-              className="text-[36px] leading-[68px] font-bold tracking-[-1.82px] text-brand-soft md:text-[52px]"
+              className="font-display text-[36px] leading-[68px] font-bold tracking-[-1.82px] text-brand-soft md:text-[52px]"
             >
               {contact.rotating[index]}
             </p>
