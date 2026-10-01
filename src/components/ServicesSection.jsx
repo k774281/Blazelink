@@ -4,6 +4,7 @@ import { useScrollReveal } from '../hooks/useScrollReveal.js'
 import { FeatureSteps } from './FeatureSteps.jsx'
 import TextGenerateEffect from './TextGenerateEffect.jsx'
 import CtaButton from './CtaButton.jsx'
+import { asset } from '../lib/utils.js'
 
 
 const FEATURES = [
@@ -11,19 +12,19 @@ const FEATURES = [
     feature: 'feature 1',
     title: '網站架設',
     content: '量身打造的網站架構，精準對接品牌定位與轉換目標。',
-    image: 'services-1.webp',
+    image: asset('/services-1.webp'),
   },
   {
     feature: 'feature 2',
     title: 'AI導入',
     content: '客製化導入 AI 工具與流程，強化團隊效率與洞察力。',
-    image: 'services-2.webp',
+    image: asset('/services-2.webp'),
   },
   {
     feature: 'feature 3',
     title: 'API串接',
     content: '串接內外部系統與平台，讓數據與服務無縫串連。',
-    image: 'services-3.webp',
+    image: asset('/services-3.webp'),
   },
 ]
 
