@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { gsap, CustomEase } from '../lib/gsap.js'
 import MenuToggleIcon from './MenuToggleIcon.jsx'
+import { asset } from '../lib/utils.js'
 
 // The reference implementation installed this ease through gsap.defaults(),
 // which sets it globally — that would have retimed every other animation on
@@ -205,7 +206,7 @@ export default function KineticNavMenu({ links }) {
             </button>
 
             <div className="kn-panel-content">
-              <img src="/blazelink-logo-light.png" alt="Blazelink 鏈客" className="mb-8 w-[160px]" />
+              <img src={asset('/blazelink-logo-light.png')} alt="Blazelink 鏈客" className="mb-8 w-[160px]" />
               <ul className="kn-list">
                 {links.map(({ label, href }, index) => {
                   const shapeIndex = (index % SHAPE_COUNT) + 1

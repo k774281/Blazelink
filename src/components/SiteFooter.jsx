@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal.js'
+import { asset } from '../lib/utils.js'
 
 const CONTACT_INFO = ['02-66039088', 'service@blazelink.co']
 const LANGUAGES = ['中文', 'English', '日本語']
@@ -14,7 +15,7 @@ export default function SiteFooter() {
         <div className="flex flex-col gap-5 lg:gap-[50px] items-center max-w-[1440px] w-full">
           <div data-anim="reveal" className="flex flex-col gap-12 items-center w-full">
             <div className="flex flex-col gap-10 items-center min-w-0">
-              <img src="/blazelink-logo-light.png" alt="" className="w-[300px]" />
+              <img src={asset('/blazelink-logo-light.png')} alt="" className="w-[300px]" />
               <div className="flex flex-col gap-2 items-center">
                 {CONTACT_INFO.map((line) => (
                   <span key={line} className="font-body text-sm uppercase text-white/90">

@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { ScrollTrigger } from '../lib/gsap.js'
+import { asset } from '../lib/utils.js'
 
 const pages = [
   {
-    leftBgImage: '/img-1.webp',
+    leftBgImage: asset('/img-1.webp'),
     rightBgImage: null,
     leftContent: null,
     rightContent: {
@@ -14,7 +15,7 @@ const pages = [
   {
     leftBgImage: null,
     rightBgImage:
-      '/img-2.webp',
+      asset('/img-2.webp'),
     leftContent: {
       heading: '你還在為了名單的問題煩惱嗎？',
       description: '流量報表好看，名單卻進不了業務手上',
@@ -23,7 +24,7 @@ const pages = [
   },
   {
     leftBgImage:
-      '/img-3.webp',
+      asset('/img-3.webp'),
     rightBgImage: null,
     leftContent: null,
     rightContent: {
@@ -34,7 +35,7 @@ const pages = [
   {
     leftBgImage: null,
     rightBgImage:
-      '/img-4.webp',
+      asset('/img-4.webp'),
     leftContent: {
       heading: '你還在為了無法持續的問題煩惱嗎？',
       description: '專案結束即斷線，沒有持續迭代',
@@ -43,7 +44,7 @@ const pages = [
   },
   {
     leftBgImage:
-      '/img-5.webp',
+      asset('/img-5.webp'),
     rightBgImage: null,
     leftContent: null,
     rightContent: {

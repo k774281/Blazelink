@@ -2,27 +2,28 @@ import { useEffect, useRef, useState } from 'react'
 import { MessageSquareTextIcon } from '@animateicons/react/lucide'
 import { gsap } from '../lib/gsap.js'
 import { useScrollReveal } from '../hooks/useScrollReveal.js'
+import { asset } from '../lib/utils.js'
 
 const TESTIMONIALS = [
   {
     date: '2026年2月6日',
     title: '破除翻譯迷思：台灣品牌打入歐美市場的「跨國 SEO」落地實戰指南',
-    image: '/oversea-seo-guide-cover-1400x788.jpg',
+    image: asset('/oversea-seo-guide-cover-1400x788.jpg'),
   },
   {
     date: '2026年2月1日',
     title: '2026 年，台灣品牌進攻歐美市場，做 SEO 還有效嗎？',
-    image: '/2026-is-seo-still-worth-it-cover-1400x788.jpg',
+    image: asset('/2026-is-seo-still-worth-it-cover-1400x788.jpg'),
   },
   {
     date: '2025年12月19日',
     title: '為什麼「網站翻譯」根本不是「國際SEO」？跨境擴張的四大隱形大坑',
-    image: '/translate-seo-1400x788.jpg',
+    image: asset('/translate-seo-1400x788.jpg'),
   },
   {
     date: '2025年11月22日',
     title: '你的 SEO 只是「排名看爽的」嗎？為什麼「名單型SEO」與 Landing Page 才是企業獲利的唯一解',
-    image: '/seo-leads-cover-1400x788.jpg',
+    image: asset('/seo-leads-cover-1400x788.jpg'),
   },
 ]
 

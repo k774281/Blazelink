@@ -3,13 +3,14 @@ import { gsap } from '../lib/gsap.js'
 import { useScrollReveal } from '../hooks/useScrollReveal.js'
 import TextLoop from './TextLoop.jsx'
 import CtaButton from './CtaButton.jsx'
+import { asset } from '../lib/utils.js'
 
 const STEPS = ['精準行銷策略', '內容成長執行', '數據優化迭代']
 
 const PROCESS_IMAGES = [
   'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80',
   'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&q=80',
-  '/img-6.jpg',
+  asset('/img-6.jpg'),
   'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&q=80',
   'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&q=80',
   'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&q=80',

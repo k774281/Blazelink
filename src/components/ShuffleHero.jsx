@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { motion, useInView } from 'motion/react'
 import TextGenerateEffect from './TextGenerateEffect.jsx'
 import CtaButton from './CtaButton.jsx'
+import { asset } from '../lib/utils.js'
 
 export default function ShuffleHero() {
   // Drives both the h1/p text-generate reveal and the feature icons' pop-in.
@@ -32,7 +33,7 @@ export default function ShuffleHero() {
           <div className="features flex flex-col gap-3 max-lg:items-center">
             <div className="item flex items-center gap-3">
               <motion.img
-                src="/social-marketing_17675704.webp"
+                src={asset('/social-marketing_17675704.webp')}
                 alt=""
                 className="h-[100px] w-[100px] object-contain max-lg:h-[70px] max-lg:w-[70px]"
                 initial={{ scale: 0 }}
@@ -43,7 +44,7 @@ export default function ShuffleHero() {
             </div>
             <div className="item flex items-center gap-3">
               <motion.img
-                src="/movement.webp"
+                src={asset('/movement.webp')}
                 alt=""
                 className="h-[100px] w-[100px] object-contain max-lg:h-[70px] max-lg:w-[70px]"
                 initial={{ scale: 0 }}
@@ -54,7 +55,7 @@ export default function ShuffleHero() {
             </div>
             <div className="item flex items-center gap-3">
               <motion.img
-                src="/filter_19016344.webp"
+                src={asset('/filter_19016344.webp')}
                 alt=""
                 className="h-[100px] w-[100px] object-contain max-lg:h-[70px] max-lg:w-[70px]"
                 initial={{ scale: 0 }}
@@ -84,7 +85,7 @@ export default function ShuffleHero() {
         transition={{ duration: 1, delay: 1.7, ease: 'easeOut' }}
       >
         <img
-          src="/shuffle-1.png"
+          src={asset('/shuffle-1.png')}
           alt=""
           className="h-[450px] w-full rounded-[50px] object-cover shadow-xl max-sm:h-[300px]"
         />

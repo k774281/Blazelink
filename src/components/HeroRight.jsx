@@ -1,9 +1,10 @@
 import { useCountUp } from '../hooks/useCountUp.js'
+import { asset } from '../lib/utils.js'
 
 const AVATARS = [
   {
     orbit: 1,
-    src: '/seo.webp',
+    src: asset('/seo.webp'),
     angle: 270,
     radius: 177,
     size: 58,
@@ -33,7 +34,7 @@ const AVATARS = [
   },
   {
     orbit: 2,
-    src: '/internet.webp',
+    src: asset('/internet.webp'),
     angle: 300,
     radius: 251,
     size: 58,
@@ -73,7 +74,7 @@ const AVATARS = [
   },
   {
     orbit: 4,
-    src: '/share.webp',
+    src: asset('/share.webp'),
     angle: 220,
     radius: 399,
     size: 88,
