@@ -10,7 +10,6 @@ import Header from "../_components/Header";
 import SiteFooter from "../_components/SiteFooter";
 import CtaLink from "../_components/CtaLink";
 import Eyebrow from "../_components/Eyebrow";
-import ImagePlaceholder from "../_components/ImagePlaceholder";
 import useSectionReveal from "../_components/useSectionReveal";
 import {
   philosophy,
@@ -395,10 +394,21 @@ function Founder() {
     >
       <div className="mx-auto flex max-w-[1200px] flex-col gap-10 lg:flex-row lg:gap-[80px]">
         <div data-reveal-stagger className="w-full lg:w-[440px] lg:shrink-0">
-          <ImagePlaceholder
-            label={founder.portraitNote}
-            className="h-[360px] w-full rounded-[50px] lg:h-[576px]"
-          />
+          {/* Below the two-column breakpoint the frame holds a ratio and stops
+              widening: letting it run to the full column turns a standing
+              portrait into a letterbox and crops the head off. */}
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-[400px] overflow-hidden rounded-[50px] lg:aspect-auto lg:h-[576px] lg:max-w-none">
+            <Image
+              src={founder.portrait}
+              alt=""
+              fill
+              sizes="(max-width: 1024px) 400px, 440px"
+              /* The frame is wider than the portrait either way, so covering it
+                 trims the height. Holding the crop above centre keeps the head
+                 in frame rather than shaving the top of it. */
+              className="object-cover object-[50%_25%]"
+            />
+          </div>
         </div>
 
         <div className="flex flex-1 flex-col justify-between gap-10">
