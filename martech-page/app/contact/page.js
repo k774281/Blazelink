@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 
 import Header from "../_components/Header";
@@ -16,6 +16,10 @@ import { intro, form, success } from "@/app/_data/contact";
  */
 
 const EMPTY = { name: "", company: "", website: "", email: "", topic: null, message: "" };
+
+// Not shown to anyone; only a script reading the markup fills it. The server
+// treats a filled one as a bot and answers OK without delivering.
+const DECOY = "fax";
 
 function validate(values) {
   const errors = {};
@@ -41,6 +45,7 @@ function ContactForm() {
   const [values, setValues] = useState(EMPTY);
   const [errors, setErrors] = useState({});
   const [state, setState] = useState("editing"); // editing | sending | sent | failed
+  const decoy = useRef(null);
 
   const set = (field) => (value) => {
     setValues((v) => ({ ...v, [field]: value }));
@@ -64,7 +69,7 @@ function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ ...values, [DECOY]: decoy.current?.value ?? "" }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setState("sent");
@@ -86,7 +91,7 @@ function ContactForm() {
           {success.body}
         </p>
         <Link
-          href="/"
+          href="/martech"
           className="group underline-grow inline-flex items-center gap-[10px] border-b border-solid border-brand pb-[8px] text-[16px] font-medium text-brand"
         >
           {success.cta}
@@ -200,6 +205,19 @@ function ContactForm() {
             {form.failure}
           </p>
         ) : null}
+
+        <div aria-hidden className="absolute h-px w-px overflow-hidden opacity-0" style={{ left: "-9999px" }}>
+          <label htmlFor={DECOY}>Fax</label>
+          <input
+            ref={decoy}
+            id={DECOY}
+            name={DECOY}
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            defaultValue=""
+          />
+        </div>
 
         <p className="text-[12px] leading-[1.7] text-faint">
           {form.privacy.before}

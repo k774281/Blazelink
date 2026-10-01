@@ -5,13 +5,13 @@ import { gsap } from "gsap";
 import Image from "next/image";
 import Link from "next/link";
 
-import Header from "./_components/Header";
-import SiteFooter from "./_components/SiteFooter";
-import ContactPanel from "./_components/ContactPanel";
-import CtaPill from "./_components/CtaPill";
-import CtaLink from "./_components/CtaLink";
-import Eyebrow from "./_components/Eyebrow";
-import useSectionReveal from "./_components/useSectionReveal";
+import Header from "../_components/Header";
+import SiteFooter from "../_components/SiteFooter";
+import ContactPanel from "../_components/ContactPanel";
+import CtaPill from "../_components/CtaPill";
+import CtaLink from "../_components/CtaLink";
+import Eyebrow from "../_components/Eyebrow";
+import useSectionReveal from "../_components/useSectionReveal";
 import {
   hero,
   philosophy,

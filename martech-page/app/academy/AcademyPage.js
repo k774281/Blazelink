@@ -39,7 +39,7 @@ function Hero() {
       className="bg-canvas px-6 pt-[18px] pb-20 md:px-10 xl:px-[120px] xl:pb-[92px]"
     >
       <nav aria-label="Breadcrumb" className="text-[15px] text-black">
-        <Link href="/" className="underline-grow [--underline-offset:-4px]">
+        <Link href="/martech" className="underline-grow [--underline-offset:-4px]">
           首頁
         </Link>
         <span className="px-[6px] text-faint">/</span>

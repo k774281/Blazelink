@@ -106,7 +106,7 @@ export default function Header() {
 
           <div className="relative flex h-[var(--header-h)] items-center justify-between gap-[24px] px-6 md:justify-start md:gap-[56px] md:px-[24px]">
             <Link
-              href="/"
+              href="/martech"
               className="relative block h-[31px] w-[120px] shrink-0"
               onClick={closeMenu}
             >
