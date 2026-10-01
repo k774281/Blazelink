@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 import Header from "../_components/Header";
@@ -60,10 +61,16 @@ function Hero() {
         </div>
 
         <div data-fade className="pt-[56px] xl:pt-[88px]">
-          <ImagePlaceholder
-            label={hero.bannerNote}
-            className="h-[220px] w-full rounded-[50px] md:h-[320px]"
-          />
+          <div className="relative h-[220px] w-full overflow-hidden rounded-[50px] md:h-[320px]">
+            <Image
+              src={hero.banner}
+              alt=""
+              fill
+              sizes="(max-width: 1280px) 100vw, 1200px"
+              className="object-cover"
+              priority
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -110,10 +117,15 @@ function Problem() {
 
         <div className="flex flex-col gap-[48px] pt-[40px] lg:flex-row lg:items-center">
           <div data-fade className="w-full lg:flex-1">
-            <ImagePlaceholder
-              label={problem.imageNote}
-              className="h-[320px] w-full rounded-[50px] lg:h-[519px]"
-            />
+            <div className="relative h-[320px] w-full overflow-hidden rounded-[50px] lg:h-[519px]">
+              <Image
+                src={problem.image}
+                alt=""
+                fill
+                sizes="(max-width: 1024px) 100vw, 576px"
+                className="object-cover"
+              />
+            </div>
           </div>
 
           <div
@@ -158,10 +170,15 @@ function Answer() {
 
         <div className="flex flex-col gap-[48px] pt-[40px] lg:flex-row-reverse lg:items-center">
           <div data-fade className="w-full lg:flex-1">
-            <ImagePlaceholder
-              label={answer.imageNote}
-              className="h-[320px] w-full rounded-[50px] lg:h-[519px]"
-            />
+            <div className="relative h-[320px] w-full overflow-hidden rounded-[50px] lg:h-[519px]">
+              <Image
+                src={answer.image}
+                alt=""
+                fill
+                sizes="(max-width: 1024px) 100vw, 576px"
+                className="object-cover"
+              />
+            </div>
           </div>
 
           <div

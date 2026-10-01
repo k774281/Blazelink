@@ -3,13 +3,13 @@
 export const hero = {
   title: ["為高專業品牌打造", "「跨國 SEO 獲客系統」。"],
   lead: "堅持白帽內容行銷，專注頁面轉換率。不只衝刺排名，我們將您的專業知識轉化為數位資產，精準攔截海內外的高價值客戶名單。",
-  bannerNote: "主視覺　圖片待補",
+  banner: "/img-12.webp",
 };
 
 export const problem = {
   title: "為什麼多數的 SEO 流量，無法變成真實名單或訂單？",
   listTitle: "如果你也曾遇到這些問題",
-  imageNote: "情境圖　圖片待補",
+  image: "/img-13.webp",
   items: [
     "廣告砸預算衝流量，名單來源不分級，成本難以掌握，多依賴內容農場衝字數。",
     "名單進來後業務逐一陌生開發，轉換全憑話術與運氣，成本難以控制。",
@@ -21,7 +21,7 @@ export const problem = {
 export const answer = {
   title: "鏈客這麼做",
   lead: "不是「把人騙進來」，而是「把對的人留下來」。",
-  imageNote: "情境圖　圖片待補",
+  image: "/img-14.webp",
   items: [
     [
       { text: "透過講座與精準內容漏斗攔截高意圖客戶，" },
