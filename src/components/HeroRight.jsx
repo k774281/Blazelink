@@ -14,7 +14,7 @@ const AVATARS = [
   },
   {
     orbit: 2,
-    src: 'https://polo-pecan-73837341.figma.site/_assets/v11/ca755f7f93c1126fb8bdbf99ab364a33aa9ab272.png',
+    src: asset('/heroRight-1.webp'),
     angle: 60,
     radius: 251,
     size: 58,
@@ -24,7 +24,7 @@ const AVATARS = [
   },
   {
     orbit: 2,
-    src: 'https://polo-pecan-73837341.figma.site/_assets/v11/dc01064c7093dcc32674876ee3cf5e41c4a485c6.png',
+    src: asset('/heroRight-2.webp'),
     angle: 180,
     radius: 251,
     size: 78,
@@ -44,7 +44,7 @@ const AVATARS = [
   },
   {
     orbit: 3,
-    src: 'https://polo-pecan-73837341.figma.site/_assets/v11/018736aa5d0275c4ce56cfebaf2ae3007d81ca1e.png',
+    src: asset('/heroRight-3.webp'),
     angle: 130,
     radius: 325,
     size: 88,
@@ -54,7 +54,7 @@ const AVATARS = [
   },
   {
     orbit: 4,
-    src: 'https://polo-pecan-73837341.figma.site/_assets/v11/c76d8a0b99676de31c014344bfaf75bad090758d.png',
+    src: asset('/heroRight-4.webp'),
     angle: 30,
     radius: 399,
     size: 58,
@@ -64,7 +64,7 @@ const AVATARS = [
   },
   {
     orbit: 4,
-    src: 'chat.webp',
+    src: asset('/chat.webp'),
     angle: 95,
     radius: 399,
     size: 88,
@@ -84,7 +84,7 @@ const AVATARS = [
   },
   {
     orbit: 4,
-    src: 'https://polo-pecan-73837341.figma.site/_assets/v11/926c9eb7b4bc1df846fa0e39f0b0dc3fefd80671.png',
+    src: asset('/heroRight-5.webp'),
     angle: 320,
     radius: 399,
     size: 58,
