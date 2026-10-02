@@ -3,7 +3,7 @@
 export const hero = {
   title: "企業主的內容寶庫",
   lead: "從財稅、管理到美感，幫你做出更好決策。",
-  bannerNote: "主視覺　圖片待補",
+  banner: "/img-19.webp",
 };
 
 // The two lectures to feature, newest first. Title, artwork and link come from
@@ -43,7 +43,7 @@ export const latest = {
 export const why = {
   quote:
     "「我們幫助 B2B 品牌建立內容行銷，同時也發現，這些知識能幫助更多企業主做出關鍵決策。鏈客商學院，就是為此而生。」",
-  imageNote: "學院形象　圖片待補",
+  image: "/img-18.webp",
 };
 
 export const topics = {

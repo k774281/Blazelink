@@ -10,7 +10,6 @@ import SiteFooter from "../_components/SiteFooter";
 import CtaPill from "../_components/CtaPill";
 import CtaLink from "../_components/CtaLink";
 import Eyebrow from "../_components/Eyebrow";
-import ImagePlaceholder from "../_components/ImagePlaceholder";
 import useSectionReveal from "../_components/useSectionReveal";
 import {
   hero,
@@ -58,10 +57,19 @@ function Hero() {
         </div>
 
         <div data-fade className="pt-[56px] xl:pt-[88px]">
-          <ImagePlaceholder
-            label={hero.bannerNote}
-            className="h-[220px] w-full rounded-[50px] md:h-[320px]"
-          />
+          <div className="relative h-[220px] w-full overflow-hidden rounded-[50px] md:h-[320px]">
+            <Image
+              src={hero.banner}
+              alt=""
+              fill
+              sizes="(max-width: 1280px) 100vw, 1200px"
+              /* A banner this wide keeps two fifths of the photograph, and the
+                 headline on the screen is what it is for, so the crop sits near
+                 the top rather than in the middle. */
+              className="object-cover object-[50%_8%]"
+              priority
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -165,10 +173,18 @@ function Why() {
         </div>
 
         <div data-fade className="w-full lg:flex-1">
-          <ImagePlaceholder
-            label={why.imageNote}
-            className="h-[320px] w-full rounded-[50px] lg:h-[492px]"
-          />
+          {/* Stacked, a fixed height stretched this across the full column and
+              left a band of out-of-focus desk, so below the two-column
+              breakpoint it holds a ratio nearer the photograph's own. */}
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[50px] lg:aspect-auto lg:h-[492px]">
+            <Image
+              src={why.image}
+              alt=""
+              fill
+              sizes="(max-width: 1024px) 100vw, 513px"
+              className="object-cover"
+            />
+          </div>
         </div>
       </div>
     </section>
