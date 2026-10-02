@@ -8,7 +8,6 @@ import Header from "../_components/Header";
 import SiteFooter from "../_components/SiteFooter";
 import CtaLink from "../_components/CtaLink";
 import Eyebrow from "../_components/Eyebrow";
-import ImagePlaceholder from "../_components/ImagePlaceholder";
 import useSectionReveal from "../_components/useSectionReveal";
 import {
   hero,
@@ -240,10 +239,18 @@ function Value() {
                 i % 2 ? "lg:flex-row-reverse" : "lg:flex-row"
               }`}
             >
-              <ImagePlaceholder
-                label={item.imageNote}
-                className="h-[193px] w-full rounded-[50px] lg:w-[332px] lg:shrink-0"
-              />
+              {/* Stacked, the frame would stretch to the full card and slice
+                  the labels off these diagrams, so below the two-column
+                  breakpoint it holds a ratio instead of a fixed height. */}
+              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[50px] lg:aspect-auto lg:h-[193px] lg:w-[332px] lg:shrink-0">
+                <Image
+                  src={item.image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 332px"
+                  className="object-cover"
+                />
+              </div>
 
               <div
                 className={`flex flex-1 flex-col gap-[16px] ${
@@ -404,7 +411,7 @@ function Funnel() {
                   </div>
 
                   <img
-                    src={funnel.icon}
+                    src={item.icon}
                     alt=""
                     width={118}
                     height={118}

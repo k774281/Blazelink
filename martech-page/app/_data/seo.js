@@ -47,19 +47,19 @@ export const value = {
       no: "01",
       title: "跨國 SEO 佈局",
       body: "突破地域限制，讓海外客戶主動找上門。具備多語系網站架構、國際化標籤（Hreflang）與在地化搜尋意圖解析的技術能力。",
-      imageNote: "圖片待補",
+      image: "/img-15.webp",
     },
     {
       no: "02",
       title: "名單轉換優先",
       body: "流量再多，沒有留下名單都是枉然。我們設計「內容轉換漏斗」，讓潛在客戶在閱讀後自然留下聯絡資訊。",
-      imageNote: "圖片待補",
+      image: "/img-16.webp",
     },
     {
       no: "03",
       title: "堅持白帽思維",
       body: "拒絕取巧的黑帽手法，協助您萃取專業知識，建立具備長期複利效應的 SEO 數位資產。",
-      imageNote: "圖片待補",
+      image: "/img-17.webp",
     },
   ],
 };
@@ -94,23 +94,25 @@ export const funnel = {
   lead: "高信任度產業（如金融、顧問、B2B 設備）的客戶，絕不會看完一篇文章就貿然買單。因此，我們展示嚴謹的「獲客系統藍圖」：",
   closing:
     "您買的不是一堆空泛的流量數字，而是一套從底層代碼到上層商業邏輯皆精密咬合的「獲客引擎」。",
-  icon: "/figma/icon-funnel-ad.svg",
   // Four stages, each one a card that sticks and is covered by the next.
   items: [
     {
       no: "01",
+      icon: "/figma/icon-funnel-ad.svg",
       title: "搜尋意圖著陸與防跳出檢驗",
       body: "當訪客點擊搜尋結果進站的 0.5 秒內，我們必須接住他們。系統透過極速載入與符合搜尋意圖的首屏視覺，瞬間建立專業第一印象，將跳出率降至最低。",
       tags: ["AWS 獨立主機極速載入", "痛點精準對接"],
     },
     {
       no: "02",
+      icon: "/material-symbols_assured-workload.svg",
       title: "價值傳遞與 E-E-A-T 權威建立",
       body: "訪客開始閱讀。我們透過預先設計的「主題叢集」內部連結網，引導訪客深入閱讀關聯專業文章，展示作者背景與數據引用，建立 Google 與客戶雙重認可的信任護城河。",
       tags: ["內部連結引導網", "專業背書結構化資料"],
     },
     {
       no: "03",
+      icon: "/icon-park-solid_rectangular-circular-separation.svg",
       title: "意圖探測與行為分流轉換",
       body: "這是傳統 SEO 公司不具備的技術。在閱讀體驗最高峰處，系統根據訪客意圖強弱，自動分流至三種不同的轉換節點：",
       minis: [
@@ -130,6 +132,7 @@ export const funnel = {
     },
     {
       no: "04",
+      icon: "/hugeicons_artificial-intelligence-07.svg",
       title: "數據回傳與自動化對接",
       body: "名單一旦產生，系統會透過 API／Webhook 自動將客戶資料與來源關鍵字，拋轉至您的信箱或企業 CRM 系統中。業務團隊接手時，已掌握客戶痛點，大幅提升最終成交率。",
       tags: ["GA4 轉換事件追蹤", "Webhook 資料拋轉", "全自動化"],
