@@ -65,11 +65,9 @@ export default function ShuffleHero() {
             </div>
           </div>
 
-          {/* Temporary: points at the old WordPress site until this page
-              exists on this one. */}
           <CtaButton
             label="內容行銷"
-            href="https://blazelink.co"
+            href="/martech"
             variant="brand"
             iconWrapClassName="bg-ink/15"
             iconColor="#281d38"

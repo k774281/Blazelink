@@ -69,11 +69,9 @@ export default function ServicesSection() {
         <div data-anim="reveal" className="w-full">
           <FeatureSteps features={FEATURES} autoPlayInterval={4000} imageHeight="h-[500px]" />
         </div>
-        {/* Temporary: points at the old WordPress site until this page
-            exists on this one. */}
         <CtaButton
           label="網站架設"
-          href="https://blazelink.co/cases/"
+          href="/web-design"
           variant="outline"
           buttonClassName="bg-[#190964]"
           iconWrapClassName="bg-white/15"

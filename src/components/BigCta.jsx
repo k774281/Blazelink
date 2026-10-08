@@ -25,11 +25,9 @@ export default function BigCta() {
           >
             {BODY_TEXT}
           </p>
-          {/* Temporary: points at the old WordPress site until this page
-              exists on this one. */}
           <CtaButton
             label="馬上諮詢"
-            href="https://blazelink.co/contact/"
+            href="/martech/contact"
             variant="outline"
             iconWrapClassName="bg-white/15"
             dataAnim="reveal"
