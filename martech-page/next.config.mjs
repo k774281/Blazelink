@@ -11,11 +11,12 @@ const nextConfig = {
    */
   output: "export",
   trailingSlash: true,
-  images: {
-    // There is no image server on a static host; files are served as they are,
-    // past-event artwork straight from the WordPress media library.
-    unoptimized: true,
-  },
+  /*
+   * A static host has no image server. Built with IMAGE_CDN=cloudflare, once
+   * blazelink.co is behind Cloudflare, images are resized by Cloudflare
+   * (app/_lib/image-loader.js); otherwise they are served as they are.
+   */
+  images: process.env.IMAGE_CDN === "cloudflare" ? { loader: "custom", loaderFile: "./app/_lib/image-loader.js" } : { unoptimized: true },
   turbopack: {
     // Nested inside the Blazelink repo, which has its own lockfile; pin the root so Turbopack doesn't pick the parent.
     root: import.meta.dirname,

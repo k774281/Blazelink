@@ -3,6 +3,10 @@
 # each into deploy/<name>.zip, with its folder at the top, ready to upload and
 # extract into the WordPress root with WP File Manager. Both read WordPress at
 # build time, so run this again after publishing posts or lectures.
+#
+# Once blazelink.co is behind Cloudflare, run it as
+#   IMAGE_CDN=cloudflare scripts/package-static.sh
+# so images are resized by Cloudflare instead of served full size.
 set -e
 cd "$(dirname "$0")/.."
 mkdir -p deploy
