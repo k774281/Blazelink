@@ -11,7 +11,9 @@ export default async function Home() {
   const [lectures, posts] = await Promise.all([
     // 課程, so the software licences WooCommerce also sells stay out of it.
     getLectures({ category: "courses", limit: 3 }),
-    getPostsByCategory("martech", 3, { withImages: true }),
+    // Posts are shared with the web-design site, so its 網站架設專欄 shows here
+    // too; each site styles them its own way.
+    getPostsByCategory(["martech", "web-design"], 3, { withImages: true }),
   ]);
 
   return <HomePage lectures={lectures} posts={posts} />;

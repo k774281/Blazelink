@@ -14,6 +14,7 @@ import SiteFooter from "../_components/SiteFooter";
 import { ColumnSection } from "../_components/ui";
 import { cta, header, sections } from "../_data/cases";
 import { column } from "../_data/home";
+import { getColumn } from "../_lib/column";
 
 export const metadata = {
   title: "網站案例｜Blazelink 鏈客",
@@ -29,7 +30,8 @@ const renderers = {
   api: ApiSection,
 };
 
-export default function CasesPage() {
+export default async function CasesPage() {
+  const { posts, categories } = await getColumn();
   const tabs = sections.map((s) => ({ key: s.key, tab: s.tab, count: s.items.length }));
   const panels = sections.map((s) => {
     const Section = renderers[s.key];
@@ -42,7 +44,7 @@ export default function CasesPage() {
       <main>
         <CasesHeader data={header} />
         <CaseFilter tabs={tabs} panels={panels} />
-        <ColumnSection data={{ ...column, eyebrow: "07 — COLUMN" }} />
+        <ColumnSection data={{ ...column, eyebrow: "07 — COLUMN" }} posts={posts} categories={categories} />
         <CtaBand data={cta} />
       </main>
       <SiteFooter />

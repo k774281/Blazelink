@@ -16,7 +16,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { beyond, hero, news, ownership, process as processData, works } from "../_data/home";
+import { postHref } from "../_data/column";
+import { beyond, hero, ownership, process as processData, works } from "../_data/home";
 import { ColumnSection, Eyebrow, MotionButton, ViewMore } from "./ui";
 import { asset } from "../_lib/base";
 
@@ -256,8 +257,10 @@ export function NewsTicker({ items }) {
 const OPEN = 0.65; // share of the stage's stuck travel spent opening the reel
 const FADE = 0.35; // viewports of scrolling over which the phone backdrop goes black
 
-export function Hero() {
+export function Hero({ posts = [] }) {
   const track = useRef(null);
+  // The news card cycles the three latest column posts.
+  const news = posts.slice(0, 3).map((p) => ({ date: p.date, category: p.category, title: p.title, href: postHref(p) }));
 
   useEffect(() => {
     const el = track.current;
@@ -380,7 +383,7 @@ export function Hero() {
           </div>
 
           <div className="lg:absolute lg:right-[64px] lg:top-[606px] lg:opacity-[clamp(0,calc(1-var(--p)*2),1)] lg:translate-y-[calc(var(--p)*-40px)] lg:group-data-[faded=true]:invisible">
-            <NewsTicker items={news} />
+            {news.length > 0 && <NewsTicker items={news} />}
           </div>
 
           <div

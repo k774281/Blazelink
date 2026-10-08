@@ -99,7 +99,7 @@ export const purchaseInfo = [
 
 /* Questions every product page answers, after its own. */
 export const commonFaq = [
-  { q: "可以退款嗎？", a: "數位商品的退款條件請見退款政策。", link: { label: "退款政策", href: "/refund-policy" } },
+  { q: "可以退款嗎？", a: "數位商品的退款條件請見退款政策。", link: { label: "退款政策", href: "https://blazelink.co/refund-policy/" } },
   { q: "不會操作 WordPress 怎麼辦？", a: "可以預約諮詢，交給我們從設計藍圖開始幫你完成。", link: { label: "預約諮詢", href: "/contact" } },
 ];
 

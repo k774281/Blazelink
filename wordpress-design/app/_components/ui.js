@@ -6,6 +6,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { FALLBACK_IMAGE, postHref } from "../_data/column";
 import { column } from "../_data/home";
 import { asset } from "../_lib/base";
 
@@ -112,11 +113,14 @@ export function MotionButton({ href, label, className = "" }) {
 }
 
 /*
- * 專欄 block: the info column (category filter + consult card) beside the latest
+ * 專欄 block: the info column (category list + consult card) beside the latest
  * posts. The homepage and the cases page both carry it; each passes its own
- * copy, since the eyebrow numbering differs.
+ * copy, since the eyebrow numbering differs, and the column's posts and
+ * categories (app/_lib/column.js), read on the server.
  */
-export function ColumnSection({ data = column }) {
+export function ColumnSection({ data = column, posts = [], categories = [] }) {
+  const counts = [{ label: "全部", count: posts.length }, ...categories.map((c) => ({ label: c, count: posts.filter((p) => p.category === c).length }))];
+
   return (
     <section className="flex flex-col gap-16 px-6 py-24 lg:py-[160px] lg:pl-8 lg:pr-[264px]">
       <header className="flex flex-col gap-4">
@@ -129,7 +133,7 @@ export function ColumnSection({ data = column }) {
         <aside className="flex w-full flex-col gap-10 lg:w-[340px] lg:shrink-0">
           <nav aria-label="專欄分類" className="flex flex-col gap-1">
             <p className="font-display text-xs font-semibold tracking-[0.2em] text-muted">CATEGORY</p>
-            {data.categories.map((cat, i) => (
+            {counts.map((cat, i) => (
               <Link
                 key={cat.label}
                 href="/column"
@@ -151,16 +155,16 @@ export function ColumnSection({ data = column }) {
 
         <div className="flex min-w-0 flex-1 flex-col">
           <ul>
-            {data.posts.map((post) => (
-              <li key={post.title} className="border-t border-line">
-                <Link href="/column" className="group flex items-center gap-10 py-8">
+            {posts.slice(0, 4).map((post) => (
+              <li key={post.slug} className="border-t border-line">
+                <Link href={postHref(post)} className="group flex items-center gap-10 py-8">
                   <div className="flex min-w-0 flex-1 flex-col gap-3">
                     <p className="whitespace-pre font-mono text-[13px] text-teal">{`${post.date}  ・  ${post.category}`}</p>
                     <h3 className="text-[22px] font-bold leading-[1.5] text-ink transition-colors group-hover:text-lavender">{post.title}</h3>
-                    <p className="text-[15px] leading-[1.75] text-muted">{post.excerpt}</p>
+                    <p className="line-clamp-2 text-[15px] leading-[1.75] text-muted">{post.excerpt}</p>
                   </div>
                   <div className="relative hidden h-[140px] w-[224px] shrink-0 overflow-hidden rounded-xl sm:block">
-                    <Image src={post.image} alt="" fill sizes="224px" className="object-cover" />
+                    <Image src={post.image ?? FALLBACK_IMAGE} alt="" fill sizes="224px" className="object-cover" />
                   </div>
                 </Link>
               </li>

@@ -167,8 +167,7 @@ body {
 }
 .article-body figure img {
   width: 100%;
-  height: 260px;
-  object-fit: cover;
+  height: auto;
   border-radius: 4px;
 }
 .article-body figcaption {
@@ -199,12 +198,127 @@ body {
   .article-body .is-style-checklist {
     font-size: 17px;
   }
-  .article-body figure img {
-    height: 460px;
-  }
   .article-body blockquote {
     font-size: 22px;
   }
+}
+
+/*
+ * The rest of what the WordPress block editor hands over in shared posts:
+ * subheadings, numbered lists, tables, code, separators, buttons, highlights.
+ * Theme colour classes and inline styles are ignored (inline styles are
+ * stripped in app/_lib/wp.js) so every post reads in this site's palette.
+ */
+.article-body > h3 {
+  margin-top: 40px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.article-body > h4,
+.article-body > h5 {
+  margin-top: 32px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--color-lavender);
+}
+.article-body strong {
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.article-body mark {
+  background: none;
+  color: var(--color-lavender);
+}
+.article-body ol {
+  padding-left: 1.4em;
+  list-style: decimal;
+}
+.article-body ol li::marker {
+  color: var(--color-lavender);
+}
+.article-body li + li {
+  margin-top: 6px;
+}
+.article-body li > ul,
+.article-body li > ol {
+  margin-top: 6px;
+  padding-left: 1.4em;
+}
+.article-body hr {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+}
+.article-body .wp-block-spacer {
+  display: none;
+}
+.article-body img.wp-smiley,
+.article-body img.emoji {
+  display: inline;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.1em;
+}
+.article-body .wp-block-table {
+  overflow-x: auto;
+}
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.article-body th,
+.article-body td {
+  padding: 12px 16px;
+  border: 1px solid var(--color-line);
+  text-align: left;
+  vertical-align: top;
+}
+.article-body th,
+.article-body thead td {
+  background: var(--color-surface);
+  font-weight: 500;
+}
+.article-body code {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--color-surface-2);
+  font-size: 0.9em;
+}
+.article-body pre {
+  overflow-x: auto;
+  padding: 20px 24px;
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  background: var(--color-surface);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.article-body pre code {
+  padding: 0;
+  background: none;
+}
+.article-body .wp-block-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.article-body .wp-block-button__link {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 999px;
+  background: var(--color-lavender);
+  color: var(--color-canvas);
+  font-weight: 500;
+  text-decoration: none;
+}
+.article-body .schema-faq-section + .schema-faq-section {
+  margin-top: 20px;
+}
+.article-body .schema-faq-question {
+  display: block;
+  font-weight: 700;
 }
 
 /* Product descriptions reuse the article body; their images keep their own proportions (Figma 230:225). */

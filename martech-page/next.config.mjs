@@ -4,16 +4,17 @@ import { BASE_PATH } from "./app/_lib/base.js";
 const nextConfig = {
   // The whole site sits under /martech on the shared domain; see app/_lib/base.js.
   basePath: BASE_PATH,
+  /*
+   * Built as plain files and uploaded into /martech on the WordPress host,
+   * which serves real folders before handing a path to WordPress. Each page is
+   * a folder with an index.html, so Apache finds it without rewrite rules.
+   */
+  output: "export",
+  trailingSlash: true,
   images: {
-    // Past-event artwork is served from the WordPress media library, so it stays
-    // in step with the CMS instead of being copied into this repo.
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "blazelink.co",
-        pathname: "/wp-content/uploads/**",
-      },
-    ],
+    // There is no image server on a static host; files are served as they are,
+    // past-event artwork straight from the WordPress media library.
+    unoptimized: true,
   },
   turbopack: {
     // Nested inside the Blazelink repo, which has its own lockfile; pin the root so Turbopack doesn't pick the parent.

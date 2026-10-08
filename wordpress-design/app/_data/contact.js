@@ -3,9 +3,30 @@
  * states board (318:470).
  *
  * The form sends to the same Contact Form 7 form on blazelink.co as the
- * marketing site's (martech-page/app/api/contact), so its fields map one to one
- * onto that form and its topics are a subset of the form's own options.
+ * marketing site's, so its fields map one to one onto that form and its topics
+ * are a subset of the form's own options.
  */
+
+/*
+ * The site is static and served from blazelink.co itself, so the browser posts
+ * straight to CF7's REST endpoint, with the reCAPTCHA v3 token CF7 checks — the
+ * same as the WordPress contact page does. The site key is public by design.
+ */
+export const cf7 = {
+  endpoint: "https://blazelink.co/wp-json/contact-form-7/v1/contact-forms/644/feedback",
+  formId: "644",
+  unitTag: "wpcf7-f644-o1",
+  recaptchaKey: "6LdJFacoAAAAAKhX4fV6RSQtwWWsnCuveu47V1pH",
+  // Our field names on the left, the CF7 form's on the right.
+  fields: {
+    name: "your-name",
+    company: "your-company",
+    website: "your-url",
+    email: "your-email",
+    topic: "your-topic",
+    message: "your-message",
+  },
+};
 
 export const header = {
   display: "CONTACT",

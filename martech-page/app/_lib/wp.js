@@ -11,7 +11,6 @@
  */
 
 const WP = process.env.WP_BASE_URL ?? "https://blazelink.co";
-const REVALIDATE = 3600; // an hour; these lists change a few times a month
 
 /** WordPress renders titles with HTML entities — `&#8211;` and friends. */
 function decodeEntities(text) {
@@ -28,9 +27,9 @@ function decodeEntities(text) {
 }
 
 async function wpJson(path) {
-  const res = await fetch(`${WP}/wp-json/wp/v2/${path}`, {
-    next: { revalidate: REVALIDATE },
-  });
+  // Read once per build: the site is exported as static files, so a new
+  // lecture or post reaches it with the next build and upload.
+  const res = await fetch(`${WP}/wp-json/wp/v2/${path}`, { cache: "force-cache" });
   if (!res.ok) throw new Error(`HTTP ${res.status} on ${path}`);
   return res.json();
 }
@@ -126,22 +125,24 @@ export async function getLectures({ slugs, category, limit = 3 } = {}) {
 }
 
 /**
- * The newest posts in one category, by its slug.
+ * The newest posts in one category, or across several, by slug. A slug with no
+ * category behind it (yet) is skipped rather than failing the list.
  * Returns [] rather than throwing — see the note at the top of the file.
  */
 export async function getPostsByCategory(slug, limit = 6, { withImages = false } = {}) {
+  const slugs = [slug].flat();
   try {
     const categories = await wpJson(
-      `categories?slug=${encodeURIComponent(slug)}&_fields=id`,
+      `categories?slug=${slugs.map(encodeURIComponent).join(",")}&_fields=id`,
     );
-    const id = categories?.[0]?.id;
-    if (!id) {
-      console.warn(`WordPress: no category with slug "${slug}"`);
+    const ids = (categories ?? []).map((c) => c.id);
+    if (!ids.length) {
+      console.warn(`WordPress: no category with slug "${slugs.join(", ")}"`);
       return [];
     }
 
     const posts = await wpJson(
-      `posts?categories=${id}&per_page=${limit}&_fields=id,date,link,title,featured_media`,
+      `posts?categories=${ids.join(",")}&per_page=${limit}&_fields=id,date,link,title,featured_media`,
     );
 
     // The column lists are text only, so the extra media call is skipped there.
@@ -157,7 +158,7 @@ export async function getPostsByCategory(slug, limit = 6, { withImages = false }
       image: images.get(post.featured_media) ?? null,
     }));
   } catch (err) {
-    console.warn(`WordPress: could not read "${slug}" — ${err.message}`);
+    console.warn(`WordPress: could not read "${slugs.join(", ")}" — ${err.message}`);
     return [];
   }
 }

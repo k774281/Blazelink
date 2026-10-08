@@ -28,3 +28,6 @@ npm-debug.log*
 
 # Credentials — must never be committed
 pass.rtf
+
+# Static builds packaged for upload to the WordPress host
+/deploy

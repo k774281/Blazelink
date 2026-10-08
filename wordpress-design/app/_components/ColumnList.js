@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { categories, consult, PAGE_SIZE, postHref, posts } from "../_data/column";
+import { consult, FALLBACK_IMAGE, PAGE_SIZE, postHref } from "../_data/column";
 import { Eyebrow } from "./ui";
 
 /**
@@ -14,7 +14,7 @@ import { Eyebrow } from "./ui";
  * picking a category lists every post in it, featured one included, so the list
  * always matches the count beside the category.
  */
-export default function ColumnList() {
+export default function ColumnList({ posts, categories }) {
   const [active, setActive] = useState("全部");
   const [page, setPage] = useState(1);
   const top = useRef(null);
@@ -95,10 +95,10 @@ export default function ColumnList() {
                   <div className="flex min-w-0 flex-1 flex-col gap-3">
                     <p className="whitespace-pre font-mono text-[13px] text-teal">{`${post.date}  ・  ${post.category}`}</p>
                     <h3 className="font-mono text-lg font-medium leading-[1.5] text-ink transition-colors group-hover:text-lavender sm:text-[22px]">{post.title}</h3>
-                    <p className="font-mono text-[15px] leading-[1.75] text-muted">{post.excerpt}</p>
+                    <p className="line-clamp-2 font-mono text-[15px] leading-[1.75] text-muted">{post.excerpt}</p>
                   </div>
                   <div className="relative hidden h-[140px] w-[224px] shrink-0 overflow-hidden rounded-[4px] sm:block">
-                    <Image src={post.image} alt="" fill sizes="224px" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <Image src={post.image ?? FALLBACK_IMAGE} alt="" fill sizes="224px" className="object-cover transition-transform duration-500 group-hover:scale-105" />
                   </div>
                 </Link>
               </li>

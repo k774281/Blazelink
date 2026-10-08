@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Script from "next/script";
 import { useId, useRef, useState } from "react";
-import { form, success } from "../_data/contact";
-import { asset } from "../_lib/base";
+import { cf7, form, success } from "../_data/contact";
 
 /*
  * The contact form card (Figma 318:427) and its states (318:470): fields at
@@ -12,10 +12,6 @@ import { asset } from "../_lib/base";
  */
 
 const EMPTY = { name: "", company: "", website: "", email: "", topic: form.defaultTopic, message: "" };
-
-// Not shown to anyone; only a script reading the markup fills it. The server
-// treats a filled one as a bot and answers OK without delivering.
-const DECOY = "fax";
 
 function validate(values) {
   const errors = {};
@@ -35,11 +31,36 @@ function validate(values) {
   return errors;
 }
 
+/** A reCAPTCHA v3 token for CF7, once Google's script has loaded. */
+function recaptchaToken() {
+  return new Promise((resolve, reject) => {
+    const g = window.grecaptcha;
+    if (!g) return reject(new Error("reCAPTCHA not loaded"));
+    g.ready(() => g.execute(cf7.recaptchaKey, { action: "contactform" }).then(resolve, reject));
+  });
+}
+
+/**
+ * Posts the enquiry to CF7. It answers 200 even when it refuses one, so only a
+ * body reading mail_sent counts as delivered.
+ */
+async function deliver(values) {
+  const body = new FormData();
+  body.set("_wpcf7", cf7.formId);
+  body.set("_wpcf7_locale", "zh_TW");
+  body.set("_wpcf7_unit_tag", cf7.unitTag);
+  body.set("_wpcf7_recaptcha_response", await recaptchaToken());
+  for (const [ours, theirs] of Object.entries(cf7.fields)) body.set(theirs, values[ours].trim());
+
+  const res = await fetch(cf7.endpoint, { method: "POST", body });
+  const result = await res.json().catch(() => null);
+  if (!res.ok || result?.status !== "mail_sent") throw new Error(result?.status ?? `HTTP ${res.status}`);
+}
+
 export default function ContactForm() {
   const [values, setValues] = useState(EMPTY);
   const [errors, setErrors] = useState({});
   const [state, setState] = useState("editing"); // editing | sending | sent | failed
-  const decoy = useRef(null);
   const card = useRef(null);
 
   const set = (field) => (value) => {
@@ -60,12 +81,7 @@ export default function ContactForm() {
 
     setState("sending");
     try {
-      const res = await fetch(asset("/api/contact"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, [DECOY]: decoy.current?.value ?? "" }),
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      await deliver(values);
       setState("sent");
       card.current?.scrollIntoView({ block: "start", behavior: "smooth" });
     } catch {
@@ -150,10 +166,7 @@ export default function ContactForm() {
           </p>
         )}
 
-        <div aria-hidden className="absolute -left-[9999px] size-px overflow-hidden opacity-0">
-          <label htmlFor={DECOY}>Fax</label>
-          <input ref={decoy} id={DECOY} name={DECOY} type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
-        </div>
+        <Script src={`https://www.google.com/recaptcha/api.js?render=${cf7.recaptchaKey}`} strategy="afterInteractive" />
 
         <p className="text-[13px] leading-[1.7] text-muted">
           {form.privacy.before}

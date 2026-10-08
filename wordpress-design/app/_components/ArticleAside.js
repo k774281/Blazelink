@@ -25,7 +25,7 @@ export default function ArticleAside({ toc, title }) {
   }, [toc]);
 
   return (
-    <aside className="order-last flex w-full flex-col gap-1 lg:sticky lg:top-12 lg:order-none lg:w-[300px] lg:shrink-0">
+    <aside className="order-last flex w-full flex-col gap-1 lg:sticky lg:top-12 lg:order-none lg:w-[240px] lg:shrink-0 xl:w-[300px]">
       {toc.length > 0 && (
         <nav aria-label="文章目錄" className="hidden flex-col gap-1 lg:flex">
           <p className="font-display text-xs font-semibold tracking-[0.2em] text-muted">CONTENTS</p>

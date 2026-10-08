@@ -23,12 +23,6 @@ export const hero = {
   secondary: { label: "看作品", href: "/cases" },
 };
 
-export const news = [
-  { date: "2026.09.24", category: "網站設計", title: "形象網站要準備什麼？開工前的 5 個素材清單", href: "/column" },
-  { date: "2026.09.10", category: "WordPress 教學", title: "上線後自己改內容：WordPress 後台 10 分鐘上手", href: "/column" },
-  { date: "2026.08.28", category: "品牌形象", title: "網站是品牌的第一印象：訪客 3 秒內在看什麼？", href: "/column" },
-];
-
 export const works = {
   eyebrow: "01 — WORKS",
   title: "精選作品",
@@ -110,48 +104,12 @@ export const column = {
   eyebrow: "04 — COLUMN",
   title: "專欄",
   lead: "還在評估嗎？先從這裡了解做一個形象網站需要知道的事。",
-  categories: [
-    { label: "全部", count: 12 },
-    { label: "網站設計", count: 5 },
-    { label: "WordPress 教學", count: 4 },
-    { label: "品牌形象", count: 3 },
-  ],
   cta: {
     title: "想直接聊你的網站？",
     body: "告訴我們你的品牌與需求，我們會盡快與你聯繫。",
     label: "預約諮詢",
     href: "/contact",
   },
-  posts: [
-    {
-      date: "2026.09.24",
-      category: "網站設計",
-      title: "形象網站要準備什麼？開工前的 5 個素材清單",
-      image: asset("/home/homepage-4.webp"),
-      excerpt: "logo、品牌色、照片、文案、參考網站——提前備好，設計會更貼近你想要的樣子。",
-    },
-    {
-      date: "2026.09.10",
-      category: "WordPress 教學",
-      title: "上線後自己改內容：WordPress 後台 10 分鐘上手",
-      image: asset("/home/homepage-7.webp"),
-      excerpt: "不用寫程式，也能更新文字、換照片、發布最新消息。",
-    },
-    {
-      date: "2026.08.28",
-      category: "品牌形象",
-      title: "網站是品牌的第一印象：訪客 3 秒內在看什麼？",
-      image: asset("/home/homepage-5.webp"),
-      excerpt: "從首屏構圖到字體選擇，拆解讓人留下來的關鍵。",
-    },
-    {
-      date: "2026.08.12",
-      category: "網站設計",
-      title: "套版還是客製？選擇前先想清楚這 3 件事",
-      image: asset("/home/homepage-6.webp"),
-      excerpt: "預算、時程與未來擴充需求，決定哪一種比較適合你。",
-    },
-  ],
   more: { label: "看全部專欄", href: "/column" },
 };
 
@@ -177,15 +135,17 @@ export const footer = {
       links: [
         { label: "Flatsome", href: "/shop/flatsome" },
         { label: "Astra Pro", href: "/shop/astra-pro" },
-        { label: "購物車", href: "/cart" },
+        // WordPress pages, outside this site, so absolute rather than under /web-design.
+        { label: "購物車", href: "https://blazelink.co/cart/" },
       ],
     },
     { head: "CONTACT", links: [{ label: "諮詢", href: "/contact" }] },
   ],
   copyright: "Copyright 2026 © 鏈客策略行銷股份有限公司",
   legal: [
-    { label: "服務條款", href: "/terms" },
+    { label: "服務條款", href: "https://blazelink.co/term-of-use/" },
     { label: "隱私權政策", href: "https://blazelink.co/privacy-policy/" },
-    { label: "退款政策", href: "/refund-policy" },
+    // Not in WordPress yet (PRD open question 11); the link works once the page exists.
+    { label: "退款政策", href: "https://blazelink.co/refund-policy/" },
   ],
 };
