@@ -1,0 +1,8 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="carbon:container-software">
+<rect width="50" height="50" rx="25" fill="white" fill-opacity="0.1"/>
+<path id="Vector" d="M39 21H29V11H39V21ZM31.5 18.5H36.5V13.5H31.5V18.5Z" fill="white"/>
+<path id="Vector_2" d="M26.1429 23.8571V17H17V33H33V23.8571H26.1429ZM19.2857 19.2857H23.8571V23.8571H19.2857V19.2857ZM23.8571 30.7143H19.2857V26.1429H23.8571V30.7143ZM30.7143 30.7143H26.1429V26.1429H30.7143V30.7143Z" fill="white"/>
+<path id="Vector_3" d="M36.6667 39H13.3333C12.7145 39 12.121 38.7542 11.6834 38.3166C11.2458 37.879 11 37.2855 11 36.6667V13.3333C11 12.7145 11.2458 12.121 11.6834 11.6834C12.121 11.2458 12.7145 11 13.3333 11H25V13.3333H13.3333V36.6667H36.6667V25H39V36.6667C39 37.2855 38.7542 37.879 38.3166 38.3166C37.879 38.7542 37.2855 39 36.6667 39Z" fill="white"/>
+</g>
+</svg>

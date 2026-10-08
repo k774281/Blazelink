@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+/* Tokens mirror the "web-dark" variable collection in Figma. */
+@theme {
+  --color-canvas: #0a0a0f;
+  --color-surface: #14141b;
+  --color-surface-2: #1c1c25;
+  --color-line: #2a2a35;
+  --color-line-dark: #2b2727;
+  --color-ink: #f2f1f5;
+  --color-muted: #8e8c99;
+  --color-brand: #704de3;
+  --color-teal: #8fd1d2;
+  --color-lavender: #baaaee;
+  --color-footer-meta: #98a3ba;
+  --color-placeholder: #c4c4c4;
+  /* Form placeholder text and the error red (Figma 318:470). */
+  --color-faint: #5e5c6b;
+  --color-error: #ff8a80;
+
+  /* Chinese copy falls through every Latin face to Noto Sans TC. */
+  --font-sans: var(--font-noto), "PingFang TC", sans-serif;
+  --font-display: var(--font-montserrat), var(--font-noto), "PingFang TC", sans-serif;
+  --font-mono: var(--font-dm-mono), var(--font-noto), "PingFang TC", monospace;
+
+  /* The news card's copy is swapped, not moved, so each new entry enters from the right. */
+  --animate-news-in: news-in 450ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Drift for the hero backdrop's gradient blobs. Tailwind v4 has no JS config,
+     so what a v3 tailwind.config.js put under theme.extend.animation lives here. */
+  --animate-first: moveVertical 30s ease infinite;
+  --animate-second: moveInCircle 20s reverse infinite;
+  --animate-third: moveInCircle 40s linear infinite;
+  --animate-fourth: moveHorizontal 40s ease infinite;
+  --animate-fifth: moveInCircle 20s ease infinite;
+}
+
+@keyframes moveHorizontal {
+  0% {
+    transform: translateX(-50%) translateY(-10%);
+  }
+  50% {
+    transform: translateX(50%) translateY(10%);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-10%);
+  }
+}
+
+@keyframes moveInCircle {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes moveVertical {
+  0% {
+    transform: translateY(-50%);
+  }
+  50% {
+    transform: translateY(50%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes news-in {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-news-in,
+  .animate-first,
+  .animate-second,
+  .animate-third,
+  .animate-fourth,
+  .animate-fifth {
+    animation: none;
+  }
+}
+
+/* Horizontal rails scroll by button or swipe; the bar itself stays hidden. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/*
+ * Article body (Figma 207:236). Styled by element rather than by class because
+ * the HTML comes from the WordPress editor, which only hands over bare tags and
+ * its own block classes.
+ */
+.article-body {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 2;
+  color: var(--color-ink);
+}
+.article-body > * + * {
+  margin-top: 28px;
+}
+.article-body > h2 {
+  scroll-margin-top: 48px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+.article-body > h2:not(:first-child) {
+  margin-top: 52px;
+}
+.article-body ul:not(.is-style-checklist) li::before {
+  content: "・";
+}
+.article-body .is-style-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px 28px;
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  background: var(--color-surface);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-teal);
+}
+.article-body .is-style-checklist li {
+  white-space: pre-wrap;
+}
+.article-body .is-style-checklist li::before {
+  content: "✓  ";
+}
+.article-body figure {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.article-body figure img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.article-body figcaption {
+  font-size: 14px;
+  line-height: normal;
+  color: var(--color-muted);
+}
+.article-body blockquote {
+  padding: 8px 0 8px 28px;
+  border-left: 3px solid var(--color-lavender);
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+.article-body a {
+  color: var(--color-lavender);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (min-width: 64rem) {
+  .article-body {
+    font-size: 18px;
+  }
+  .article-body > h2 {
+    font-size: 30px;
+  }
+  .article-body .is-style-checklist {
+    font-size: 17px;
+  }
+  .article-body figure img {
+    height: 460px;
+  }
+  .article-body blockquote {
+    font-size: 22px;
+  }
+}
+
+/* Product descriptions reuse the article body; their images keep their own proportions (Figma 230:225). */
+.article-body.product-body figure img {
+  width: 746px;
+  max-width: 100%;
+  height: auto;
+}
