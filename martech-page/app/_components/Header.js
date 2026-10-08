@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CtaPill from "./CtaPill";
 import { nav } from "@/app/_data/home";
+import { asset } from "../_lib/base";
 
 const WIPE = 0.28; // seconds each half of the MENU/CLOSE wipe takes
 
@@ -106,12 +107,12 @@ export default function Header() {
 
           <div className="relative flex h-[var(--header-h)] items-center justify-between gap-[24px] px-6 md:justify-start md:gap-[56px] md:px-[24px]">
             <Link
-              href="/martech"
+              href="/"
               className="relative block h-[31px] w-[120px] shrink-0"
               onClick={closeMenu}
             >
               <Image
-                src="/figma/logo-lockup.webp"
+                src={asset("/figma/logo-lockup.webp")}
                 alt="Blazelink 鏈客策略行銷"
                 fill
                 sizes="120px"

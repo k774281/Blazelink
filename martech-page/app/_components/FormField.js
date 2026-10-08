@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import { asset } from "../_lib/base";
 
 /*
  * The contact form's field, in the three states the design specifies: at rest,
@@ -38,7 +39,7 @@ function Label({ htmlFor, children, required }) {
 function ErrorMessage({ id, children }) {
   return (
     <p id={id} className="flex items-center gap-[7px] pl-[4px] text-[13px] text-error">
-      <img src="/figma/icon-error.svg" alt="" width={14} height={14} className="shrink-0" />
+      <img src={asset("/figma/icon-error.svg")} alt="" width={14} height={14} className="shrink-0" />
       {children}
     </p>
   );
@@ -194,7 +195,7 @@ export function SelectField({
           {value ?? placeholder}
         </span>
         <img
-          src="/figma/icon-chevron-down.svg"
+          src={asset("/figma/icon-chevron-down.svg")}
           alt=""
           width={18}
           height={18}

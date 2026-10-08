@@ -1,6 +1,7 @@
 import { Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import { asset } from "./_lib/base";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -36,10 +37,10 @@ export default function RootLayout({ children }) {
           per page on its own. Served from /public so the relative url() in each sheet
           resolves next to it.
         */}
-        <link rel="stylesheet" href="/fonts/taipei-bold/result.css" />
-        <link rel="stylesheet" href="/fonts/taipei-light/result.css" />
-        <link rel="stylesheet" href="/fonts/noto-400/result.css" />
-        <link rel="stylesheet" href="/fonts/noto-500/result.css" />
+        <link rel="stylesheet" href={asset("/fonts/taipei-bold/result.css")} />
+        <link rel="stylesheet" href={asset("/fonts/taipei-light/result.css")} />
+        <link rel="stylesheet" href={asset("/fonts/noto-400/result.css")} />
+        <link rel="stylesheet" href={asset("/fonts/noto-500/result.css")} />
       </head>
       <body>{children}</body>
     </html>

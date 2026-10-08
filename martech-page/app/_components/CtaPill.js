@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { asset } from "../_lib/base";
 
 // Two arrows live inside the clipped circle: the resting one slides out to the
 // right while the hover-coloured one slides in from the left, so the swap also
 // carries the colour change.
 const ARROWS = {
-  24: { white: "/figma/cta-arrow-white.svg", brand: "/figma/arrow-purple-lg.svg" },
-  18: { white: "/figma/cta-arrow-white-sm.svg", brand: "/figma/arrow-service-active.svg" },
+  24: { white: asset("/figma/cta-arrow-white.svg"), brand: asset("/figma/arrow-purple-lg.svg") },
+  18: { white: asset("/figma/cta-arrow-white-sm.svg"), brand: asset("/figma/arrow-service-active.svg") },
 };
 
 const TONES = {

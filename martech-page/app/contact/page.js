@@ -9,6 +9,7 @@ import CtaPill from "../_components/CtaPill";
 import Eyebrow from "../_components/Eyebrow";
 import { SelectField, TextField } from "../_components/FormField";
 import { intro, form, success } from "@/app/_data/contact";
+import { asset } from "../_lib/base";
 
 /*
  * 聯繫我們. The page is its own closing panel, so the footer gets no panel above
@@ -66,7 +67,7 @@ function ContactForm() {
 
     setState("sending");
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(asset("/api/contact"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...values, [DECOY]: decoy.current?.value ?? "" }),
@@ -82,7 +83,7 @@ function ContactForm() {
     return (
       <div className="flex w-full flex-col items-center justify-center gap-[16px] rounded-[50px] bg-white px-6 py-[56px] shadow-card md:px-[48px] lg:w-[620px]">
         <span className="flex size-[60px] items-center justify-center rounded-[50px] bg-brand-tint">
-          <img src="/figma/icon-check.svg" alt="" width={26} height={26} />
+          <img src={asset("/figma/icon-check.svg")} alt="" width={26} height={26} />
         </span>
         <h2 className="text-[26px] font-bold tracking-[-0.52px] text-ink">
           {success.title}
@@ -91,20 +92,20 @@ function ContactForm() {
           {success.body}
         </p>
         <Link
-          href="/martech"
+          href="/"
           className="group underline-grow inline-flex items-center gap-[10px] border-b border-solid border-brand pb-[8px] text-[16px] font-medium text-brand"
         >
           {success.cta}
           <span className="relative size-[25px] shrink-0 overflow-hidden rounded-[50px] bg-brand-tint">
             <img
-              src="/figma/arrow-purple.svg"
+              src={asset("/figma/arrow-purple.svg")}
               alt=""
               width={17}
               height={17}
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform duration-500 ease-in-out group-hover:translate-x-[220%]"
             />
             <img
-              src="/figma/arrow-purple.svg"
+              src={asset("/figma/arrow-purple.svg")}
               alt=""
               width={17}
               height={17}
@@ -201,7 +202,7 @@ function ContactForm() {
 
         {state === "failed" ? (
           <p role="alert" className="flex items-center gap-[7px] text-[13px] text-error">
-            <img src="/figma/icon-error.svg" alt="" width={14} height={14} className="shrink-0" />
+            <img src={asset("/figma/icon-error.svg")} alt="" width={14} height={14} className="shrink-0" />
             {form.failure}
           </p>
         ) : null}

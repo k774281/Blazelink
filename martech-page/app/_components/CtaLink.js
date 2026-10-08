@@ -1,9 +1,10 @@
 import Link from "next/link";
+import { asset } from "../_lib/base";
 
 const TONES = {
-  brand: { text: "text-brand", circle: "bg-brand-tint", icon: "/figma/arrow-purple.svg" },
-  ink: { text: "text-ink", circle: "bg-line", icon: "/figma/arrow-navy.svg" },
-  light: { text: "text-white", circle: "bg-muted", icon: "/figma/arrow-contact.svg" },
+  brand: { text: "text-brand", circle: "bg-brand-tint", icon: asset("/figma/arrow-purple.svg") },
+  ink: { text: "text-ink", circle: "bg-line", icon: asset("/figma/arrow-navy.svg") },
+  light: { text: "text-white", circle: "bg-muted", icon: asset("/figma/arrow-contact.svg") },
 };
 
 /**

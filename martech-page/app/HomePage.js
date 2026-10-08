@@ -5,13 +5,13 @@ import { gsap } from "gsap";
 import Image from "next/image";
 import Link from "next/link";
 
-import Header from "../_components/Header";
-import SiteFooter from "../_components/SiteFooter";
-import ContactPanel from "../_components/ContactPanel";
-import CtaPill from "../_components/CtaPill";
-import CtaLink from "../_components/CtaLink";
-import Eyebrow from "../_components/Eyebrow";
-import useSectionReveal from "../_components/useSectionReveal";
+import Header from "./_components/Header";
+import SiteFooter from "./_components/SiteFooter";
+import ContactPanel from "./_components/ContactPanel";
+import CtaPill from "./_components/CtaPill";
+import CtaLink from "./_components/CtaLink";
+import Eyebrow from "./_components/Eyebrow";
+import useSectionReveal from "./_components/useSectionReveal";
 import {
   hero,
   philosophy,
@@ -21,6 +21,7 @@ import {
   partners,
   blog,
 } from "@/app/_data/home";
+import { asset } from "./_lib/base";
 
 /*
  * Sections that only ever appear on the homepage live here. Anything a second
@@ -141,7 +142,7 @@ function Hero() {
                 className="flex items-center justify-center rounded-[50px] border border-solid border-line bg-white/60 pl-[8px] shadow-card"
               >
                 <img
-                  src="/figma/icon-ads-click.svg"
+                  src={asset("/figma/icon-ads-click.svg")}
                   alt=""
                   width={30}
                   height={30}
@@ -548,8 +549,8 @@ function Services() {
                   <img
                     src={
                       on
-                        ? "/figma/arrow-service-active.svg"
-                        : "/figma/arrow-service.svg"
+                        ? asset("/figma/arrow-service-active.svg")
+                        : asset("/figma/arrow-service.svg")
                     }
                     alt=""
                     width={18}

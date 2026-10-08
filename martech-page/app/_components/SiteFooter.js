@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
 import { footer } from "@/app/_data/home";
+import { asset } from "../_lib/base";
 
 /**
  * The closing block every page shares: a page-specific panel passed as children,
@@ -143,7 +144,7 @@ export default function SiteFooter({ children, onThisPage }) {
                 <div className="flex flex-col items-start gap-[4px]">
                   <div className="relative h-[84px] w-full max-w-[417px]">
                     <Image
-                      src="/figma/logo-footer.webp"
+                      src={asset("/figma/logo-footer.webp")}
                       alt="Blazelink 鏈客策略行銷"
                       fill
                       sizes="417px"

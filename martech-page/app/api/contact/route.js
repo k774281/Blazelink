@@ -17,7 +17,10 @@
  * OK would drop real enquiries on the floor with nobody noticing.
  */
 
-const TOPICS = ["行銷合作詢問", "講座報名", "其他"];
+import { form } from "@/app/_data/contact";
+
+// The same list the form offers, which in turn mirrors CF7's own options.
+const TOPICS = form.topics;
 
 // Our field names on the left, form 644's on the right.
 const FIELDS = {

@@ -1,8 +1,9 @@
+import { asset } from "../_lib/base";
 // Homepage copy, kept in one place so it can be swapped for headless WP data later.
 
 // The header rides on every page, so these have to resolve from anywhere.
 export const nav = [
-  { label: "關於我們", href: "/about" },
+  { label: "關於鏈客", href: "/about" },
   { label: "跨國SEO行銷", href: "/seo" },
   { label: "鏈客商學院", href: "/academy" },
 ];
@@ -11,7 +12,7 @@ export const nav = [
 // TODO: swap the placeholder names for the real brand names.
 export const brandLogos = Array.from({ length: 12 }, (_, i) => {
   const n = String(i + 1).padStart(2, "0");
-  return { name: `品牌 ${n}`, src: `/logo-${n}.${n === "11" ? "svg" : "webp"}` };
+  return { name: `品牌 ${n}`, src: asset(`/logo-${n}.${n === "11" ? "svg" : "webp"}`) };
 });
 
 export const hero = {
@@ -30,7 +31,7 @@ export const hero = {
 
 export const philosophy = {
   title: "共創成功",
-  image: "/img-2.webp", // placeholder until the real philosophy visual lands
+  image: asset("/img-2.webp"), // placeholder until the real philosophy visual lands
   body: "策略行銷應該是一場冒險，一場啟發，而我們是您的冒險夥伴，為您鏈接品牌的成功。我們不只是提供服務，更是深入理解品牌的事業夥伴。",
   closingTitle: "我們的成功建立在您的成功之上，",
   closingBody: "這就是我們為之努力的原因。",
@@ -44,25 +45,25 @@ export const services = {
       id: "01",
       name: "精準行銷策略",
       body: "從受眾輪廓、競品定位到訊息架構，先把「對誰說、說什麼」定下來，再決定投放與內容的配置，避免預算花在無法收斂成名單的流量上。",
-      image: "/img-1.webp", // placeholder for service-01
+      image: asset("/img-1.webp"), // placeholder for service-01
     },
     {
       id: "02",
       name: "自動化銷售漏斗",
       body: "把表單、名單分級與 CRM 串成一條動線，讓每一筆進站行為都有對應的後續動作，業務接手時已經知道對方走到哪一步。",
-      image: "/img-3.webp", // placeholder for service-02
+      image: asset("/img-3.webp"), // placeholder for service-02
     },
     {
       id: "03",
       name: "SEO 跨國內容行銷",
       body: "以在地語意而非直譯建立內容結構，讓不同市場的搜尋需求都能對應到正確的落地頁，把自然流量收斂成可追蹤的名單。",
-      image: "/img-4.webp", // placeholder for service-03
+      image: asset("/img-4.webp"), // placeholder for service-03
     },
     {
       id: "04",
       name: "市場洞察／競品分析",
       body: "盤點市場需求與競品佈局，找出尚未被滿足的切角，讓預算配置有依據，而不是跟著同業的投放節奏走。",
-      image: "/img-5.webp", // placeholder for service-04
+      image: asset("/img-5.webp"), // placeholder for service-04
     },
   ],
   crossLinks: [
@@ -81,7 +82,7 @@ export const academy = {
 export const ctaBanner = {
   title: "成長的每一步，我們都與您同行",
   cta: "探索更多行銷策略",
-  image: "/figma/cta-banner.webp",
+  image: asset("/figma/cta-banner.webp"),
 };
 
 export const partners = {
@@ -117,7 +118,7 @@ export const footer = {
   ],
   // Shared by every page, so these are absolute.
   sitemap: [
-    { label: "關於我們", href: "/about" },
+    { label: "關於鏈客", href: "/about" },
     { label: "跨國SEO行銷", href: "/seo" },
     { label: "鏈客商學院", href: "/academy" },
     { label: "聯繫我們", href: "/contact" },

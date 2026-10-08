@@ -20,9 +20,10 @@ import {
   next as nextStep,
   onThisPage,
 } from "@/app/_data/about";
+import { asset } from "../_lib/base";
 
 /*
- * 關於我們. Everything here is specific to this page; the header, the reveal
+ * 關於鏈客. Everything here is specific to this page; the header, the reveal
  * footer, the CTA pair, the Eyebrow label and the reveal hook come from
  * ../_components and are shared with the homepage.
  */
@@ -37,11 +38,11 @@ function Philosophy() {
       className="relative overflow-clip bg-canvas px-6 pt-[18px] pb-20 md:px-10 xl:px-[120px] xl:pb-[104px]"
     >
       <nav aria-label="Breadcrumb" className="relative text-[15px] text-black">
-        <Link href="/martech" className="underline-grow [--underline-offset:-4px]">
+        <Link href="/" className="underline-grow [--underline-offset:-4px]">
           首頁
         </Link>
         <span className="px-[6px] text-faint">/</span>
-        <span aria-current="page">關於我們</span>
+        <span aria-current="page">關於鏈客</span>
       </nav>
 
       {/* Oversized watermark sitting behind the content */}
@@ -447,7 +448,7 @@ function Founder() {
               className="inline-flex h-[52px] items-center gap-[10px] rounded-[50px] border border-solid border-brand px-[28px] transition-colors duration-500 ease-in-out hover:bg-brand-tint"
             >
               <img
-                src="/figma/icon-mail.svg"
+                src={asset("/figma/icon-mail.svg")}
                 alt=""
                 width={17}
                 height={17}

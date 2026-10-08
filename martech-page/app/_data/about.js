@@ -1,8 +1,9 @@
-// 關於我們 page copy, kept in one place so it can be swapped for headless WP data later.
+import { asset } from "../_lib/base";
+// 關於鏈客 page copy, kept in one place so it can be swapped for headless WP data later.
 
 export const philosophy = {
   lead: "策略行銷應該是一場冒險，一場啟發，而我們是您的冒險夥伴，為您鏈接品牌的成功。",
-  image: "/figma/about-philosophy.webp",
+  image: asset("/figma/about-philosophy.webp"),
   body: [
     "我們不只是提供服務，更是深入理解品牌的事業夥伴。",
     "無論您是正在啟程的新創公司，還是尋求突破的成熟品牌，我們都將投入全部熱情與專業，協助您拓展影響力與營收成長。",
@@ -28,12 +29,12 @@ export const dualEngine = {
       },
     ],
   ],
-  images: ["/figma/about-strategy.webp", "/img-6.webp"],
+  images: [asset("/figma/about-strategy.webp"), asset("/img-6.webp")],
 };
 
 export const allInOne = {
   title: "讓行銷變得簡單有效。",
-  image: "/img-7.webp",
+  image: asset("/img-7.webp"),
   paragraphs: [
     "從市場研究、內容策略、網站設計、SEO優化，到廣告佈局與自動化銷售流程，鏈客團隊整合各領域專業，為您打造高效且具延展性的行銷系統。",
     "您不用再分頭協調設計師、廣告商、網站工程師與顧問，我們是您唯一需要對接的行銷夥伴，讓您省下溝通成本，專注本業，穩健成長。",
@@ -56,19 +57,19 @@ export const results = {
       no: "01",
       title: "降低廣告成本",
       body: "先把受眾輪廓與訊息架構收斂好，再決定投放配置，預算就不會分散在無法收斂成名單的流量上。同一筆預算買到的有效曝光變多，單一名單的取得成本自然往下走。",
-      image: "/img-8.webp",
+      image: asset("/img-8.webp"),
     },
     {
       no: "02",
       title: "提高名單品質",
       body: "表單、行為紀錄與名單分級串成一條動線，每一次進站都留下可追蹤的軌跡。業務接手時拿到的不只是一組聯絡方式，而是一份已經知道對方在意什麼、走到哪一步的名單。",
-      image: "/img-9.webp",
+      image: asset("/img-9.webp"),
     },
     {
       no: "03",
       title: "縮短成交週期",
       body: "從第一次曝光到成交，中間每一段都由自動化流程接手跟進，不必等業務回頭手動撈名單。該被提醒的人準時收到訊息，猶豫的時間縮短，成交的節奏也跟著往前推。",
-      image: "/img-10.webp",
+      image: asset("/img-10.webp"),
     },
   ],
 };
@@ -76,7 +77,7 @@ export const results = {
 export const founder = {
   name: "BEN",
   role: "創辦人　|　執行長",
-  portrait: "/img-11.webp",
+  portrait: asset("/img-11.webp"),
   lead: "Ben 不只是網頁全端工程師，更是精準行銷的實戰顧問。",
   body: [
     "曾任美商金融集團華語區負責人的他擅長從商業目標出發，整合資訊架構與行銷科技（MarTech），打造具有商業價值的數位解決方案。無論是用戶旅程優化與成效追蹤，還是資料串接、自動化流程，他都能親手落地執行，並協助客戶用最小資源創造最大成效。",

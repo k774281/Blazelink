@@ -1,3 +1,4 @@
+import { asset } from "../_lib/base";
 /**
  * Stands in for artwork the client has yet to supply. Deliberately reads as
  * unfinished — a dashed frame with a label, rather than a grey void — so an
@@ -8,7 +9,7 @@ export default function ImagePlaceholder({ label, className = "" }) {
     <div
       className={`flex flex-col items-center justify-center gap-[12px] border border-dashed border-line-dash bg-panel ${className}`}
     >
-      <img src="/figma/icon-image-lg.svg" alt="" width={24} height={24} />
+      <img src={asset("/figma/icon-image-lg.svg")} alt="" width={24} height={24} />
       {label ? (
         <p className="font-mono-brand px-4 text-center text-[12px] font-medium tracking-[1.44px] text-muted">
           {label}

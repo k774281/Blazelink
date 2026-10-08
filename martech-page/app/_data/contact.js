@@ -30,7 +30,9 @@ export const intro = {
 export const form = {
   title: "填寫諮詢表單",
   note: "標示 * 為必填欄位，約需兩分鐘。",
-  topics: ["行銷合作詢問", "講座報名", "其他"],
+  // Must match the options of CF7 form 644's [select* your-topic] word for word
+  // (the slash in 網站設計/開發 is half-width): CF7 rejects any other value.
+  topics: ["顧問諮詢", "網站健檢", "網站設計/開發", "SEO關鍵字", "行銷自動化", "AI導入", "社群經營", "行銷漏斗", "其他"],
   submit: "送出諮詢",
   submitting: "送出中…",
   privacy: {
