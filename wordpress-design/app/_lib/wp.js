@@ -84,6 +84,8 @@ function toPost(post, categories, images, tags) {
   const excerpt = plainText(post.excerpt?.rendered ?? "");
   return {
     slug: post.slug,
+    // The post's own address on WordPress, where Yoast SEO already ranks it.
+    link: post.link,
     date: post.date.slice(0, 10).replace(/-/g, "."),
     category: category ? decodeEntities(category.name) : "專欄",
     title: decodeEntities(post.title.rendered),
@@ -101,7 +103,7 @@ export async function getColumnPosts() {
     if (!categories.length) return { posts: [], categories: [] };
 
     const posts = await wpJson(
-      `posts?categories=${categories.map((c) => c.id).join(",")}&per_page=100&orderby=date&order=desc&_fields=id,slug,date,title,excerpt,categories,tags,featured_media`,
+      `posts?categories=${categories.map((c) => c.id).join(",")}&per_page=100&orderby=date&order=desc&_fields=id,slug,date,link,title,excerpt,categories,tags,featured_media`,
     );
     const [images, tags] = await Promise.all([featuredImages(posts.map((p) => p.featured_media)), tagNames(posts.flatMap((p) => p.tags ?? []))]);
 
@@ -120,7 +122,7 @@ export async function getColumnPost(slug) {
   try {
     const categories = await columnCategories();
     const [post] = await wpJson(
-      `posts?slug=${encodeURIComponent(slug)}&_fields=id,slug,date,title,excerpt,content,categories,tags,featured_media`,
+      `posts?slug=${encodeURIComponent(slug)}&_fields=id,slug,date,link,title,excerpt,content,categories,tags,featured_media`,
     );
     if (!post || !categories.some((c) => post.categories.includes(c.id))) return null;
     const [images, tags] = await Promise.all([featuredImages([post.featured_media]), tagNames(post.tags ?? [])]);

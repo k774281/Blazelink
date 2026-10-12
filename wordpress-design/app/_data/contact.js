@@ -62,7 +62,7 @@ export const form = {
   privacy: {
     before: "送出即表示你同意我們依",
     link: "《隱私權政策》",
-    href: "https://blazelink.co/privacy-policy/",
+    href: "/privacy-policy",
     after: "處理你提供的資料。",
   },
   errors: {

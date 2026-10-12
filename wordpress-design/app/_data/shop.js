@@ -2,9 +2,9 @@
  * 商城 copy, from the Figma frame "桌機 1920 — 商城" (208:210). Prices were
  * confirmed 2026-09-29 (PRD); the struck-through figure is the list price.
  *
- * Cart and checkout are WooCommerce's own pages on the same domain, so "加入購物車"
- * is a plain link to its add-to-cart URL. `wcId` is the WooCommerce product ID,
- * still to be filled in from the live shop; until then the button goes to /cart.
+ * Checkout is WooCommerce's own page on the same domain, so "立即購買" is a plain
+ * link that puts the product in the cart and opens checkout. `wcId` is the
+ * WooCommerce product ID.
  */
 
 import { asset } from "../_lib/base";
@@ -20,7 +20,7 @@ export const intro = { eyebrow: "WORDPRESS THEMES", title: "佈景主題正版�
 export const products = [
   {
     slug: "flatsome",
-    wcId: null,
+    wcId: 1293,
     kind: "WORDPRESS 佈景主題",
     name: "Flatsome",
     subtitle: "正版授權主題金鑰",
@@ -46,7 +46,7 @@ export const products = [
   },
   {
     slug: "astra-pro",
-    wcId: null,
+    wcId: 1285,
     kind: "WORDPRESS 佈景主題",
     name: "Astra Pro",
     subtitle: "Essential Toolkit 永久版",
@@ -56,7 +56,7 @@ export const products = [
     listPrice: 6990,
     forWho: "習慣用 Elementor 排版、想從大量模板快速起步的人。",
     includes: ["300+ 預設模板", "支援 Elementor", "相容 WooCommerce"],
-    delivery: "公司授權代綁：結帳時填寫網站網址，付款後我們會寄信協助啟用。",
+    delivery: "公司授權代綁：付款後我們會寄信，回覆要啟用的網站網址即可。",
     // Product page (Figma 229:210). `pending` marks values still to be confirmed.
     detail: {
       gallery: [
@@ -67,7 +67,7 @@ export const products = [
       lead: "習慣用 Elementor 排版、想從大量模板快速起步的人，用 Astra Pro 可以省下大部分的版型設定時間。",
       includes: ["300+ 預設模板", "支援 Elementor", "相容 WooCommerce", "永久版授權"],
       deliveryTitle: "交付方式：公司授權代綁",
-      deliveryNote: "結帳時請填寫要啟用的網站網址，付款後我們會寄信協助啟用。我們不會向你索取 WordPress 後台密碼。",
+      deliveryNote: "付款後我們會寄信給你，回覆要啟用的網站網址，我們就會協助啟用。我們不會向你索取 WordPress 後台密碼。",
       // WordPress product description; styled like a column article body.
       html: `
 <p>Astra 是一款輕量、載入快速的 WordPress 佈景主題。Pro 版加上 Essential Toolkit 之後，可以直接匯入現成的網站模板，再用 Elementor 調整成你的品牌樣子。</p>
@@ -77,7 +77,7 @@ export const products = [
       specs: [
         ["商品名稱", "Astra Pro Essential Toolkit"],
         ["授權版本", "永久版"],
-        ["交付方式", "公司授權代綁（結帳時填寫網站網址）"],
+        ["交付方式", "公司授權代綁（付款後回信提供網站網址）"],
         ["付款方式", "信用卡（綠界）"],
         ["發票", "電子發票，付款成功後自動開立"],
         ["可使用網站數", "（待確認）", "pending"],
@@ -99,7 +99,7 @@ export const purchaseInfo = [
 
 /* Questions every product page answers, after its own. */
 export const commonFaq = [
-  { q: "可以退款嗎？", a: "數位商品的退款條件請見退款政策。", link: { label: "退款政策", href: "https://blazelink.co/refund-policy/" } },
+  { q: "可以退款嗎？", a: "授權序號寄出後即完成交付，依法恕不退換；若序號無法啟用，請在 3 天內與我們聯繫。", link: { label: "退換貨政策", href: "/terms#refund" } },
   { q: "不會操作 WordPress 怎麼辦？", a: "可以預約諮詢，交給我們從設計藍圖開始幫你完成。", link: { label: "預約諮詢", href: "/contact" } },
 ];
 
@@ -109,4 +109,9 @@ export const consult = { text: "不想自己架？交給我們，從設計藍圖
 
 export const ntd = (n) => `NT$${n.toLocaleString("en-US")}`;
 export const productHref = (p) => `/shop/${p.slug}`;
-export const cartHref = (p) => (p.wcId ? `/cart/?add-to-cart=${p.wcId}` : "/cart/");
+/*
+ * buy-now asks the WordPress snippet "Buy now empties the cart" to drop
+ * whatever else is in the cart first, so the order is this product alone and
+ * coming back to the link doesn't make it two.
+ */
+export const buyHref = (p) => `/checkout/?add-to-cart=${p.wcId}&buy-now=1`;

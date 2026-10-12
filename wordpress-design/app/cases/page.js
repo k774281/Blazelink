@@ -17,6 +17,7 @@ import { column } from "../_data/home";
 import { getColumn } from "../_lib/column";
 
 export const metadata = {
+  alternates: { canonical: "/web-design/cases/" },
   title: "網站案例｜Blazelink 鏈客",
   description: "與 20 多個品牌合作的 WordPress 形象網站、客製化功能、行銷自動化與 API 串接作品。",
 };

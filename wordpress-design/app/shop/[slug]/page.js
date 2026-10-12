@@ -5,7 +5,7 @@ import { ProductGallery, ProductTabs } from "../../_components/ProductParts";
 import SideNav from "../../_components/SideNav";
 import SiteFooter from "../../_components/SiteFooter";
 import { ViewMore } from "../../_components/ui";
-import { cartHref, commonFaq, consult, ntd, perks, productHref, products } from "../../_data/shop";
+import { buyHref, commonFaq, consult, ntd, perks, productHref, products } from "../../_data/shop";
 import { asset } from "../../_lib/base";
 
 /* Every product is known at build time; anything else is a 404. */
@@ -22,7 +22,8 @@ export async function generateMetadata({ params }) {
   return {
     title: `${p.name} ${p.subtitle}｜Blazelink 鏈客商城`,
     description: p.detail.lead,
-    openGraph: { title: `${p.name} ${p.subtitle}`, description: p.detail.lead, images: [p.image] },
+    alternates: { canonical: `/web-design/shop/${p.slug}/` },
+    openGraph: { locale: "zh_TW", siteName: "BlazeLink鏈客行銷", title: `${p.name} ${p.subtitle}`, description: p.detail.lead, images: [p.image] },
   };
 }
 
@@ -96,8 +97,8 @@ export default async function ProductPage({ params }) {
               <p className="text-[15px] leading-[1.75] text-muted">{d.deliveryNote}</p>
             </div>
 
-            <a href={cartHref(p)} className="flex justify-center gap-3 rounded-full bg-lavender py-5 text-lg text-canvas transition-opacity hover:opacity-90">
-              <span className="font-medium">加入購物車</span>
+            <a href={buyHref(p)} className="flex justify-center gap-3 rounded-full bg-lavender py-5 text-lg text-canvas transition-opacity hover:opacity-90">
+              <span className="font-medium">立即購買</span>
               <span aria-hidden className="font-display font-semibold">
                 →
               </span>

@@ -9,6 +9,7 @@ import { getColumn } from "../_lib/column";
 import { asset } from "../_lib/base";
 
 export const metadata = {
+  alternates: { canonical: "/web-design/column/" },
   title: "專欄｜Blazelink 鏈客",
   description: "網站設計、行銷科技與經營實務，做一個好網站之前，你需要知道的事都在這裡。",
 };

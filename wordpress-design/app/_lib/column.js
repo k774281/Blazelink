@@ -12,9 +12,9 @@ import { getColumnPost, getColumnPosts } from "./wp";
 
 const byDateDesc = (a, b) => b.date.localeCompare(a.date);
 
-/** The repo's copy of a post, dated as WordPress dates it when it is there too. */
+/** The repo's copy of a post, dated and addressed as WordPress has it when it is there too. */
 function withWpDate(local, wp) {
-  return wp ? { ...local, date: wp.date } : local;
+  return wp ? { ...local, date: wp.date, link: wp.link } : local;
 }
 
 export async function getColumn() {

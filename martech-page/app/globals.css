@@ -150,3 +150,61 @@ section[id] {
     scroll-behavior: auto;
   }
 }
+
+/* Policy text (privacy-policy, terms), set in the site's light article style. */
+.legal-body {
+  color: var(--color-body);
+  font-size: 16px;
+  line-height: 1.95;
+}
+.legal-body > * + * {
+  margin-top: 16px;
+}
+.legal-body h2 {
+  margin-top: 56px;
+  color: var(--color-ink);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.48px;
+}
+.legal-body h3 {
+  margin-top: 32px;
+  color: var(--color-ink);
+  font-size: 18px;
+  font-weight: 700;
+}
+.legal-body > :first-child {
+  margin-top: 0;
+}
+.legal-body strong {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+.legal-body :is(ol, ul) {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 1.5em;
+}
+.legal-body ol {
+  list-style: decimal;
+}
+.legal-body ul {
+  list-style: disc;
+}
+.legal-body li::marker {
+  color: var(--color-brand);
+  font-weight: 700;
+}
+.legal-body li :is(ol, ul) {
+  margin-top: 10px;
+}
+.legal-body hr {
+  margin: 56px 0;
+  border: 0;
+  border-top: 1px solid var(--color-line);
+}
+.legal-body a {
+  color: var(--color-brand);
+}

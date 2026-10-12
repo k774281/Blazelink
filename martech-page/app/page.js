@@ -7,6 +7,8 @@ import HomePage from "./HomePage";
  * shipping a fetch to every visitor. Everything the reader interacts with
  * lives in HomePage.
  */
+export const metadata = { alternates: { canonical: "/martech/" } };
+
 export default async function Home() {
   const [lectures, posts] = await Promise.all([
     // 課程, so the software licences WooCommerce also sells stay out of it.

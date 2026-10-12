@@ -2,6 +2,8 @@
 
 /* Tokens mirror the "web-dark" variable collection in Figma. */
 @theme {
+  /* Wide desktop: where the 1920 layouts' 160px gutters start to fit. */
+  --breakpoint-3xl: 105rem;
   --color-canvas: #0a0a0f;
   --color-surface: #14141b;
   --color-surface-2: #1c1c25;

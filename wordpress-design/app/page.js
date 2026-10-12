@@ -3,6 +3,8 @@ import SideNav from "./_components/SideNav";
 import SiteFooter from "./_components/SiteFooter";
 import { getColumn } from "./_lib/column";
 
+export const metadata = { alternates: { canonical: "/web-design/" } };
+
 export default async function HomePage() {
   const { posts, categories } = await getColumn();
 

@@ -1,5 +1,6 @@
 import { Space_Grotesk } from "next/font/google";
 import Script from "next/script";
+import { TagManagerBody, TagManagerHead } from "./_components/TagManager";
 import "./globals.css";
 import { asset } from "./_lib/base";
 
@@ -10,14 +11,24 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
+/*
+ * Site-wide SEO defaults, matching what Yoast SEO prints on the WordPress
+ * pages (zh_TW locale, site name, absolute URLs on blazelink.co). Each page
+ * sets its own title, description and canonical on top — never here, where
+ * every page would inherit one canonical.
+ */
 export const metadata = {
+  metadataBase: new URL("https://blazelink.co"),
   title: "Blazelink 鏈客行銷",
   description: "為 B2B 企業、知識服務、跨國品牌打造，自動化獲客的成長引擎。",
+  openGraph: { type: "website", locale: "zh_TW", siteName: "BlazeLink鏈客行銷" },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }) {
+  // zh-TW, as Polylang declares the Chinese pages of the WordPress site.
   return (
-    <html lang="zh-Hant" className={spaceGrotesk.variable}>
+    <html lang="zh-TW" className={spaceGrotesk.variable}>
       <head>
         {/*
           Browsers default to restoring the previous scroll position on reload,
@@ -42,7 +53,11 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href={asset("/fonts/noto-400/result.css")} />
         <link rel="stylesheet" href={asset("/fonts/noto-500/result.css")} />
       </head>
-      <body>{children}</body>
+      <body>
+        <TagManagerBody />
+        {children}
+        <TagManagerHead page={{ siteSection: "martech" }} />
+      </body>
     </html>
   );
 }

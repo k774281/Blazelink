@@ -24,10 +24,17 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) return {};
+  /*
+   * The same post is on WordPress at post.link, where Yoast SEO indexes it.
+   * Pointing the canonical there keeps search engines from splitting its
+   * ranking across two addresses; a post only kept here is its own canonical.
+   */
+  const canonical = post.link ?? `/web-design/column/${post.slug}/`;
   return {
     title: `${post.title}｜Blazelink 鏈客`,
     description: post.excerpt,
-    openGraph: { type: "article", title: post.title, description: post.excerpt, images: post.image ? [post.image] : [] },
+    alternates: { canonical },
+    openGraph: { type: "article", url: canonical, locale: "zh_TW", siteName: "BlazeLink鏈客行銷", title: post.title, description: post.excerpt, images: post.image ? [post.image] : [] },
   };
 }
 

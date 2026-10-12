@@ -5,6 +5,8 @@
  * does for the WordPress contact page. The site key is public by design.
  */
 
+import { trackCf7 } from "./tracking";
+
 export const RECAPTCHA_KEY = "6LdJFacoAAAAAKhX4fV6RSQtwWWsnCuveu47V1pH";
 
 const ENDPOINT = "https://blazelink.co/wp-json/contact-form-7/v1/contact-forms/644/feedback";
@@ -19,6 +21,9 @@ const FIELDS = {
   topic: "your-topic",
   message: "your-message",
 };
+
+// CF7 statuses to the outcomes GTM4WP reports.
+const CF7_OUTCOMES = { mail_sent: "sent", mail_failed: "failed", validation_failed: "invalid", spam: "spam" };
 
 function recaptchaToken() {
   return new Promise((resolve, reject) => {
@@ -35,9 +40,13 @@ export async function sendEnquiry(values) {
   body.set("_wpcf7_locale", "zh_TW");
   body.set("_wpcf7_unit_tag", `wpcf7-f${FORM_ID}-o1`);
   body.set("_wpcf7_recaptcha_response", await recaptchaToken());
-  for (const [ours, theirs] of Object.entries(FIELDS)) body.set(theirs, (values[ours] ?? "").trim());
+  const inputs = Object.fromEntries(Object.entries(FIELDS).map(([ours, theirs]) => [theirs, (values[ours] ?? "").trim()]));
+  for (const [name, value] of Object.entries(inputs)) body.set(name, value);
 
   const res = await fetch(ENDPOINT, { method: "POST", body });
   const result = await res.json().catch(() => null);
+  // The same dataLayer events GTM4WP pushes from the WordPress contact page.
+  trackCf7("submit", FORM_ID, inputs);
+  trackCf7(CF7_OUTCOMES[result?.status] ?? "failed", FORM_ID, inputs);
   if (!res.ok || result?.status !== "mail_sent") throw new Error(result?.status ?? `HTTP ${res.status}`);
 }

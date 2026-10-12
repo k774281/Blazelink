@@ -7,6 +7,7 @@ import { allInOne, cta, dualEngine, founder, header, howWeBuild, philosophy, res
 import { asset } from "../_lib/base";
 
 export const metadata = {
+  alternates: { canonical: "/web-design/about/" },
   title: "關於鏈客｜Blazelink 鏈客",
   description: "策略與科技，是我們的雙引擎。先設計、再開工，網站資產完全屬於你——認識鏈客與創辦人 Ben。",
 };

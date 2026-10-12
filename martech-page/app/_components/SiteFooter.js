@@ -190,6 +190,17 @@ export default function SiteFooter({ children, onThisPage }) {
               <p className="font-display text-[12px] font-light">
                 {footer.copyright}
               </p>
+              <nav aria-label="政策" className="flex gap-[24px]">
+                {footer.legal.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="font-display text-[12px] font-light transition-colors hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
               <p className="font-mono-brand text-[11px] font-medium tracking-[1.54px]">
                 {footer.wordmark}
               </p>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Script from "next/script";
 import { useId, useRef, useState } from "react";
 import { cf7, form, success } from "../_data/contact";
+import { trackCf7 } from "../_lib/tracking";
 
 /*
  * The contact form card (Figma 318:427) and its states (318:470): fields at
@@ -31,6 +32,9 @@ function validate(values) {
   return errors;
 }
 
+// CF7 statuses to the outcomes GTM4WP reports.
+const CF7_OUTCOMES = { mail_sent: "sent", mail_failed: "failed", validation_failed: "invalid", spam: "spam" };
+
 /** A reCAPTCHA v3 token for CF7, once Google's script has loaded. */
 function recaptchaToken() {
   return new Promise((resolve, reject) => {
@@ -50,10 +54,14 @@ async function deliver(values) {
   body.set("_wpcf7_locale", "zh_TW");
   body.set("_wpcf7_unit_tag", cf7.unitTag);
   body.set("_wpcf7_recaptcha_response", await recaptchaToken());
-  for (const [ours, theirs] of Object.entries(cf7.fields)) body.set(theirs, values[ours].trim());
+  const inputs = Object.fromEntries(Object.entries(cf7.fields).map(([ours, theirs]) => [theirs, values[ours].trim()]));
+  for (const [name, value] of Object.entries(inputs)) body.set(name, value);
 
   const res = await fetch(cf7.endpoint, { method: "POST", body });
   const result = await res.json().catch(() => null);
+  // The same dataLayer events GTM4WP pushes from the WordPress contact page.
+  trackCf7("submit", cf7.formId, inputs);
+  trackCf7(CF7_OUTCOMES[result?.status] ?? "failed", cf7.formId, inputs);
   if (!res.ok || result?.status !== "mail_sent") throw new Error(result?.status ?? `HTTP ${res.status}`);
 }
 
@@ -170,9 +178,9 @@ export default function ContactForm() {
 
         <p className="text-[13px] leading-[1.7] text-muted">
           {form.privacy.before}
-          <a href={form.privacy.href} className="text-lavender hover:underline">
+          <Link href={form.privacy.href} className="text-lavender hover:underline">
             {form.privacy.link}
-          </a>
+          </Link>
           {form.privacy.after}
         </p>
       </div>

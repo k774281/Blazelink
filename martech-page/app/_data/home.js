@@ -124,5 +124,9 @@ export const footer = {
     { label: "聯繫我們", href: "/contact" },
   ],
   copyright: "Copyright 2026 © 鏈客策略行銷股份有限公司",
+  legal: [
+    { label: "服務條款", href: "/terms" },
+    { label: "隱私權政策", href: "/privacy-policy" },
+  ],
   wordmark: "BLAZELINK.CO",
 };

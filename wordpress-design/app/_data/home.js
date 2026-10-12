@@ -135,17 +135,13 @@ export const footer = {
       links: [
         { label: "Flatsome", href: "/shop/flatsome" },
         { label: "Astra Pro", href: "/shop/astra-pro" },
-        // WordPress pages, outside this site, so absolute rather than under /web-design.
-        { label: "購物車", href: "https://blazelink.co/cart/" },
       ],
     },
     { head: "CONTACT", links: [{ label: "諮詢", href: "/contact" }] },
   ],
   copyright: "Copyright 2026 © 鏈客策略行銷股份有限公司",
   legal: [
-    { label: "服務條款", href: "https://blazelink.co/term-of-use/" },
-    { label: "隱私權政策", href: "https://blazelink.co/privacy-policy/" },
-    // Not in WordPress yet (PRD open question 11); the link works once the page exists.
-    { label: "退款政策", href: "https://blazelink.co/refund-policy/" },
+    { label: "服務條款", href: "/terms" },
+    { label: "隱私權政策", href: "/privacy-policy" },
   ],
 };

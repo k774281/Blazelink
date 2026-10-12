@@ -3,10 +3,11 @@ import Link from "next/link";
 import SideNav from "../_components/SideNav";
 import SiteFooter from "../_components/SiteFooter";
 import { Eyebrow, PageHeader } from "../_components/ui";
-import { cartHref, consult, header, intro, ntd, productHref, products, purchaseInfo } from "../_data/shop";
+import { buyHref, consult, header, intro, ntd, productHref, products, purchaseInfo } from "../_data/shop";
 import { asset } from "../_lib/base";
 
 export const metadata = {
+  alternates: { canonical: "/web-design/shop/" },
   title: "商城｜Blazelink 鏈客",
   description: "Flatsome、Astra Pro 等 WordPress 佈景主題正版授權，綠界信用卡付款、電子發票自動開立。",
 };
@@ -72,8 +73,8 @@ export default function ShopPage() {
                   </dl>
 
                   <div className="mt-auto flex gap-3">
-                    <a href={cartHref(p)} className="flex flex-1 justify-center rounded-full bg-lavender py-[18px] text-[17px] font-medium text-canvas transition-opacity hover:opacity-90">
-                      加入購物車
+                    <a href={buyHref(p)} className="flex flex-1 justify-center rounded-full bg-lavender py-[18px] text-[17px] font-medium text-canvas transition-opacity hover:opacity-90">
+                      立即購買
                     </a>
                     <Link href={productHref(p)} className="shrink-0 rounded-full border border-line px-8 py-[18px] text-[17px] font-medium text-ink transition-colors hover:border-muted">
                       查看詳情

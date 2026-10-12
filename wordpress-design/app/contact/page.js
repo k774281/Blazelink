@@ -7,6 +7,7 @@ import { header, intro } from "../_data/contact";
 import { asset } from "../_lib/base";
 
 export const metadata = {
+  alternates: { canonical: "/web-design/contact/" },
   title: "聯繫我們｜Blazelink 鏈客",
   description: "想做形象網站或改版現有網站？留下基本資料，我們會在兩個工作天內回覆，並從設計藍圖開始陪你規劃。",
 };
@@ -20,12 +21,17 @@ export default function ContactPage() {
           <Image src={asset("/home/bg-3.webp")} alt="" fill preload sizes="100vw" className="object-cover" />
         </PageHeader>
 
-        {/* Intro beside the form (Figma 318:391) */}
-        <section className="flex flex-col gap-16 px-6 pb-24 pt-10 lg:flex-row lg:items-start lg:gap-[120px] lg:px-[160px] lg:pb-[160px]">
-          <div className="flex flex-col gap-10 lg:w-[520px] lg:shrink-0">
+        {/*
+          Intro beside the form (Figma 318:391). The 1920 layout leaves the form
+          too little room below 1680px (3xl), so narrower screens get less padding
+          and a narrower intro, and below 1280px the intro sits above the form.
+          The right padding clears the fixed side nav.
+        */}
+        <section className="flex flex-col gap-16 px-6 pb-24 pt-10 lg:pb-[160px] lg:pl-16 lg:pr-[136px] xl:flex-row xl:items-start xl:gap-16 3xl:gap-[120px] 3xl:px-[160px]">
+          <div className="flex flex-col gap-10 xl:w-[400px] xl:shrink-0 3xl:w-[520px]">
             <div className="flex flex-col gap-6">
               <Eyebrow>{intro.eyebrow}</Eyebrow>
-              <p className="font-mono text-[32px] font-medium leading-[1.35] text-ink lg:text-[44px]">
+              <p className="font-mono text-[32px] font-medium leading-[1.35] text-ink lg:text-[44px] xl:text-[36px] 3xl:text-[44px]">
                 {intro.title.map((line) => (
                   <span key={line} className="block">
                     {line}
