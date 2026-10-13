@@ -6,6 +6,7 @@ import CtaLink from "./CtaLink";
 import Eyebrow from "./Eyebrow";
 import { contact } from "@/app/_data/home";
 
+import { ui } from "@/app/_data/ui";
 const DWELL = 2600; // how long each rotating word holds before it leaves
 const SLIDE = 0.2; // seconds for its in/out slide
 
@@ -44,7 +45,7 @@ export default function ContactPanel() {
     <div className="flex flex-col gap-[48px] bg-night px-6 py-16 md:px-10 lg:flex-row lg:items-center xl:px-[120px] xl:py-[72px]">
       <div className="flex flex-1 flex-col items-start">
         <div className="pb-[26px]">
-          <Eyebrow zh="預約諮詢" en="CONTACT" tone="light" />
+          <Eyebrow zh={ui.eyebrow.consult} en="CONTACT" tone="light" />
         </div>
 
         <div className="flex flex-col items-start gap-[6px]">

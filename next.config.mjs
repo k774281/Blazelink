@@ -1,33 +1,25 @@
 /*
- * The landing page answers / and fronts two other Next.js apps in this repo as
- * Multi-Zones: the marketing site (martech-page, basePath /martech) and the
- * web-design site (wordpress-design, basePath /web-design). Each zone carries
- * its own basePath, so its pages, /_next assets and /public files all live under
- * that prefix and never collide with the landing page's own.
+ * The landing page is exported as static files and uploaded to /landing/ on
+ * the WordPress host, where a Code Snippet answers / with /landing/index.html
+ * (docs/web-build/landing-cutover.md); its English and Japanese builds are in
+ * /landing/en/ and /landing/ja/ and answer /en/ and /ja/. So each page is
+ * served at /, /en/ or /ja/ but its scripts live under /landing[/en|/ja], and
+ * the public files once, under /landing.
  *
- * Set on this deployment, without a trailing slash:
- *   MARTECH_URL     e.g. https://martech-gamma.vercel.app
- *   WEB_DESIGN_URL  the web-design project's production URL
- * A zone whose URL is unset is simply not routed, rather than failing the build.
+ * The marketing site (/martech) and the web-design site (/web-design) are
+ * their own static exports beside it; links to them are plain paths.
  */
-
-const zones = [
-  { prefix: '/martech', origin: process.env.MARTECH_URL },
-  { prefix: '/web-design', origin: process.env.WEB_DESIGN_URL },
-]
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-
-  async rewrites() {
-    return zones
-      .filter((zone) => zone.origin)
-      .flatMap(({ prefix, origin }) => [
-        { source: prefix, destination: `${origin}${prefix}` },
-        { source: `${prefix}/:path+`, destination: `${origin}${prefix}/:path+` },
-      ])
-  },
+  output: 'export',
+  // Each language build keeps its scripts apart: /landing, /landing/en, /landing/ja.
+  assetPrefix:
+    process.env.NODE_ENV === 'production'
+      ? `/landing${['en', 'ja'].includes(process.env.NEXT_PUBLIC_LOCALE) ? `/${process.env.NEXT_PUBLIC_LOCALE}` : ''}`
+      : undefined,
+  images: { unoptimized: true },
 }
 
 export default nextConfig

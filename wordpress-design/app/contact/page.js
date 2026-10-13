@@ -1,3 +1,4 @@
+import { pageMeta } from "../_lib/seo";
 import Image from "next/image";
 import ContactForm from "../_components/ContactForm";
 import SideNav from "../_components/SideNav";
@@ -6,18 +7,14 @@ import { Eyebrow, PageHeader } from "../_components/ui";
 import { header, intro } from "../_data/contact";
 import { asset } from "../_lib/base";
 
-export const metadata = {
-  alternates: { canonical: "/web-design/contact/" },
-  title: "聯繫我們｜Blazelink 鏈客",
-  description: "想做形象網站或改版現有網站？留下基本資料，我們會在兩個工作天內回覆，並從設計藍圖開始陪你規劃。",
-};
+export const metadata = pageMeta("contact", "/contact/");
 
 export default function ContactPage() {
   return (
     <>
       <SideNav />
       <main>
-        <PageHeader crumb="聯繫我們" display={header.display} title={header.title} lead={header.lead} compact>
+        <PageHeader crumb={header.title} display={header.display} title={header.title} lead={header.lead} compact>
           <Image src={asset("/home/bg-3.webp")} alt="" fill preload sizes="100vw" className="object-cover" />
         </PageHeader>
 

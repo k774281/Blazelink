@@ -13,6 +13,7 @@ import { SelectField, TextField } from "../_components/FormField";
 import { intro, form, success } from "@/app/_data/contact";
 import { asset } from "../_lib/base";
 
+import { ui } from "@/app/_data/ui";
 /*
  * 聯繫我們. The page is its own closing panel, so the footer gets no panel above
  * it and no ON THIS PAGE column — there are no sections here to list.
@@ -125,18 +126,18 @@ function ContactForm() {
 
       <div className="flex w-full flex-col gap-[20px] sm:flex-row">
         <TextField
-          label="姓名"
+          label={ui.form.name}
           name="name"
-          placeholder="例：王小明"
+          placeholder={ui.form.namePlaceholder}
           required
           value={values.name}
           onChange={set("name")}
           error={errors.name}
         />
         <TextField
-          label="公司名稱"
+          label={ui.form.company}
           name="company"
-          placeholder="例：鏈客策略行銷"
+          placeholder={ui.form.companyPlaceholder}
           required
           value={values.company}
           onChange={set("company")}
@@ -146,7 +147,7 @@ function ContactForm() {
 
       <div className="flex w-full flex-col gap-[20px] sm:flex-row">
         <TextField
-          label="公司網址（選填）"
+          label={ui.form.website}
           name="website"
           type="url"
           placeholder="https://"
@@ -155,7 +156,7 @@ function ContactForm() {
           error={errors.website}
         />
         <TextField
-          label="電子郵件"
+          label={ui.form.email}
           name="email"
           type="email"
           placeholder="you@company.com"
@@ -167,10 +168,11 @@ function ContactForm() {
       </div>
 
       <SelectField
-        label="詢問主題"
+        label={ui.form.topic}
         name="topic"
-        placeholder="請選擇詢問主題"
+        placeholder={ui.form.topicPlaceholder}
         options={form.topics}
+        labels={form.topicLabels}
         required
         value={values.topic}
         onChange={set("topic")}
@@ -178,10 +180,10 @@ function ContactForm() {
       />
 
       <TextField
-        label="諮詢內容"
+        label={ui.form.message}
         name="message"
         rows={5}
-        placeholder="例如：想拓展歐美市場，但網站流量一直沒有轉成名單……"
+        placeholder={ui.form.messagePlaceholder}
         required
         value={values.message}
         onChange={set("message")}
@@ -229,7 +231,7 @@ export default function Contact() {
             }}
           >
             <div className="flex flex-col items-start lg:flex-1">
-              <Eyebrow zh="聯繫我們" en="CONTACT" />
+              <Eyebrow zh={ui.eyebrow.contact} en="CONTACT" />
 
               <h1 className="pt-[20px] text-[34px] leading-[1.3] font-bold tracking-[-1.44px] text-ink md:text-[48px] lg:w-[460px]">
                 {intro.title.map((line) => (
@@ -244,7 +246,7 @@ export default function Contact() {
               </p>
 
               <div className="mt-[40px] flex w-full flex-col items-start gap-[20px] border-t border-solid border-[#dfe1e8] pt-[32px]">
-                <Eyebrow zh="接下來會怎麼進行" en="NEXT STEPS" />
+                <Eyebrow zh={ui.eyebrow.nextSteps} en="NEXT STEPS" />
 
                 {intro.steps.map((step) => (
                   <div key={step.no} className="flex items-start gap-[16px]">

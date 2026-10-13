@@ -21,6 +21,7 @@ import {
   onThisPage,
 } from "@/app/_data/seo";
 
+import { ui } from "@/app/_data/ui";
 /*
  * 跨國SEO行銷. Everything here is specific to this page; the header, the reveal
  * footer, the CTA pair, the Eyebrow label, the image placeholder and the reveal
@@ -38,15 +39,15 @@ function Hero() {
     >
       <nav aria-label="Breadcrumb" className="text-[15px] text-black">
         <Link href="/" className="underline-grow [--underline-offset:-4px]">
-          首頁
+          {ui.home}
         </Link>
         <span className="px-[6px] text-faint">/</span>
-        <span aria-current="page">跨國SEO行銷</span>
+        <span aria-current="page">{ui.eyebrow.seo}</span>
       </nav>
 
       <div className="mx-auto max-w-[1200px] pt-[56px] xl:pt-[88px]">
         <div data-reveal-stagger className="flex flex-col items-start gap-[18px]">
-          <Eyebrow zh="跨國SEO行銷" en="GLOBAL SEO" />
+          <Eyebrow zh={ui.eyebrow.seo} en="GLOBAL SEO" />
           <h1 className="font-display max-w-[900px] text-[34px] leading-[1.32] font-bold text-ink md:text-[54px]">
             {hero.title.map((line) => (
               <span key={line} className="block">
@@ -217,7 +218,7 @@ function Value() {
     >
       <div className="mx-auto max-w-[1200px]">
         <div data-reveal-stagger className="flex flex-col items-start gap-[20px]">
-          <Eyebrow zh="三大獨特價值主張" en="WHY BLAZELINK" />
+          <Eyebrow zh={ui.eyebrow.why} en="WHY BLAZELINK" />
           <h2 className="font-display max-w-[640px] text-[28px] leading-[1.3] font-bold text-ink md:text-[40px]">
             {value.title.map((line) => (
               <span key={line} className="block">
@@ -290,7 +291,7 @@ function Foundation() {
           className="flex flex-col gap-[32px] lg:flex-row lg:gap-[96px]"
         >
           <div className="flex flex-col items-start gap-[20px] lg:shrink-0">
-            <Eyebrow zh="底層架構" en="TECHNICAL FOUNDATION" />
+            <Eyebrow zh={ui.eyebrow.foundation} en="TECHNICAL FOUNDATION" />
             <h2 className="font-display max-w-[480px] text-[26px] leading-[1.34] font-bold text-ink md:text-[36px]">
               {foundation.title}
             </h2>
@@ -380,7 +381,7 @@ function Funnel() {
     >
       <div className="mx-auto max-w-[1200px]">
         <div data-reveal-stagger className="flex flex-col items-start gap-[16px]">
-          <Eyebrow zh="我們如何打造高轉換獲客漏斗" en="THE FUNNEL" />
+          <Eyebrow zh={ui.eyebrow.funnel} en="THE FUNNEL" />
           <h2 className="font-display max-w-[800px] text-[28px] leading-[1.3] font-bold text-ink md:text-[40px]">
             {funnel.title}
           </h2>
@@ -490,7 +491,7 @@ function Fit() {
           className="flex flex-col gap-[32px] lg:flex-row lg:gap-[96px]"
         >
           <div className="flex flex-col items-start gap-[20px] lg:shrink-0">
-            <Eyebrow zh="誰適合跨國SEO內容行銷" en="IS THIS FOR YOU" />
+            <Eyebrow zh={ui.eyebrow.fit} en="IS THIS FOR YOU" />
             <h2 className="font-display max-w-[480px] text-[26px] leading-[1.34] font-bold text-ink md:text-[36px]">
               {fit.title}
             </h2>
@@ -529,7 +530,7 @@ function NextPanel() {
   return (
     <div className="flex flex-col gap-[40px] bg-night px-6 py-16 md:px-10 lg:flex-row lg:items-center lg:justify-between xl:px-[120px] xl:py-[88px]">
       <div className="flex flex-col items-start gap-[24px]">
-        <Eyebrow zh="下一步" en="NEXT" tone="light" />
+        <Eyebrow zh={ui.eyebrow.next} en="NEXT" tone="light" />
 
         <h2 className="font-display max-w-[800px] text-[34px] leading-[1.28] font-bold text-white md:text-[46px]">
           {nextStep.title.map((line) => (

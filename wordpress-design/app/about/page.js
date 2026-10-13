@@ -1,3 +1,4 @@
+import { pageMeta } from "../_lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import SideNav from "../_components/SideNav";
@@ -6,11 +7,8 @@ import { CtaBand, Eyebrow, PageHeader } from "../_components/ui";
 import { allInOne, cta, dualEngine, founder, header, howWeBuild, philosophy, results } from "../_data/about";
 import { asset } from "../_lib/base";
 
-export const metadata = {
-  alternates: { canonical: "/web-design/about/" },
-  title: "關於鏈客｜Blazelink 鏈客",
-  description: "策略與科技，是我們的雙引擎。先設計、再開工，網站資產完全屬於你——認識鏈客與創辦人 Ben。",
-};
+import { ui } from "../_data/ui";
+export const metadata = pageMeta("about", "/about/");
 
 const shell = "px-6 py-24 lg:px-[160px] lg:py-[140px]";
 const h2 = "font-mono text-[32px] font-medium leading-[1.35] text-ink lg:text-3xl";
@@ -20,7 +18,7 @@ export default function AboutPage() {
     <>
       <SideNav />
       <main>
-        <PageHeader crumb="關於鏈客" display={header.display} title={header.title} lead={header.lead}>
+        <PageHeader crumb={header.title} display={header.display} title={header.title} lead={header.lead}>
           <Image src={asset("/home/bg-1.webp")} alt="" fill preload sizes="100vw" className="object-cover" />
         </PageHeader>
 
@@ -158,7 +156,7 @@ export default function AboutPage() {
         {/* 06 Founder (Figma 303:473) */}
         <section className={`flex flex-col gap-12 lg:flex-row lg:gap-[120px] ${shell}`}>
           <div className="relative mx-auto aspect-[520/640] w-full max-w-[400px] overflow-hidden rounded-[4px] lg:mx-0 lg:w-[520px] lg:max-w-none lg:shrink-0">
-            <Image src={founder.portrait} alt="鏈客創辦人 Ben" fill sizes="(min-width: 1024px) 520px, 400px" className="object-cover object-[50%_25%]" />
+            <Image src={founder.portrait} alt={ui.founderAlt} fill sizes="(min-width: 1024px) 520px, 400px" className="object-cover object-[50%_25%]" />
           </div>
           <div className="flex min-w-0 flex-1 flex-col gap-5">
             <Eyebrow>{founder.eyebrow}</Eyebrow>

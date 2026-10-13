@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { gsap, CustomEase } from '../lib/gsap.js'
 import MenuToggleIcon from './MenuToggleIcon.jsx'
+import { asset } from '../lib/asset.js'
+import { t } from '../lib/locale.js'
 
 // The reference implementation installed this ease through gsap.defaults(),
 // which sets it globally — that would have retimed every other animation on
@@ -111,7 +113,7 @@ export default function KineticNavMenu({ links }) {
       <button
         type="button"
         className="kn-toggle"
-        aria-label={open ? '關閉選單' : '開啟選單'}
+        aria-label={open ? t.closeMenu : t.openMenu}
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
       >
@@ -124,7 +126,7 @@ export default function KineticNavMenu({ links }) {
       {createPortal(
         <div ref={overlayRef} className="kn-overlay-wrapper">
           <div className="kn-scrim" onClick={() => setOpen(false)} />
-          <nav className="kn-panel" aria-label="行動版主選單">
+          <nav className="kn-panel" aria-label={t.mobileMenu}>
             <div className="kn-panel-bg">
               <div className="kn-backdrop-layer kn-backdrop-layer--first" />
               <div className="kn-backdrop-layer kn-backdrop-layer--second" />
@@ -198,14 +200,14 @@ export default function KineticNavMenu({ links }) {
             <button
               type="button"
               className="kn-toggle kn-toggle--close"
-              aria-label="關閉選單"
+              aria-label={t.closeMenu}
               onClick={() => setOpen(false)}
             >
               <MenuToggleIcon open className="size-8" />
             </button>
 
             <div className="kn-panel-content">
-              <img src="/blazelink-logo-light.png" alt="Blazelink 鏈客" className="mb-8 w-[160px]" />
+              <img src={asset('/blazelink-logo-light.png')} alt={t.logoAlt} className="mb-8 w-[160px]" />
               <ul className="kn-list">
                 {links.map(({ label, href }, index) => {
                   const shapeIndex = (index % SHAPE_COUNT) + 1

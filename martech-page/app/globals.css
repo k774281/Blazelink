@@ -208,3 +208,74 @@ section[id] {
 .legal-body a {
   color: var(--color-brand);
 }
+
+/*
+ * Column posts and lecture descriptions (PostView, LectureView): WordPress
+ * markup on top of .legal-body's text styles.
+ */
+.post-body img,
+.post-body video,
+.post-body iframe {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+.post-body iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+.post-body figure {
+  margin: 32px 0;
+}
+.post-body figcaption {
+  margin-top: 10px;
+  color: var(--color-faint);
+  font-size: 13px;
+  text-align: center;
+}
+.post-body h4 {
+  margin-top: 28px;
+  color: var(--color-ink);
+  font-size: 16px;
+  font-weight: 700;
+}
+.post-body blockquote {
+  margin: 32px 0;
+  padding: 4px 0 4px 24px;
+  border-left: 3px solid var(--color-brand);
+  color: var(--color-ink);
+}
+.post-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.post-body :is(th, td) {
+  padding: 12px 14px;
+  border: 1px solid var(--color-line);
+  text-align: left;
+  vertical-align: top;
+}
+.post-body th {
+  background: var(--color-panel);
+  color: var(--color-ink);
+}
+.post-body a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.post-body mark {
+  background: var(--color-brand-pale);
+  color: var(--color-ink);
+}
+.post-body :is(.wp-block-buttons, .wp-block-button) {
+  margin: 24px 0;
+}
+.post-body .wp-block-button__link {
+  display: inline-flex;
+  padding: 12px 28px;
+  border-radius: 999px;
+  background: var(--color-brand);
+  color: #fff;
+  text-decoration: none;
+}

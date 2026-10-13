@@ -2,6 +2,8 @@ import { useRef } from 'react'
 import { motion, useInView } from 'motion/react'
 import TextGenerateEffect from './TextGenerateEffect.jsx'
 import CtaButton from './CtaButton.jsx'
+import { asset } from '../lib/asset.js'
+import { t, sitePath } from '../lib/locale.js'
 
 export default function ShuffleHero() {
   // Drives both the h1/p text-generate reveal and the feature icons' pop-in.
@@ -17,8 +19,8 @@ export default function ShuffleHero() {
             <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
             MARTECH
           </span>
-        <TextGenerateEffect as="h1" trigger={isInView} className="font-heading text-5xl font-bold text-ink md:text-4xl max-lg:text-center max-sm:text-[24px]">
-          我們深入理解您的需求，打造真正見效的行銷成長策略
+        <TextGenerateEffect as="h2" trigger={isInView} className="font-heading text-5xl font-bold text-ink md:text-4xl max-lg:text-center max-sm:text-[24px]">
+          {t.about.headline}
         </TextGenerateEffect>
         <TextGenerateEffect
           as="p"
@@ -26,48 +28,48 @@ export default function ShuffleHero() {
           className="mb-8 mt-4 font-body text-xl text-muted md:text-2xl max-lg:text-center max-sm:text-[16px]"
           staggerDuration={0.03}
         >
-          自動化獲客的成長引擎，讓品牌擁有可持續的正向循環。
+          {t.about.lead}
         </TextGenerateEffect>
         <div className="max-lg:flex max-lg:flex-col max-lg:items-center">
           <div className="features flex flex-col gap-3 max-lg:items-center">
             <div className="item flex items-center gap-3">
               <motion.img
-                src="/social-marketing_17675704.webp"
+                src={asset('/social-marketing_17675704.webp')}
                 alt=""
                 className="h-[100px] w-[100px] object-contain max-lg:h-[70px] max-lg:w-[70px]"
                 initial={{ scale: 0 }}
                 animate={isInView ? { scale: 1 } : { scale: 0 }}
                 transition={{ type: 'spring', stiffness: 260, damping: 12, delay: 0 }}
               />
-              <p className="text-xl">精準行銷策略</p>
+              <p className="text-xl">{t.about.cards[0]}</p>
             </div>
             <div className="item flex items-center gap-3">
               <motion.img
-                src="/movement.webp"
+                src={asset('/movement.webp')}
                 alt=""
                 className="h-[100px] w-[100px] object-contain max-lg:h-[70px] max-lg:w-[70px]"
                 initial={{ scale: 0 }}
                 animate={isInView ? { scale: 1 } : { scale: 0 }}
                 transition={{ type: 'spring', stiffness: 260, damping: 12, delay: 0.15 }}
               />
-              <p className="text-xl">SEO跨國內容行銷</p>
+              <p className="text-xl">{t.about.cards[1]}</p>
             </div>
             <div className="item flex items-center gap-3">
               <motion.img
-                src="/filter_19016344.webp"
+                src={asset('/filter_19016344.webp')}
                 alt=""
                 className="h-[100px] w-[100px] object-contain max-lg:h-[70px] max-lg:w-[70px]"
                 initial={{ scale: 0 }}
                 animate={isInView ? { scale: 1 } : { scale: 0 }}
                 transition={{ type: 'spring', stiffness: 260, damping: 12, delay: 0.3 }}
               />
-              <p className="text-xl">自動化銷售漏斗</p>
+              <p className="text-xl">{t.about.cards[2]}</p>
             </div>
           </div>
 
           <CtaButton
-            label="內容行銷"
-            href="/martech"
+            label={t.about.cta}
+            href={sitePath('martech')}
             variant="brand"
             iconWrapClassName="bg-ink/15"
             iconColor="#281d38"
@@ -82,7 +84,7 @@ export default function ShuffleHero() {
         transition={{ duration: 1, delay: 1.7, ease: 'easeOut' }}
       >
         <img
-          src="/shuffle-1.png"
+          src={asset('/shuffle-1.png')}
           alt=""
           className="h-[450px] w-full rounded-[50px] object-cover shadow-xl max-sm:h-[300px]"
         />

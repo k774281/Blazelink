@@ -8,12 +8,23 @@
  * below push the same event names GTM4WP does, so a trigger set up once in GTM
  * fires on both.
  *
- * New tools — Hotjar, Meta Pixel and the like — go in as tags in that GTM
- * container rather than into this code: they then reach these pages and the
- * WordPress pages alike, and can listen to the events pushed here.
+ * New tools — Hotjar and the like — go in as tags in that GTM container
+ * rather than into this code: they then reach these pages and the WordPress
+ * pages alike, and can listen to the events pushed here.
+ *
+ * Meta Pixel is the exception: it is loaded here (MetaPixel.js) with the
+ * code Meta gave for these pages, and a sent enquiry is reported to it as a
+ * Lead.
  */
 
 export const GTM_ID = "GTM-598HPVWD";
+export const PIXEL_ID = "1097994839542212";
+
+/** A standard Meta Pixel event, once the pixel has loaded. */
+export function trackPixel(event, params) {
+  if (typeof window === "undefined" || !window.fbq) return;
+  window.fbq("track", event, params);
+}
 
 export function pushDataLayer(entry) {
   if (typeof window === "undefined") return;
@@ -40,4 +51,5 @@ export function trackCf7(outcome, formId, inputs = {}) {
     formid: formId,
     inputs: Object.entries(inputs).map(([name, value]) => ({ name, value })),
   });
+  if (outcome === "sent") trackPixel("Lead");
 }

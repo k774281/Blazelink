@@ -100,6 +100,9 @@ export function SelectField({
   name,
   placeholder,
   options,
+  // What each option shows, when it differs from the value sent (CF7 takes
+  // only its own Chinese option values; other languages label them).
+  labels = {},
   required = false,
   value,
   onChange,
@@ -192,7 +195,7 @@ export function SelectField({
         }`}
       >
         <span className={value ? "text-ink" : "text-faint"}>
-          {value ?? placeholder}
+          {value ? (labels[value] ?? value) : placeholder}
         </span>
         <img
           src={asset("/figma/icon-chevron-down.svg")}
@@ -227,7 +230,7 @@ export function SelectField({
                         : "text-ink"
                   }`}
                 >
-                  {option}
+                  {labels[option] ?? option}
                 </button>
               </li>
             );

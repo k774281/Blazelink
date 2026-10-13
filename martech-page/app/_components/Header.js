@@ -5,9 +5,11 @@ import { gsap } from "gsap";
 import Image from "next/image";
 import Link from "next/link";
 import CtaPill from "./CtaPill";
+import LanguageSwitch from "./LanguageSwitch";
 import { nav } from "@/app/_data/home";
 import { asset } from "../_lib/base";
 
+import { ui } from "@/app/_data/ui";
 const WIPE = 0.28; // seconds each half of the MENU/CLOSE wipe takes
 
 export default function Header() {
@@ -113,7 +115,7 @@ export default function Header() {
             >
               <Image
                 src={asset("/figma/logo-lockup.webp")}
-                alt="Blazelink 鏈客策略行銷"
+                alt={ui.logoAlt}
                 fill
                 sizes="120px"
                 className="object-contain"
@@ -133,11 +135,12 @@ export default function Header() {
               ))}
             </nav>
 
-            {/* md and up: the CTA stays in the bar */}
-            <div className="hidden md:block">
+            {/* md and up: the CTA and the languages stay in the bar */}
+            <div className="hidden items-center gap-[24px] md:flex">
               <CtaPill href="/contact" compact>
-                聯繫我們
+                {ui.contactNav}
               </CtaPill>
+              <LanguageSwitch />
             </div>
 
             {/* below md: the MENU toggle */}
@@ -191,8 +194,9 @@ export default function Header() {
         {/* Sits straight under the last nav item, with a rule between them. */}
         <div className="mt-[32px] border-t border-solid border-line pt-[32px]">
           <CtaPill href="/contact" compact>
-            聯繫我們
+            {ui.contactNav}
           </CtaPill>
+          <LanguageSwitch className="mt-[28px]" />
         </div>
       </div>
     </>

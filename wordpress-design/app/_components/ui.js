@@ -10,6 +10,7 @@ import { FALLBACK_IMAGE, postHref } from "../_data/column";
 import { column } from "../_data/home";
 import { asset } from "../_lib/base";
 
+import { ui } from "../_data/ui";
 /** Section label set in tracked Montserrat, e.g. "01 — WORKS". */
 export function Eyebrow({ children, className = "" }) {
   return <p className={`font-display text-sm font-semibold tracking-[0.2em] text-teal ${className}`}>{children}</p>;
@@ -119,7 +120,7 @@ export function MotionButton({ href, label, className = "" }) {
  * categories (app/_lib/column.js), read on the server.
  */
 export function ColumnSection({ data = column, posts = [], categories = [] }) {
-  const counts = [{ label: "全部", count: posts.length }, ...categories.map((c) => ({ label: c, count: posts.filter((p) => p.category === c).length }))];
+  const counts = [{ label: ui.column.all, count: posts.length }, ...categories.map((c) => ({ label: c, count: posts.filter((p) => p.category === c).length }))];
 
   return (
     <section className="flex flex-col gap-16 px-6 py-24 lg:py-[160px] lg:pl-8 lg:pr-[264px]">
@@ -131,7 +132,7 @@ export function ColumnSection({ data = column, posts = [], categories = [] }) {
 
       <div className="flex flex-col gap-16 lg:flex-row lg:gap-20">
         <aside className="flex w-full flex-col gap-10 lg:w-[340px] lg:shrink-0">
-          <nav aria-label="專欄分類" className="flex flex-col gap-1">
+          <nav aria-label={ui.column.categories} className="flex flex-col gap-1">
             <p className="font-display text-xs font-semibold tracking-[0.2em] text-muted">CATEGORY</p>
             {counts.map((cat, i) => (
               <Link
@@ -192,12 +193,12 @@ export function PageHeader({ crumb, display, title, lead, compact = false, child
       <div aria-hidden className={`absolute inset-x-0 hidden h-40 bg-gradient-to-b from-canvas/0 to-canvas lg:block ${compact ? "top-[360px]" : "top-[480px]"}`} />
 
       <Link href="/" className="absolute left-6 top-5 z-10 block lg:left-16 lg:top-[52px]">
-        <Image src={asset("/home/logo.png")} alt="BLAZELINK 鏈客" width={188} height={63} preload className="h-auto w-[140px] lg:w-[188px]" />
+        <Image src={asset("/home/logo.png")} alt={ui.logoAlt} width={188} height={63} preload className="h-auto w-[140px] lg:w-[188px]" />
       </Link>
 
-      <nav aria-label="麵包屑" className="relative whitespace-pre font-mono text-sm text-muted lg:absolute lg:left-[160px] lg:top-[190px]">
+      <nav aria-label={ui.breadcrumb} className="relative whitespace-pre font-mono text-sm text-muted lg:absolute lg:left-[160px] lg:top-[190px]">
         <Link href="/" className="hover:text-ink">
-          首頁
+          {ui.home}
         </Link>
         {"  /  "}
         <span aria-current="page">{crumb}</span>

@@ -1,5 +1,8 @@
 import { DM_Mono, Montserrat, Noto_Sans_TC } from "next/font/google";
 import { TagManagerBody, TagManagerHead } from "./_components/TagManager";
+import MetaPixel from "./_components/MetaPixel";
+import { LOCALE, LOCALES } from "./_lib/locale";
+import { ui } from "./_data/ui";
 import "./globals.css";
 
 /*
@@ -36,20 +39,21 @@ const dmMono = DM_Mono({
  */
 export const metadata = {
   metadataBase: new URL("https://blazelink.co"),
-  title: "形象網站設計與 WordPress 架站｜Blazelink 鏈客",
-  description: "從設計藍圖到上線，為品牌打造兼具美感與功能的形象網站。先看設計、再開工，網站資產完全屬於你。",
-  openGraph: { type: "website", locale: "zh_TW", siteName: "BlazeLink鏈客行銷" },
+  title: ui.meta.home.title,
+  description: ui.meta.home.description,
+  openGraph: { type: "website", locale: LOCALES[LOCALE].og, siteName: "BlazeLink鏈客行銷" },
   twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }) {
-  // zh-TW, as Polylang declares the Chinese pages of the WordPress site.
+  // zh-TW, en or ja, as Polylang declares the WordPress site's languages.
   return (
-    <html lang="zh-TW" className={`${noto.variable} ${montserrat.variable} ${dmMono.variable}`}>
+    <html lang={LOCALES[LOCALE].html} className={`${noto.variable} ${montserrat.variable} ${dmMono.variable}`}>
       <body>
         <TagManagerBody />
         {children}
-        <TagManagerHead page={{ siteSection: "web-design" }} />
+        <TagManagerHead page={{ siteSection: "web-design", language: LOCALE }} />
+        <MetaPixel />
       </body>
     </html>
   );

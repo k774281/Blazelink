@@ -1,8 +1,7 @@
-import dynamic from 'next/dynamic'
+import App from '../src/App.jsx'
 
-// Client-only, matching the old Vite SPA entry: the landing page is driven by GSAP/scroll effects that run in the browser.
-const App = dynamic(() => import('../src/App.jsx'), { ssr: false })
-
+// Server-rendered so the exported HTML carries the page's text and links for
+// search engines; the GSAP/scroll effects still start in the browser.
 export default function Home() {
   return (
     <div id="root">

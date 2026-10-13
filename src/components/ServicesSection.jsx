@@ -4,26 +4,28 @@ import { useScrollReveal } from '../hooks/useScrollReveal.js'
 import { FeatureSteps } from './FeatureSteps.jsx'
 import TextGenerateEffect from './TextGenerateEffect.jsx'
 import CtaButton from './CtaButton.jsx'
+import { asset } from '../lib/asset.js'
+import { t, sitePath } from '../lib/locale.js'
 
 
 const FEATURES = [
   {
     feature: 'feature 1',
-    title: '網站架設',
-    content: '量身打造的網站架構，精準對接品牌定位與轉換目標。',
-    image: 'services-1.webp',
+    title: t.services.items[0].title,
+    content: t.services.items[0].content,
+    image: asset('/services-1.webp'),
   },
   {
     feature: 'feature 2',
-    title: 'AI導入',
-    content: '客製化導入 AI 工具與流程，強化團隊效率與洞察力。',
-    image: 'services-2.webp',
+    title: t.services.items[1].title,
+    content: t.services.items[1].content,
+    image: asset('/services-2.webp'),
   },
   {
     feature: 'feature 3',
-    title: 'API串接',
-    content: '串接內外部系統與平台，讓數據與服務無縫串連。',
-    image: 'services-3.webp',
+    title: t.services.items[2].title,
+    content: t.services.items[2].content,
+    image: asset('/services-3.webp'),
   },
 ]
 
@@ -41,7 +43,7 @@ export default function ServicesSection() {
       <div className="relative z-10 mx-auto max-w-[1440px] flex flex-col items-center">
         <div data-anim="reveal" className="flex w-full flex-wrap items-start justify-between gap-10 mb-20">
           <p className="max-w-[280px] pt-2 font-body text-sm text-white/70 md:text-base">
-            我們結合策略、速度與專業技術，為您打造真正見效的網站服務。
+            {t.services.eyebrow}
           </p>
           <div ref={headingRef} className="flex flex-col items-start gap-6">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium uppercase tracking-wide text-white">
@@ -53,7 +55,7 @@ export default function ServicesSection() {
               trigger={headingInView}
               className="font-heading font-bold uppercase text-white text-3xl md:text-4xl lg:text-[48px] leading-[0.96] tracking-[-2px] lg:tracking-[-3.84px] max-sm:text-[24px]"
             >
-              您的形象，可以從這裡開始
+              {t.services.title}
             </TextGenerateEffect>
             <TextGenerateEffect
               as="p"
@@ -61,7 +63,7 @@ export default function ServicesSection() {
               staggerDuration={0.02}
               className="max-w-[560px] font-body text-lg md:text-xl max-sm:text-[16px] text-white/70"
             >
-              從網站架設到AI導入與API串接，我們陪伴品牌一步步建立值得信賴的數位形象，讓每個環節都真正發揮作用。
+              {t.services.lead}
             </TextGenerateEffect>
 
           </div>
@@ -70,8 +72,8 @@ export default function ServicesSection() {
           <FeatureSteps features={FEATURES} autoPlayInterval={4000} imageHeight="h-[500px]" />
         </div>
         <CtaButton
-          label="網站架設"
-          href="/web-design"
+          label={t.services.cta}
+          href={sitePath('web-design')}
           variant="outline"
           buttonClassName="bg-[#190964]"
           iconWrapClassName="bg-white/15"

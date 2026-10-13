@@ -1,8 +1,9 @@
 import { Html, Head, Main, NextScript } from 'next/document'
+import { LOCALE, LOCALES } from '../src/lib/locale.js'
 
 export default function Document() {
   return (
-    <Html lang="zh-Hant">
+    <Html lang={LOCALES[LOCALE].html}>
       <Head>
         {/* LXGWFasmartGothic only ships weight 400 on emtech; 500/600/700 are browser-synthesized (faux bold) */}
         <link href="https://font.emtech.cc/css/LXGWFasmartGothic/400" rel="stylesheet" />
@@ -19,6 +20,23 @@ export default function Document() {
         />
       </Head>
       <body>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-598HPVWD"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            alt=""
+            src="https://www.facebook.com/tr?id=1097994839542212&ev=PageView&noscript=1"
+          />
+        </noscript>
         <Main />
         <NextScript />
       </body>

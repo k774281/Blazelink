@@ -22,6 +22,7 @@ import {
 } from "@/app/_data/about";
 import { asset } from "../_lib/base";
 
+import { ui } from "@/app/_data/ui";
 /*
  * 關於鏈客. Everything here is specific to this page; the header, the reveal
  * footer, the CTA pair, the Eyebrow label and the reveal hook come from
@@ -39,10 +40,10 @@ function Philosophy() {
     >
       <nav aria-label="Breadcrumb" className="relative text-[15px] text-black">
         <Link href="/" className="underline-grow [--underline-offset:-4px]">
-          首頁
+          {ui.home}
         </Link>
         <span className="px-[6px] text-faint">/</span>
-        <span aria-current="page">關於鏈客</span>
+        <span aria-current="page">{ui.eyebrow.about}</span>
       </nav>
 
       {/* Oversized watermark sitting behind the content */}
@@ -55,7 +56,7 @@ function Philosophy() {
 
       <div className="relative mx-auto max-w-[1200px] pt-[56px] xl:pt-[86px]">
         <div data-reveal-stagger className="flex flex-col items-start gap-[24px]">
-          <Eyebrow zh="關於鏈客" en="ABOUT" />
+          <Eyebrow zh={ui.eyebrow.about} en="ABOUT" />
           <p className="font-display max-w-[780px] text-[18px] leading-[1.85] font-light text-body md:text-[20px]">
             {philosophy.lead}
           </p>
@@ -110,7 +111,7 @@ function DualEngine() {
           className="flex flex-col items-start lg:w-[687px]"
         >
           <div className="pb-[22px]">
-            <Eyebrow zh="競爭中精準制勝" en="DUAL ENGINE" />
+            <Eyebrow zh={ui.eyebrow.dualEngine} en="DUAL ENGINE" />
           </div>
 
           <h2 className="font-display text-[32px] leading-[1.26] font-bold tracking-[-1.32px] text-ink md:text-[44px]">
@@ -333,7 +334,7 @@ function Results() {
     >
       <div className="mx-auto max-w-[1200px]">
         <div className="pb-[36px]">
-          <Eyebrow zh="成效" en="RESULTS" />
+          <Eyebrow zh={ui.eyebrow.results} en="RESULTS" />
         </div>
 
         <div className="border-y border-solid border-line-mid py-[48px]">
@@ -418,7 +419,7 @@ function Founder() {
             className="flex flex-col items-start gap-[18px]"
           >
             <div className="pb-[8px]">
-              <Eyebrow zh="創辦人" en="FOUNDER" />
+              <Eyebrow zh={ui.eyebrow.founder} en="FOUNDER" />
             </div>
             <p className="font-mono-brand text-[52px] leading-none font-bold tracking-[-2.04px] text-ink md:text-[68px]">
               {founder.name}
@@ -471,7 +472,7 @@ function NextPanel() {
     <div className="flex flex-col gap-[40px] bg-night px-6 py-16 md:px-10 lg:flex-row lg:items-center lg:justify-between xl:px-[120px] xl:py-[88px]">
       <div className="flex flex-col items-start">
         <div className="pb-[24px]">
-          <Eyebrow zh="下一步" en="NEXT" tone="light" />
+          <Eyebrow zh={ui.eyebrow.next} en="NEXT" tone="light" />
         </div>
 
         <h2 className="font-display text-[34px] leading-[1.28] font-bold tracking-[-1.38px] text-white md:text-[46px]">

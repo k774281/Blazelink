@@ -2,29 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { MessageSquareTextIcon } from '@animateicons/react/lucide'
 import { gsap } from '../lib/gsap.js'
 import { useScrollReveal } from '../hooks/useScrollReveal.js'
+import { asset } from '../lib/asset.js'
+import { t } from '../lib/locale.js'
 
-const TESTIMONIALS = [
-  {
-    date: '2026年2月6日',
-    title: '破除翻譯迷思：台灣品牌打入歐美市場的「跨國 SEO」落地實戰指南',
-    image: '/oversea-seo-guide-cover-1400x788.jpg',
-  },
-  {
-    date: '2026年2月1日',
-    title: '2026 年，台灣品牌進攻歐美市場，做 SEO 還有效嗎？',
-    image: '/2026-is-seo-still-worth-it-cover-1400x788.jpg',
-  },
-  {
-    date: '2025年12月19日',
-    title: '為什麼「網站翻譯」根本不是「國際SEO」？跨境擴張的四大隱形大坑',
-    image: '/translate-seo-1400x788.jpg',
-  },
-  {
-    date: '2025年11月22日',
-    title: '你的 SEO 只是「排名看爽的」嗎？為什麼「名單型SEO」與 Landing Page 才是企業獲利的唯一解',
-    image: '/seo-leads-cover-1400x788.jpg',
-  },
-]
+// This language's latest articles; a / path is a file in public/.
+const TESTIMONIALS = t.news.items.map((item) => ({
+  ...item,
+  image: item.image.startsWith('/') ? asset(item.image) : item.image,
+}))
 
 const N = TESTIMONIALS.length
 
@@ -97,14 +82,14 @@ export default function TestimonialsSection() {
       className="bg-[#10141b] relative px-6 py-24 min-h-[700px] flex flex-col items-center justify-center overflow-hidden"
     >
       <span data-anim="hand" className="font-hand text-brand text-3xl uppercase absolute top-6 left-1/2 -translate-x-1/2 whitespace-nowrap">
-        最新消息
+        {t.news.hand}
       </span>
 
       <button
         data-anim="reveal"
         onClick={goPrev}
         className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-ink p-3 hover:opacity-90 transition"
-        aria-label="上一則"
+        aria-label={t.news.prev}
       >
         <svg className="size-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <polyline points="15 18 9 12 15 6" />
@@ -114,7 +99,7 @@ export default function TestimonialsSection() {
         data-anim="reveal"
         onClick={goNext}
         className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-ink p-3 hover:opacity-90 transition"
-        aria-label="下一則"
+        aria-label={t.news.next}
       >
         <svg className="size-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <polyline points="9 18 15 12 9 6" />

@@ -8,7 +8,10 @@ import { CtaBand, Eyebrow, MotionButton } from "../../_components/ui";
 import { articleConsult, articleCta, FALLBACK_IMAGE, postHref } from "../../_data/column";
 import { asset } from "../../_lib/base";
 import { getColumn, getPost, relatedPosts } from "../../_lib/column";
+import { pageSlug, toWpSlug } from "../../_lib/wp";
 
+import { ui } from "../../_data/ui";
+import { LOCALE, LOCALES } from "../../_lib/locale";
 /*
  * Every post is written out at build time; the site is static, so a post
  * published in WordPress since appears with the next build and upload.
@@ -17,24 +20,28 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const { posts } = await getColumn();
-  return posts.map((p) => ({ slug: p.slug }));
+  return posts.map((p) => ({ slug: pageSlug(p.slug) }));
 }
 
 export async function generateMetadata({ params }) {
-  const { slug } = await params;
+  const slug = toWpSlug((await params).slug);
   const post = await getPost(slug);
   if (!post) return {};
   /*
-   * The same post is on WordPress at post.link, where Yoast SEO indexes it.
-   * Pointing the canonical there keeps search engines from splitting its
-   * ranking across two addresses; a post only kept here is its own canonical.
+   * Both new sites show every post, and the WordPress address now redirects
+   * here (docs/web-build/wp-snippets/old-urls.php). One page is the canonical:
+   * 網站架設專欄 posts are this site's, the rest the marketing site's.
    */
-  const canonical = post.link ?? `/web-design/column/${post.slug}/`;
+  // The English and Japanese posts have their canonical on the marketing site.
+  const canonical =
+    LOCALE === "zh" && (!post.categorySlug || post.categorySlug === "web-design")
+      ? `/web-design/column/${post.slug}/`
+      : `https://blazelink.co/martech${LOCALES[LOCALE].path}/column/${post.slug}/`;
   return {
-    title: `${post.title}｜Blazelink 鏈客`,
+    title: `${post.title}｜${ui.siteName}`,
     description: post.excerpt,
     alternates: { canonical },
-    openGraph: { type: "article", url: canonical, locale: "zh_TW", siteName: "BlazeLink鏈客行銷", title: post.title, description: post.excerpt, images: post.image ? [post.image] : [] },
+    openGraph: { type: "article", url: canonical, locale: LOCALES[LOCALE].og, siteName: "BlazeLink鏈客行銷", title: post.title, description: post.excerpt, images: post.image ? [post.image] : [] },
   };
 }
 
@@ -56,7 +63,7 @@ function withHeadingIds(html) {
 }
 
 export default async function ArticlePage({ params }) {
-  const { slug } = await params;
+  const slug = toWpSlug((await params).slug);
   const post = await getPost(slug);
   if (!post) notFound();
 
@@ -73,17 +80,17 @@ export default async function ArticlePage({ params }) {
           <Image src={asset("/column/article-bg.png")} alt="" fill preload sizes="100vw" className="object-cover" />
 
           <Link href="/" className="absolute left-6 top-5 z-10 block lg:left-16 lg:top-[52px]">
-            <Image src={asset("/home/logo.png")} alt="BLAZELINK 鏈客" width={188} height={63} preload className="h-auto w-[140px] lg:w-[188px]" />
+            <Image src={asset("/home/logo.png")} alt={ui.logoAlt} width={188} height={63} preload className="h-auto w-[140px] lg:w-[188px]" />
           </Link>
 
           <div className="relative flex max-w-[1240px] flex-col gap-7">
-            <nav aria-label="麵包屑" className="whitespace-pre font-mono text-[13px] text-muted">
+            <nav aria-label={ui.breadcrumb} className="whitespace-pre font-mono text-[13px] text-muted">
               <Link href="/" className="hover:text-ink">
-                首頁
+                {ui.home}
               </Link>
               {"  /  "}
               <Link href="/column" className="hover:text-ink">
-                專欄
+                {ui.column.crumb}
               </Link>
               {"  /  "}
               <span aria-current="page">{post.category}</span>
@@ -92,7 +99,7 @@ export default async function ArticlePage({ params }) {
               <span className="rounded-[4px] bg-white/10 px-3 py-[5px] text-teal">{post.category}</span>
               <p className="whitespace-pre text-muted">
                 <time dateTime={post.date.replace(/\./g, "-")}>{post.date}</time>
-                {post.readMinutes && `  ・  閱讀時間約 ${post.readMinutes} 分鐘`}
+                {post.readMinutes && `  ・  ${ui.column.readTime(post.readMinutes)}`}
               </p>
             </div>
             <h1 className="font-mono text-[32px] font-medium leading-[1.4] text-ink lg:text-[56px]">{post.title}</h1>
@@ -152,9 +159,9 @@ export default async function ArticlePage({ params }) {
           <div className="flex items-end justify-between gap-6">
             <div className="flex flex-col gap-4">
               <Eyebrow>RELATED</Eyebrow>
-              <h2 className="font-mono text-[32px] font-medium leading-[1.3] text-ink lg:text-3xl">相關文章</h2>
+              <h2 className="font-mono text-[32px] font-medium leading-[1.3] text-ink lg:text-3xl">{ui.column.related}</h2>
             </div>
-            <Link href="/column" className="whitespace-pre text-base font-medium text-lavender">{`看全部文章  →`}</Link>
+            <Link href="/column" className="whitespace-pre text-base font-medium text-lavender">{`${ui.column.seeAll}  →`}</Link>
           </div>
           <ul className="grid gap-10 md:grid-cols-3 md:gap-6">
             {related.map((p) => (

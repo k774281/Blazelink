@@ -2,6 +2,7 @@ import Header from "./Header";
 import SiteFooter from "./SiteFooter";
 import Eyebrow from "./Eyebrow";
 
+import { ui } from "@/app/_data/ui";
 /**
  * A policy page: the same rounded gradient panel the contact page opens with,
  * holding the title, then the text in .legal-body.
@@ -28,7 +29,7 @@ export default function LegalPage({ doc }) {
               {doc.lead.join("")}
             </p>
             <p className="font-mono-brand pt-[24px] text-[12px] font-bold tracking-[1.2px] text-faint">
-              最後更新 {doc.updated}
+              {ui.updated} {doc.updated}
             </p>
           </div>
         </section>

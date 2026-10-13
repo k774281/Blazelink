@@ -1,4 +1,6 @@
+import { pageMeta } from "./_lib/seo";
 import { getLectures, getPostsByCategory } from "@/app/_lib/wp";
+import { IS_ZH, pick } from "./_lib/locale";
 import HomePage from "./HomePage";
 
 /*
@@ -7,15 +9,18 @@ import HomePage from "./HomePage";
  * shipping a fetch to every visitor. Everything the reader interacts with
  * lives in HomePage.
  */
-export const metadata = { alternates: { canonical: "/martech/" } };
+export const metadata = pageMeta("home", "/");
 
 export default async function Home() {
   const [lectures, posts] = await Promise.all([
     // 課程, so the software licences WooCommerce also sells stay out of it.
-    getLectures({ category: "courses", limit: 3 }),
+    // Lectures are Taiwan events, shown on the Chinese site only.
+    IS_ZH ? getLectures({ category: "courses", limit: 3 }) : [],
     // Posts are shared with the web-design site, so its 網站架設專欄 shows here
     // too; each site styles them its own way.
-    getPostsByCategory(["martech", "web-design"], 3, { withImages: true }),
+    getPostsByCategory(pick({ zh: ["martech", "web-design"], en: ["content-mkt"], ja: ["martech-jp", "leadership-jp"] }), 3, {
+      withImages: true,
+    }),
   ]);
 
   return <HomePage lectures={lectures} posts={posts} />;

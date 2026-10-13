@@ -3,13 +3,15 @@ import { gsap } from '../lib/gsap.js'
 import { useScrollReveal } from '../hooks/useScrollReveal.js'
 import TextLoop from './TextLoop.jsx'
 import CtaButton from './CtaButton.jsx'
+import { asset } from '../lib/asset.js'
+import { t } from '../lib/locale.js'
 
-const STEPS = ['精準行銷策略', '內容成長執行', '數據優化迭代']
+const STEPS = t.process.steps
 
 const PROCESS_IMAGES = [
   'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&q=80',
   'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&q=80',
-  '/img-6.jpg',
+  asset('/img-6.webp'),
   'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&q=80',
   'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&q=80',
   'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&q=80',
@@ -82,17 +84,17 @@ export default function ProcessSection() {
 
       <div className="relative z-10 flex flex-col items-center gap-10">
         <span data-anim="hand" className="font-hand text-ink text-3xl uppercase whitespace-nowrap">
-          你可以對我們有期待
+          {t.process.hand}
         </span>
         <div data-anim="steps" className="flex items-center pl-6">
           <TextLoop
-            staticText="我們可以"
+            staticText={t.process.lead}
             rotatingTexts={STEPS}
             className="font-heading font-bold text-[32px] md:text-[48px] lg:text-[64px] leading-[0.96] tracking-[-2.56px] text-ink uppercase"
           />
         </div>
         <CtaButton
-          label="了解行銷內容"
+          label={t.process.cta}
           href="#contact"
           variant="brand"
           iconWrapClassName="bg-ink/15"

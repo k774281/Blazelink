@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import { t } from '../lib/locale.js'
 
-const HEADING_TEXT = '想了解我們有什麼服務嗎？'
+const HEADING_TEXT = t.circleReveal
 const MIN_PERCENT = 0
 // CSS circle() percentages resolve against sqrt((w²+h²)/2), not against the
 // distance to a corner, so 100% doesn't actually reach the corners. 150%

@@ -5,9 +5,11 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
+import LanguageSwitch from "./LanguageSwitch";
 import { footer } from "@/app/_data/home";
 import { asset } from "../_lib/base";
 
+import { ui } from "@/app/_data/ui";
 /**
  * The closing block every page shares: a page-specific panel passed as children,
  * sitting on top of the footer proper.
@@ -145,7 +147,7 @@ export default function SiteFooter({ children, onThisPage }) {
                   <div className="relative h-[84px] w-full max-w-[417px]">
                     <Image
                       src={asset("/figma/logo-footer.webp")}
-                      alt="Blazelink 鏈客策略行銷"
+                      alt={ui.logoAlt}
                       fill
                       sizes="417px"
                       className="object-contain object-left"
@@ -190,7 +192,8 @@ export default function SiteFooter({ children, onThisPage }) {
               <p className="font-display text-[12px] font-light">
                 {footer.copyright}
               </p>
-              <nav aria-label="政策" className="flex gap-[24px]">
+              <LanguageSwitch tone="light" />
+              <nav aria-label={ui.policyNav} className="flex gap-[24px]">
                 {footer.legal.map((link) => (
                   <Link
                     key={link.label}

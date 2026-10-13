@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import { consult, FALLBACK_IMAGE, PAGE_SIZE, postHref } from "../_data/column";
 import { Eyebrow } from "./ui";
 
+import { ui } from "../_data/ui";
 /**
  * 全部文章 (Figma 205:210): the info column's category filter beside the post
  * list, eight to a page.
@@ -15,12 +16,12 @@ import { Eyebrow } from "./ui";
  * always matches the count beside the category.
  */
 export default function ColumnList({ posts, categories }) {
-  const [active, setActive] = useState("全部");
+  const [active, setActive] = useState(ui.column.all);
   const [page, setPage] = useState(1);
   const top = useRef(null);
 
-  const counts = [{ label: "全部", count: posts.length }, ...categories.map((c) => ({ label: c, count: posts.filter((p) => p.category === c).length }))];
-  const list = active === "全部" ? posts.slice(1) : posts.filter((p) => p.category === active);
+  const counts = [{ label: ui.column.all, count: posts.length }, ...categories.map((c) => ({ label: c, count: posts.filter((p) => p.category === c).length }))];
+  const list = active === ui.column.all ? posts.slice(1) : posts.filter((p) => p.category === active);
   const pages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
   const shown = list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const total = counts.find((c) => c.label === active).count;
@@ -47,16 +48,16 @@ export default function ColumnList({ posts, categories }) {
       <div className="flex items-end justify-between gap-6">
         <div className="flex flex-col gap-4">
           <Eyebrow>ALL POSTS</Eyebrow>
-          <h2 className="font-mono text-[28px] font-medium leading-[1.3] text-ink lg:text-[32px]">{active === "全部" ? "全部文章" : active}</h2>
+          <h2 className="font-mono text-[28px] font-medium leading-[1.3] text-ink lg:text-[32px]">{active === ui.column.all ? ui.column.allPosts : active}</h2>
         </div>
         <p className="font-mono text-sm text-muted" aria-live="polite">
-          共 {total} 篇
+          {ui.column.total(total)}
         </p>
       </div>
 
       <div className="flex flex-col gap-16 lg:flex-row lg:items-start lg:gap-20">
         <aside className="flex w-full flex-col gap-10 lg:w-[340px] lg:shrink-0">
-          <div role="toolbar" aria-label="專欄分類" className="flex flex-col gap-1">
+          <div role="toolbar" aria-label={ui.column.categories} className="flex flex-col gap-1">
             <p className="font-display text-xs font-semibold tracking-[0.2em] text-muted">CATEGORY</p>
             {counts.map((c) => {
               const on = c.label === active;
@@ -106,16 +107,16 @@ export default function ColumnList({ posts, categories }) {
           </ul>
 
           {pages > 1 && (
-            <nav aria-label="分頁" className="flex items-center justify-center gap-2 border-t border-line pt-12">
-              <PageButton label="上一頁" disabled={page === 1} onClick={() => go(page - 1)}>
+            <nav aria-label={ui.column.pages} className="flex items-center justify-center gap-2 border-t border-line pt-12">
+              <PageButton label={ui.column.prevPage} disabled={page === 1} onClick={() => go(page - 1)}>
                 ←
               </PageButton>
               {Array.from({ length: pages }, (_, i) => i + 1).map((n) => (
-                <PageButton key={n} label={`第 ${n} 頁`} current={n === page} onClick={() => go(n)}>
+                <PageButton key={n} label={ui.column.nthPage(n)} current={n === page} onClick={() => go(n)}>
                   {n}
                 </PageButton>
               ))}
-              <PageButton label="下一頁" disabled={page === pages} onClick={() => go(page + 1)}>
+              <PageButton label={ui.column.nextPage} disabled={page === pages} onClick={() => go(page + 1)}>
                 →
               </PageButton>
             </nav>

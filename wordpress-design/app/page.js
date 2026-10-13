@@ -1,9 +1,10 @@
+import { pageMeta } from "./_lib/seo";
 import { Beyond, ColumnSection, Hero, Ownership, ProcessSteps, WorksCarousel } from "./_components/HomeSections";
 import SideNav from "./_components/SideNav";
 import SiteFooter from "./_components/SiteFooter";
 import { getColumn } from "./_lib/column";
 
-export const metadata = { alternates: { canonical: "/web-design/" } };
+export const metadata = pageMeta("home", "/");
 
 export default async function HomePage() {
   const { posts, categories } = await getColumn();

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import { ui } from "../_data/ui";
 /**
  * The category bar and the panels it filters (Figma "分類篩選", sticky at the
  * top while the cases scroll under it).
@@ -66,7 +67,7 @@ export default function CaseFilter({ tabs, panels }) {
     }
   };
 
-  const all = [{ key: "all", tab: "全部", count: total }, ...tabs];
+  const all = [{ key: "all", tab: ui.cases.all, count: total }, ...tabs];
 
   return (
     <div>
@@ -76,7 +77,7 @@ export default function CaseFilter({ tabs, panels }) {
         className="sticky top-0 z-30 flex items-center justify-between gap-6 border-y border-line bg-canvas py-6 pl-6 pr-[76px] lg:pl-[160px] lg:pr-[264px]"
       >
         <div className="relative min-w-0 flex-1">
-          <div ref={strip} role="toolbar" aria-label="作品分類" className="no-scrollbar -ml-6 flex gap-3 overflow-x-auto pl-6 lg:ml-0 lg:pl-0">
+          <div ref={strip} role="toolbar" aria-label={ui.cases.filterLabel} className="no-scrollbar -ml-6 flex gap-3 overflow-x-auto pl-6 lg:ml-0 lg:pl-0">
             {all.map((t) => {
               const on = t.key === active;
               return (
@@ -100,7 +101,7 @@ export default function CaseFilter({ tabs, panels }) {
           <div ref={fade} aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-r from-transparent to-canvas opacity-0 transition-opacity duration-300" />
         </div>
         <p className="hidden shrink-0 font-mono text-base text-muted md:block" aria-live="polite">
-          {shown} 件作品
+          {ui.cases.count(shown)}
         </p>
 
         <div ref={rail} aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-0.5 bg-white/5 opacity-0 transition-opacity duration-300">

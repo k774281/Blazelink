@@ -1,8 +1,9 @@
 import { useHeroReady } from './hooks/useHeroReady.js'
+import { useSectionLinks } from './hooks/useSectionLinks.js'
 import Preloader from './components/Preloader.jsx'
 import GatewayFlow from './components/GatewayFlow.jsx'
 import Header from './components/Header.jsx'
-import HeroLeft from './components/HeroLeft.jsx'
+import HeroLeft, { HEADING_TEXT } from './components/HeroLeft.jsx'
 import HeroRight from './components/HeroRight.jsx'
 import LogoTicker from './components/LogoTicker.jsx'
 import ScrollDown from './components/ScrollDown.jsx'
@@ -14,6 +15,8 @@ import ProcessSection from './components/ProcessSection.jsx'
 import TestimonialsSection from './components/TestimonialsSection.jsx'
 import BigCta from './components/BigCta.jsx'
 import SiteFooter from './components/SiteFooter.jsx'
+import { NAV_LINKS } from './components/Header.jsx'
+import { t, sitePath } from './lib/locale.js'
 
 export default function App() {
   // Gates every one-shot hero entrance effect (header fade-down, hero-left
@@ -22,6 +25,7 @@ export default function App() {
   // them earlier would let them finish playing while still hidden, so the
   // reveal would show an already-landed page instead of animating in.
   const heroReady = useHeroReady()
+  useSectionLinks()
 
   return (
     <>
@@ -31,6 +35,24 @@ export default function App() {
         <GatewayFlow className="-z-10" />
 
         {heroReady && <Header />}
+
+        {/* The header and hero only mount after the preloader, so the
+            server-rendered page would have no h1 and no menu. Until then this
+            says the same for search engines and screen readers. */}
+        {!heroReady && (
+          <div className="sr-only">
+            <h1>{HEADING_TEXT.replace('\n', '')}</h1>
+            <nav aria-label={t.mainMenu}>
+              <a href={sitePath('martech')}>{t.hero.martech}</a>
+              <a href={sitePath('web-design')}>{t.hero.webDesign}</a>
+              {NAV_LINKS.map(({ label, href }) => (
+                <a key={label} href={href}>
+                  {label}
+                </a>
+              ))}
+            </nav>
+          </div>
+        )}
 
         <main className="hero relative min-h-screen flex-1 flex items-center max-w-[1440px] w-full mx-auto px-16 pb-[220px] min-sm:max-md:px-4 max-sm:px-2 max-sm:pb-[200px]">
           {heroReady && (
@@ -67,12 +89,17 @@ export default function App() {
         <div className="sticky top-0">
           <LogoTicker />
         </div>
+        {/* Menu targets for the stacked sections: plain markers in the flow,
+            since a stuck section can't tell where it really sits. */}
+        <div id="marketing" />
         <div className="sticky top-0">
           <ProcessSection />
         </div>
+        <div id="news" />
         <div className="sticky top-0">
           <TestimonialsSection />
         </div>
+        <div id="contact" />
         <div className="sticky top-0">
           <BigCta />
         </div>

@@ -1,13 +1,22 @@
+import { LOCALE, LOCALES } from "./locale.js";
+
 /*
  * The marketing site lives under /martech, beside the landing page at / and the
- * web-design site at /web-design. next.config.mjs reads BASE_PATH from here, so
- * the prefix is set in one place.
+ * web-design site at /web-design; its English and Japanese builds under
+ * /martech/en and /martech/ja (see ./locale.js). next.config.mjs reads
+ * BASE_PATH from here, so the prefix is set in one place.
  *
  * next/link adds it to hrefs by itself; nothing else does. Every file served
- * from /public — next/image and <img> sources, the font stylesheets — and every
- * fetch to this site's own API goes through asset().
+ * from /public — next/image and <img> sources, the font stylesheets — goes
+ * through asset(), which always points at the Chinese build's copy: /public is
+ * uploaded once, with that build, rather than once per language.
  */
 
-export const BASE_PATH = "/martech";
+export const SITE_PATH = "/martech";
 
-export const asset = (path) => `${BASE_PATH}${path}`;
+export const BASE_PATH = `${SITE_PATH}${LOCALES[LOCALE].path}`;
+
+export const asset = (path) => `${SITE_PATH}${path}`;
+
+/** This page's path in another language, for the language switcher. */
+export const localePath = (lang, path = "/") => `${SITE_PATH}${LOCALES[lang].path}${path}`;

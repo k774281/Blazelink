@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { ui } from "../_data/ui";
 /**
  * The article's side column (Figma 207:211): a contents list that follows the
  * reader down the page, then the share buttons. The heading being read gets
@@ -27,7 +28,7 @@ export default function ArticleAside({ toc, title }) {
   return (
     <aside className="order-last flex w-full flex-col gap-1 lg:sticky lg:top-12 lg:order-none lg:w-[240px] lg:shrink-0 xl:w-[300px]">
       {toc.length > 0 && (
-        <nav aria-label="文章目錄" className="hidden flex-col gap-1 lg:flex">
+        <nav aria-label={ui.column.toc} className="hidden flex-col gap-1 lg:flex">
           <p className="font-display text-xs font-semibold tracking-[0.2em] text-muted">CONTENTS</p>
           {toc.map((t) => {
             const on = t.id === active;
@@ -78,7 +79,7 @@ function Share({ title }) {
           Facebook
         </button>
         <button type="button" onClick={copy} className={pill}>
-          <span aria-live="polite">{copied ? "已複製" : "複製連結"}</span>
+          <span aria-live="polite">{copied ? ui.column.copied : ui.column.copyLink}</span>
         </button>
       </div>
     </div>

@@ -23,6 +23,7 @@ import {
 } from "@/app/_data/home";
 import { asset } from "./_lib/base";
 
+import { ui } from "@/app/_data/ui";
 /*
  * Sections that only ever appear on the homepage live here. Anything a second
  * page reuses — Header, Footer, the contact panel, the CTA pair, the Eyebrow
@@ -115,7 +116,7 @@ function Hero() {
           </p>
 
           <div data-hero>
-            <CtaPill href="/contact">預約免費諮詢</CtaPill>
+            <CtaPill href="/contact">{ui.bookConsult}</CtaPill>
           </div>
 
           <dl
@@ -125,12 +126,14 @@ function Hero() {
             {hero.stats.map((stat, i) => (
               <div
                 key={i}
-                className="flex h-[98px] w-[88px] flex-col items-center justify-center"
+                className="flex h-[98px] min-w-[88px] flex-col items-center justify-center px-[2px]"
               >
-                <dt className="font-mono-brand text-[36px] font-medium">
+                <dt className="font-mono-brand text-[36px] font-medium whitespace-nowrap">
                   {stat.value}
                 </dt>
-                <dd className="font-mono-brand text-[16px]">{stat.label}</dd>
+                <dd className="font-mono-brand text-[15px] whitespace-nowrap">
+                  {stat.label}
+                </dd>
               </div>
             ))}
           </dl>
@@ -148,7 +151,7 @@ function Hero() {
                   height={30}
                   className="shrink-0"
                 />
-                <span className="font-display flex h-[41px] w-[135px] items-center justify-center text-center text-[16px] font-light tracking-[0.32px] text-ink">
+                <span className="font-display flex h-[41px] min-w-[112px] items-center justify-center px-[14px] text-center text-[16px] font-light tracking-[0.32px] text-ink whitespace-nowrap">
                   {tag}
                 </span>
               </li>
@@ -221,7 +224,7 @@ function Philosophy() {
           data-reveal-stagger
           className="flex flex-col items-start gap-[30px] pt-[6px]"
         >
-          <Eyebrow zh="公司理念" en="PHILOSOPHY" />
+          <Eyebrow zh={ui.eyebrow.philosophy} en="PHILOSOPHY" />
 
           <h2 className="font-display text-[40px] leading-[1.14] font-bold tracking-[-2.24px] text-ink md:text-[56px]">
             {philosophy.title}
@@ -266,7 +269,7 @@ function Academy({ items }) {
     >
       <div className="mx-auto max-w-[1200px]">
         <SectionHead
-          zh="鏈客商學院"
+          zh={ui.eyebrow.academy}
           en="ACADEMY"
           title={academy.title}
           className="pb-[46px]"
@@ -314,7 +317,7 @@ function Academy({ items }) {
               </div>
 
               <CtaLink href={item.href} gap={24}>
-                前往報名
+                {ui.register}
               </CtaLink>
             </article>
           ))}
@@ -354,7 +357,7 @@ function Partners() {
     <section className="bg-canvas px-6 py-16 md:px-10 xl:px-[120px] xl:py-[76px]">
       <div className="mx-auto max-w-[1200px]">
         <div className="flex flex-wrap items-center justify-between gap-6 pb-[38px]">
-          <Eyebrow zh="我們的夥伴" en="PARTNERS" note={partners.note} />
+          <Eyebrow zh={ui.eyebrow.partners} en="PARTNERS" note={partners.note} />
           <CtaLink href="/contact" tone="ink">
             {partners.cta}
           </CtaLink>
@@ -396,7 +399,7 @@ function Blog({ items }) {
     >
       <div className="mx-auto max-w-[1200px]">
         <SectionHead
-          zh="部落格"
+          zh={ui.eyebrow.blog}
           en="BLOG"
           title={blog.title}
           className="pb-[46px]"
@@ -440,7 +443,7 @@ function Blog({ items }) {
               </div>
 
               <CtaLink href={item.href} gap={24}>
-                了解更多
+                {ui.learnMore}
               </CtaLink>
             </article>
           ))}
@@ -510,7 +513,7 @@ function Services() {
     >
       <div data-reveal-stagger className="mx-auto max-w-[1200px]">
         <SectionHead
-          zh="提供的服務"
+          zh={ui.eyebrow.services}
           en="SERVICES"
           title={services.title}
           className="pb-[48px]"
@@ -596,7 +599,7 @@ function Services() {
 
         <div className="flex flex-wrap items-center justify-between gap-6 border-t border-solid border-[#dfe1e8] pt-[26px]">
           <div className="flex flex-wrap items-center gap-[28px]">
-            <p className="text-[14px] text-muted">想看更多細節：</p>
+            <p className="text-[14px] text-muted">{ui.moreDetails}</p>
             {services.crossLinks.map((link) => (
               <Link
                 key={link.label}
@@ -625,7 +628,7 @@ export default function HomePage({ lectures, posts }) {
         <Hero />
         <Philosophy />
         <Services />
-        <Academy items={lectures} />
+        {lectures.length ? <Academy items={lectures} /> : null}
         <CtaBanner />
         <Partners />
         <Blog items={posts} />

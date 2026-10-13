@@ -11,6 +11,7 @@ import CtaPill from "../_components/CtaPill";
 import CtaLink from "../_components/CtaLink";
 import Eyebrow from "../_components/Eyebrow";
 import useSectionReveal from "../_components/useSectionReveal";
+import { getLatestLectures, getPostsByCategory, keepBuiltPages, lecturePath, postPath } from "../_lib/wp";
 import {
   hero,
   latest,
@@ -90,6 +91,12 @@ function Latest({ items }) {
           <Eyebrow zh="最新講座" en="LATEST" />
         </div>
 
+        {items.length ? null : (
+          <p className="rounded-[50px] border border-solid border-line bg-white px-6 py-[56px] text-center text-[15px] text-faint">
+            {latest.empty}
+          </p>
+        )}
+
         <div data-reveal-cards className="grid gap-[24px] lg:grid-cols-2">
           {items.map((item) => (
             <article
@@ -110,12 +117,14 @@ function Latest({ items }) {
 
               {/* Sits over the artwork, as the design has it */}
               <span className="absolute top-[20px] left-[20px] flex h-[28px] items-center rounded-[999px] bg-brand-pale px-[14px] text-[13px] font-medium whitespace-nowrap text-brand-deep md:top-[44px] md:left-[48px]">
-                {latest.tag}
+                {item.tag ?? latest.tag}
               </span>
 
               <div className="flex w-full flex-col items-start gap-[8px] px-6 py-[32px] md:px-[44px]">
                 <h2 className="font-display w-full text-[24px] leading-[1.32] font-bold text-ink md:text-[28px]">
-                  {item.title}
+                  <Link href={item.href} className="transition-colors hover:text-brand">
+                    {item.title}
+                  </Link>
                 </h2>
                 <p className="font-display w-full text-[16px] leading-[1.9] font-light text-muted">
                   {item.body}
@@ -131,10 +140,11 @@ function Latest({ items }) {
                 ))}
               </dl>
 
-              <div className="mt-auto flex w-full flex-col items-center pt-[8px]">
-                <CtaPill href={item.href} compact>
+              <div className="mt-auto flex w-full flex-wrap items-center justify-center gap-[24px] pt-[8px]">
+                <CtaPill href={item.register} compact>
                   {latest.cta}
                 </CtaPill>
+                <CtaLink href={item.href}>{latest.more}</CtaLink>
               </div>
             </article>
           ))}
@@ -320,7 +330,7 @@ function Columns({ tabs }) {
               <ul ref={listRef} className="w-full">
                 {tab.items.map((item) => (
                   <li key={item.id} className="border-b border-solid border-panel">
-                    <a
+                    <Link
                       href={item.href}
                       className="group flex flex-wrap items-center justify-between gap-2 py-[18px]"
                     >
@@ -333,18 +343,18 @@ function Columns({ tabs }) {
                       >
                         {item.date}
                       </time>
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
 
               <div className="py-[18px]">
-                <a
+                <Link
                   href={tab.more}
                   className="underline-grow text-[15px] font-medium text-brand"
                 >
                   {columns.more}
-                </a>
+                </Link>
               </div>
             </>
           ) : (
@@ -380,7 +390,7 @@ function PastEvents() {
         >
           {pastEvents.items.map((item) => (
             <li key={item.href}>
-              <a
+              <Link
                 href={item.href}
                 className="group flex flex-col items-start gap-[10px] p-[24px]"
               >
@@ -399,7 +409,7 @@ function PastEvents() {
                 <p className="font-display text-[15px] leading-[1.5] font-bold text-ink transition-colors group-hover:text-brand">
                   {item.title}
                 </p>
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -439,17 +449,50 @@ function NextPanel() {
   );
 }
 
+/**
+ * The build-time lists, then the live ones once WordPress answers. A read that
+ * fails (null) leaves the build-time list in place.
+ */
+function useLiveLists(columnTabs, lectures) {
+  const [tabs, setTabs] = useState(columnTabs);
+  const [latestLectures, setLatestLectures] = useState(lectures);
+
+  useEffect(() => {
+    let live = true;
+    getLatestLectures({ fresh: true }).then((items) => {
+      if (live && items) setLatestLectures(keepBuiltPages(items, lectures, lecturePath));
+    });
+    Promise.all(columnTabs.map((tab) => getPostsByCategory(tab.category, 6, { fresh: true }))).then(
+      (lists) => {
+        if (!live) return;
+        setTabs((current) =>
+          current.map((tab, i) =>
+            lists[i] ? { ...tab, items: keepBuiltPages(lists[i], columnTabs[i].items, postPath) } : tab,
+          ),
+        );
+      },
+    );
+    return () => {
+      live = false;
+    };
+  }, [columnTabs, lectures]);
+
+  return [tabs, latestLectures];
+}
+
 export default function AcademyPage({ columnTabs, lectures }) {
+  const [tabs, latestLectures] = useLiveLists(columnTabs, lectures);
+
   return (
     <>
       <Header />
       {/* Opaque and above the footer, so scrolling the last screen uncovers it. */}
       <main className="relative z-10 bg-white">
         <Hero />
-        <Latest items={lectures} />
+        <Latest items={latestLectures} />
         <Why />
         <Topics />
-        <Columns tabs={columnTabs} />
+        <Columns tabs={tabs} />
         <PastEvents />
       </main>
       <SiteFooter onThisPage={onThisPage}>

@@ -1,3 +1,4 @@
+import { pageMeta } from "../_lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import ColumnList from "../_components/ColumnList";
@@ -8,11 +9,8 @@ import { cta, FALLBACK_IMAGE, header, postHref } from "../_data/column";
 import { getColumn } from "../_lib/column";
 import { asset } from "../_lib/base";
 
-export const metadata = {
-  alternates: { canonical: "/web-design/column/" },
-  title: "專欄｜Blazelink 鏈客",
-  description: "網站設計、行銷科技與經營實務，做一個好網站之前，你需要知道的事都在這裡。",
-};
+import { ui } from "../_data/ui";
+export const metadata = pageMeta("column", "/column/");
 
 export default async function ColumnPage() {
   const { posts, categories } = await getColumn();
@@ -22,7 +20,7 @@ export default async function ColumnPage() {
     <>
       <SideNav />
       <main>
-        <PageHeader crumb="專欄" display={header.display} title={header.title} lead={header.lead}>
+        <PageHeader crumb={ui.column.crumb} display={header.display} title={header.title} lead={header.lead}>
           <Image src={asset("/home/bg-2.webp")} alt="" fill preload sizes="100vw" className="object-cover" />
         </PageHeader>
 

@@ -1,14 +1,8 @@
 import KineticNavMenu from './KineticNavMenu.jsx'
+import { t } from '../lib/locale.js'
 
-// Into the two zones this app fronts (see next.config.mjs): the marketing site
-// under /martech and the web-design site under /web-design.
-const NAV_LINKS = [
-  { label: '關於鏈客', href: '/martech/about' },
-  { label: '跨國SEO行銷', href: '/martech/seo' },
-  { label: '網站案例', href: '/web-design/cases' },
-  { label: '鏈客商學院', href: '/martech/academy' },
-  { label: '聯繫我們', href: '/martech/contact' },
-]
+// Sections of this page, in the order they appear (ids in App.jsx).
+export const NAV_LINKS = t.nav
 
 export default function Header() {
   return (
@@ -17,7 +11,7 @@ export default function Header() {
         <img
           className="site-header__logo h-10 w-auto"
           src="https://blazelink.co/wp-content/uploads/2025/11/%E9%8F%88%E5%AE%A2Logo-Horizontal.png"
-          alt="Blazelink 鏈客"
+          alt={t.logoAlt}
         />
         <nav className="site-header__nav flex items-center gap-8 max-lg:gap-4 max-lg:hidden">
           {NAV_LINKS.map(({ label, href }) => (

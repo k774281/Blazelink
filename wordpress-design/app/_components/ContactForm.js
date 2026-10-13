@@ -6,6 +6,7 @@ import { useId, useRef, useState } from "react";
 import { cf7, form, success } from "../_data/contact";
 import { trackCf7 } from "../_lib/tracking";
 
+import { ui } from "../_data/ui";
 /*
  * The contact form card (Figma 318:427) and its states (318:470): fields at
  * rest, focused and in error; the submit button sending; a failure notice; and
@@ -130,31 +131,31 @@ export default function ContactForm() {
       </div>
 
       <div className="flex flex-col gap-7 sm:flex-row sm:gap-5">
-        <Field label="姓名" name="name" autoComplete="name" placeholder="例：王小明" required value={values.name} onChange={set("name")} error={errors.name} />
-        <Field label="公司名稱" name="company" autoComplete="organization" placeholder="例：鏈客策略行銷" required value={values.company} onChange={set("company")} error={errors.company} />
+        <Field label={ui.form.name} name="name" autoComplete="name" placeholder={ui.form.namePlaceholder} required value={values.name} onChange={set("name")} error={errors.name} />
+        <Field label={ui.form.company} name="company" autoComplete="organization" placeholder={ui.form.companyPlaceholder} required value={values.company} onChange={set("company")} error={errors.company} />
       </div>
       <div className="flex flex-col gap-7 sm:flex-row sm:gap-5">
-        <Field label="現有網站網址（選填）" name="website" type="url" autoComplete="url" placeholder="https://" value={values.website} onChange={set("website")} error={errors.website} />
-        <Field label="電子郵件" name="email" type="email" autoComplete="email" placeholder="you@company.com" required value={values.email} onChange={set("email")} error={errors.email} />
+        <Field label={ui.form.website} name="website" type="url" autoComplete="url" placeholder="https://" value={values.website} onChange={set("website")} error={errors.website} />
+        <Field label={ui.form.email} name="email" type="email" autoComplete="email" placeholder="you@company.com" required value={values.email} onChange={set("email")} error={errors.email} />
       </div>
 
       <fieldset className="flex flex-col gap-3">
         <legend className="mb-3 text-sm font-medium text-ink">
-          詢問主題 <span className="text-lavender">*</span>
+          {ui.form.topic} <span className="text-lavender">*</span>
         </legend>
         <div className="flex flex-wrap gap-2.5">
           {form.topics.map((topic) => (
             <label key={topic} className="cursor-pointer">
               <input type="radio" name="topic" value={topic} checked={values.topic === topic} onChange={() => set("topic")(topic)} className="peer sr-only" />
               <span className="block rounded-full border border-line px-[22px] py-[11px] text-[15px] font-medium text-ink transition-colors hover:border-muted peer-checked:border-lavender peer-checked:bg-lavender/16 peer-checked:text-lavender peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-lavender">
-                {topic}
+                {form.topicLabels?.[topic] ?? topic}
               </span>
             </label>
           ))}
         </div>
       </fieldset>
 
-      <Field label="詢問內容" name="message" rows={6} placeholder="例如：想把現有網站改版成形象網站，希望手機版也好看……" required value={values.message} onChange={set("message")} error={errors.message} />
+      <Field label={ui.form.message} name="message" rows={6} placeholder={ui.form.messagePlaceholder} required value={values.message} onChange={set("message")} error={errors.message} />
 
       <div className="flex flex-col items-start gap-4 pt-2">
         <button

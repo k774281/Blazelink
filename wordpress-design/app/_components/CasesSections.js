@@ -8,13 +8,14 @@ import Link from "next/link";
 import { Eyebrow, MotionButton, PageHeader } from "./ui";
 import { asset } from "../_lib/base";
 
+import { ui } from "../_data/ui";
 export { CtaBand } from "./ui";
 
 /* ------------------------------------------------------------------ header */
 
 export function CasesHeader({ data }) {
   return (
-    <PageHeader crumb="網站案例" display={data.display} title={data.title} lead={data.lead}>
+    <PageHeader crumb={ui.cases.crumb} display={data.display} title={data.title} lead={data.lead}>
       {/* Two blurred glows, exported from Figma with their blur baked in. */}
       <img src={asset("/cases/glow-1.svg")} alt="" width="1420" height="680" className="pointer-events-none absolute left-[540px] top-[260px] hidden max-w-none lg:block" />
       <img src={asset("/cases/glow-2.svg")} alt="" width="1020" height="580" className="pointer-events-none absolute left-[1040px] top-[340px] hidden max-w-none lg:block" />
@@ -54,9 +55,9 @@ export function WordPressSection({ s }) {
       <SectionHeader s={s} />
       <ul className="grid gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
         {s.items.map((c) => (
-          <li key={c.name} className="flex flex-col gap-5">
+          <li key={c.name} className="flex min-w-0 flex-col gap-5">
             <div className="relative aspect-[482/560] overflow-hidden rounded-[4px] bg-placeholder">
-              <Image src={c.image} alt={`${c.name} 網站首頁`} fill sizes="(min-width: 1280px) 482px, (min-width: 640px) 50vw, 100vw" className="object-cover object-top" />
+              <Image src={c.image} alt={ui.cases.homepageAlt(c.name)} fill sizes="(min-width: 1280px) 482px, (min-width: 640px) 50vw, 100vw" className="object-cover object-top" />
               <div aria-hidden className="absolute inset-0 bg-black/45" />
               <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-canvas/0 from-35% to-canvas/90" />
 
@@ -66,14 +67,15 @@ export function WordPressSection({ s }) {
                 rel="noopener"
                 className="absolute right-4 top-4 flex items-center gap-2 rounded-full bg-white/12 px-4 py-2.5 backdrop-blur-[6px] transition-colors hover:bg-white/25"
               >
-                <span className="font-mono text-sm font-medium text-ink">前往官網</span>
+                <span className="font-mono text-sm font-medium text-ink">{ui.cases.visit}</span>
                 <img src={asset("/cases/arrow-up-right.svg")} alt="" width="30" height="30" />
-                <span className="sr-only">（{c.name}，另開新視窗）</span>
+                <span className="sr-only">{ui.cases.newWindow(c.name)}</span>
               </a>
 
               <div className="absolute bottom-0 left-0 flex flex-col gap-3 px-7 pb-[30px]">
                 <h3 className={`text-[26px] text-ink ${c.latin ? "font-display font-bold" : "font-mono font-medium"}`}>{c.name}</h3>
-                <ul className="flex gap-2">
+                {/* Wraps: English and Japanese tags run longer than the Chinese. */}
+                <ul className="flex flex-wrap gap-2">
                   {c.tags.map((t) => (
                     <li key={t} className="rounded-[4px] bg-canvas/70 px-2.5 py-1 font-mono text-xs text-teal">
                       {t}
@@ -109,7 +111,7 @@ export function CustomSection({ s }) {
         {s.items.map((c) => (
           <li key={c.name} className="overflow-hidden rounded-[4px] border border-line bg-surface">
             <div className="relative h-[280px]">
-              <Image src={c.image} alt={`${c.name}畫面`} fill sizes="(min-width: 1280px) 482px, (min-width: 640px) 50vw, 100vw" className="object-contain" />
+              <Image src={c.image} alt={ui.cases.screenAlt(c.name)} fill sizes="(min-width: 1280px) 482px, (min-width: 640px) 50vw, 100vw" className="object-contain" />
             </div>
             <div className="flex flex-col gap-3 px-7 pb-7 pt-6">
               <p className={`font-mono text-xs tracking-[0.1em] ${c.platform === "SHOPIFY" ? "text-lavender" : "text-teal"}`}>{c.platform}</p>
@@ -132,7 +134,7 @@ export function AutomationSection({ s }) {
         {s.items.map((c) => (
           <li key={c.name} className="flex flex-col border-b border-line py-6 md:flex-row md:items-start">
             <div className="relative h-[240px] shrink-0 md:h-[300px] md:w-[360px]">
-              <Image src={c.image} alt={`${c.name}畫面`} fill sizes="360px" className="object-contain" />
+              <Image src={c.image} alt={ui.cases.screenAlt(c.name)} fill sizes="360px" className="object-contain" />
             </div>
             <div className="flex flex-col gap-4 py-8 md:p-9">
               <p className="font-display text-xs tracking-[0.1em] text-teal">AUTOMATION</p>
@@ -160,7 +162,7 @@ export function CreativeSection({ s }) {
         {s.items.map((c, i) => (
           <li key={c.name} className={`flex flex-col ${i < s.items.length - 1 ? "md:border-r md:border-line md:pr-3" : ""}`}>
             <div className="relative h-[280px]">
-              <Image src={c.image} alt={`${c.name}畫面`} fill sizes="(min-width: 768px) 452px, 100vw" className="object-contain" />
+              <Image src={c.image} alt={ui.cases.screenAlt(c.name)} fill sizes="(min-width: 768px) 452px, 100vw" className="object-contain" />
             </div>
             <div className="flex flex-col gap-3 pb-7 pr-7 pt-6">
               <p className="font-mono text-xs tracking-[0.1em] text-lavender">CREATIVE</p>

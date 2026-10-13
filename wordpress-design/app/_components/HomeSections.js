@@ -21,6 +21,7 @@ import { beyond, hero, ownership, process as processData, works } from "../_data
 import { ColumnSection, Eyebrow, MotionButton, ViewMore } from "./ui";
 import { asset } from "../_lib/base";
 
+import { ui } from "../_data/ui";
 export { ColumnSection };
 
 /* -------------------------------------------------------------------- hero */
@@ -195,7 +196,7 @@ export function NewsTicker({ items }) {
   return (
     <section
       aria-roledescription="carousel"
-      aria-label="最新專欄"
+      aria-label={ui.home_.latestColumn}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -221,17 +222,17 @@ export function NewsTicker({ items }) {
               key={it.title}
               type="button"
               onClick={() => setIndex(i)}
-              aria-label={`第 ${i + 1} 則`}
+              aria-label={ui.home_.nthItem(i + 1)}
               aria-current={i === index}
               className={`h-1 cursor-pointer rounded-[4px] transition-all ${i === index ? "w-6 bg-lavender" : "w-2 bg-line"}`}
             />
           ))}
         </div>
         <div className="flex gap-4 font-display text-[15px] font-semibold text-ink">
-          <button type="button" onClick={() => go(-1)} aria-label="上一則" className="cursor-pointer transition-colors hover:text-lavender">
+          <button type="button" onClick={() => go(-1)} aria-label={ui.home_.prev} className="cursor-pointer transition-colors hover:text-lavender">
             ←
           </button>
-          <button type="button" onClick={() => go(1)} aria-label="下一則" className="cursor-pointer transition-colors hover:text-lavender">
+          <button type="button" onClick={() => go(1)} aria-label={ui.home_.next} className="cursor-pointer transition-colors hover:text-lavender">
             →
           </button>
         </div>
@@ -342,7 +343,7 @@ export function Hero({ posts = [] }) {
             loop
             playsInline
             preload="metadata"
-            aria-label="案例網站畫面影片"
+            aria-label={ui.home_.reelLabel}
           />
         </div>
 
@@ -355,7 +356,7 @@ export function Hero({ posts = [] }) {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[140px] bg-gradient-to-b from-transparent to-canvas lg:opacity-[calc(1-var(--p))]" />
 
         <Link href="/" className="absolute left-6 top-5 z-10 block lg:left-16 lg:top-[52px] lg:opacity-[calc(1-var(--p))]">
-          <Image src={asset("/home/logo.png")} alt="BLAZELINK 鏈客" width={188} height={63} preload className="h-auto w-[140px] lg:w-[188px]" />
+          <Image src={asset("/home/logo.png")} alt={ui.logoAlt} width={188} height={63} preload className="h-auto w-[140px] lg:w-[188px]" />
         </Link>
 
         <div className="relative flex flex-col gap-12 px-6 pb-16 pt-32 lg:absolute lg:inset-0 lg:block lg:p-0">
@@ -557,10 +558,10 @@ export function WorksCarousel() {
 
           <div className="mt-[33px] flex flex-wrap items-center gap-[25px]">
             <div className="flex gap-[3px]">
-              <button type="button" onClick={() => stepBy(-1)} aria-label="上一個作品" className="flex h-[39px] w-12 cursor-pointer items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20">
+              <button type="button" onClick={() => stepBy(-1)} aria-label={ui.home_.prevWork} className="flex h-[39px] w-12 cursor-pointer items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20">
                 <img src={asset("/home/arrow-prev.png")} alt="" width="10" height="9" />
               </button>
-              <button type="button" onClick={() => stepBy(1)} aria-label="下一個作品" className="flex h-[39px] w-12 cursor-pointer items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20">
+              <button type="button" onClick={() => stepBy(1)} aria-label={ui.home_.nextWork} className="flex h-[39px] w-12 cursor-pointer items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20">
                 <img src={asset("/home/arrow-next.png")} alt="" width="10" height="9" />
               </button>
             </div>
@@ -699,7 +700,7 @@ export function Ownership() {
             <h3 className="relative text-[18px] font-bold text-ink">{row.label}</h3>
             <div className="relative flex flex-col gap-10 text-center leading-[1.7]">
               <p className="font-mono text-2xl font-medium text-teal lg:text-[24px]">{row.ours}</p>
-              <p className="whitespace-pre-wrap font-mono text-base text-muted line-through">{`✕  傳統做法：${row.theirs}`}</p>
+              <p className="whitespace-pre-wrap font-mono text-base text-muted line-through">{`✕  ${ui.home_.traditional}${row.theirs}`}</p>
             </div>
           </li>
         ))}

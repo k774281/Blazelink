@@ -3,10 +3,11 @@ import Link from "next/link";
 import { footer } from "../_data/home";
 import { asset } from "../_lib/base";
 
+import { ui } from "../_data/ui";
 export default function SiteFooter() {
   return (
     <footer className="flex flex-col gap-[72px] border-t border-line bg-surface px-6 pb-12 pt-24 lg:px-8">
-      <Image src={asset("/home/logo.png")} alt="BLAZELINK 鏈客" width={255} height={85} className="h-auto w-[200px] lg:w-[255px]" />
+      <Image src={asset("/home/logo.png")} alt={ui.logoAlt} width={255} height={85} className="h-auto w-[200px] lg:w-[255px]" />
 
       <div className="flex flex-col gap-12 xl:flex-row xl:items-start xl:justify-between">
         <div className="flex flex-col gap-4">
@@ -32,7 +33,7 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <nav aria-label="頁尾選單" className="flex gap-12 sm:gap-12">
+        <nav aria-label={ui.footerMenu} className="flex gap-12 sm:gap-12">
           {footer.columns.map((col) => (
             <div key={col.head} className="flex flex-col gap-3.5">
               <p className="font-display text-xs font-semibold tracking-[0.2em] text-teal">{col.head}</p>

@@ -20,11 +20,7 @@ blazelink.co 的 `/martech/` 與 `/web-design/` 是 Next.js 輸出的靜態檔�
 **一律加在 GTM 容器裡，不要改程式。** 加一次，WordPress 頁面與兩站都會生效：
 
 - **Hotjar**：GTM → 新增代碼 → 「Hotjar Tracking Code」範本 → 觸發條件「All Pages」。
-- **Meta Pixel**：WordPress 頁面已由 **Meta for WooCommerce** 外掛載入 Pixel `887803126336815`，外掛管不到兩站。所以 GTM 裡的 Pixel 代碼**只能在兩站觸發**，否則 WordPress 頁面會重複計算：
-  - 觸發條件「Pixel－兩站頁面」：類型「網頁瀏覽」，加一個「記錄歷史變更」的同名條件，兩者都設 `Page Path` 符合規則運算式 `^/(martech|web-design)/`。
-  - 代碼「Meta Pixel－兩站」：社群範本「Facebook Pixel」，Pixel ID `887803126336815`，事件 `PageView`，用上面兩個觸發條件。
-  - 代碼「Meta Pixel－Lead」：同範本，事件 `Lead`，觸發條件為自訂事件 `gtm4wp.contactForm7MailSent` 且 `Page Path` 符合 `^/(martech|web-design)/`。
-  - 日後若把 Pixel 從外掛整個移到 GTM，再拿掉路徑限制。
+- **Meta Pixel**：例外，直接寫在程式裡（2026-10-12，使用者提供的基本程式碼，Pixel `1097994839542212`）。三個站都有：首頁 landing（`pages/_app.jsx`）、`/martech/` 與 `/web-design/`（`app/_components/MetaPixel.js`）。每頁記錄 `PageView`（站內換頁也算），聯繫表單送出成功記錄 `Lead`。**不要再在 GTM 加 Pixel**，否則會重複計算。WordPress 頁面另由 Meta for WooCommerce 外掛載入 Pixel `887803126336815`，兩個 ID 不同。
 
 只有在需要新的資料層事件時（例如某顆按鈕的點擊）才需要改程式：在元件裡呼叫 `pushDataLayer({ event: "名稱", ... })`。
 

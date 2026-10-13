@@ -1,11 +1,8 @@
+import { pageMeta } from "../_lib/seo";
 import LegalPage from "../_components/LegalPage";
 import { terms } from "../_data/legal";
 
-export const metadata = {
-  alternates: { canonical: "/web-design/terms/" },
-  title: "服務條款｜Blazelink 鏈客",
-  description: "使用鏈客網站與商城的服務條款，包含數位商品與課程的退換貨政策。",
-};
+export const metadata = pageMeta("terms", "/terms/");
 
 export default function TermsPage() {
   return <LegalPage doc={terms} />;

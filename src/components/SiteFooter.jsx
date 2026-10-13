@@ -1,8 +1,11 @@
 import { useRef } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal.js'
+import { asset } from '../lib/asset.js'
+import { LOCALES, t, sitePath } from '../lib/locale.js'
 
-const CONTACT_INFO = ['02-66039088', 'service@blazelink.co']
-const LANGUAGES = ['中文', 'English', '日本語']
+const CONTACT_INFO = t.footer.contact
+// The landing page in each language (/, /en/, /ja/).
+const LANGUAGES = Object.values(LOCALES).map(({ label, home, html }) => ({ label, href: home, lang: html }))
 
 export default function SiteFooter() {
   const sectionRef = useRef(null)
@@ -14,7 +17,7 @@ export default function SiteFooter() {
         <div className="flex flex-col gap-5 lg:gap-[50px] items-center max-w-[1440px] w-full">
           <div data-anim="reveal" className="flex flex-col gap-12 items-center w-full">
             <div className="flex flex-col gap-10 items-center min-w-0">
-              <img src="/blazelink-logo-light.png" alt="" className="w-[300px]" />
+              <img src={asset('/blazelink-logo-light.png')} alt="" className="w-[300px]" />
               <div className="flex flex-col gap-2 items-center">
                 {CONTACT_INFO.map((line) => (
                   <span key={line} className="font-body text-sm uppercase text-white/90">
@@ -23,11 +26,11 @@ export default function SiteFooter() {
                 ))}
               </div>
               <div className="flex flex-row gap-6 items-center">
-                {LANGUAGES.map((lang, i) => (
-                  <div key={lang} className="flex flex-row items-center gap-3">
+                {LANGUAGES.map(({ label, href, lang }, i) => (
+                  <div key={label} className="flex flex-row items-center gap-3">
                     {i > 0 && <div className="bg-white/20 h-px w-5" />}
-                    <a href="#" className="font-body text-lg uppercase text-white/90 hover:opacity-60 transition">
-                      {lang}
+                    <a href={href} hrefLang={lang} lang={lang} className="font-body text-lg uppercase text-white/90 hover:opacity-60 transition">
+                      {label}
                     </a>
                   </div>
                 ))}
@@ -36,26 +39,20 @@ export default function SiteFooter() {
           </div>
 
           <div className="flex flex-row justify-around items-center w-full max-lg:flex-col max-lg:gap-4">
-            <p className="text-[11px] text-white/90">Copyright 2026 © 鏈客策略行銷股份有限公司</p>
+            <p className="text-[11px] text-white/90">{t.footer.copyright}</p>
             <div className="flex flex-row gap-6 items-center">
-              {/* Temporary: both point at the old WordPress site until these
-                  pages exist on this one. */}
               <a
-                href="https://blazelink.co/privacy-policy/"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={sitePath('martech', '/privacy-policy/')}
                 className="font-body text-sm uppercase text-white/90 hover:opacity-60 transition"
               >
-                隱私權政策
+                {t.footer.privacy}
               </a>
               <div className="bg-white/20 h-px w-16" />
               <a
-                href="https://blazelink.co/term-of-use/"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={sitePath('martech', '/terms/')}
                 className="font-body text-sm uppercase text-white/90 hover:opacity-60 transition"
               >
-                服務條款
+                {t.footer.terms}
               </a>
             </div>
           </div>

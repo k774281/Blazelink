@@ -1,8 +1,11 @@
 import { Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import { TagManagerBody, TagManagerHead } from "./_components/TagManager";
+import MetaPixel from "./_components/MetaPixel";
 import "./globals.css";
 import { asset } from "./_lib/base";
+import { LOCALE, LOCALES } from "./_lib/locale";
+import { ui } from "./_data/ui";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -19,16 +22,16 @@ const spaceGrotesk = Space_Grotesk({
  */
 export const metadata = {
   metadataBase: new URL("https://blazelink.co"),
-  title: "Blazelink 鏈客行銷",
-  description: "為 B2B 企業、知識服務、跨國品牌打造，自動化獲客的成長引擎。",
-  openGraph: { type: "website", locale: "zh_TW", siteName: "BlazeLink鏈客行銷" },
+  title: ui.meta.home.title,
+  description: ui.meta.home.description,
+  openGraph: { type: "website", locale: LOCALES[LOCALE].og, siteName: "BlazeLink鏈客行銷" },
   twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }) {
-  // zh-TW, as Polylang declares the Chinese pages of the WordPress site.
+  // zh-TW, en or ja, as Polylang declares the WordPress site's languages.
   return (
-    <html lang="zh-TW" className={spaceGrotesk.variable}>
+    <html lang={LOCALES[LOCALE].html} className={spaceGrotesk.variable}>
       <head>
         {/*
           Browsers default to restoring the previous scroll position on reload,
@@ -56,7 +59,8 @@ export default function RootLayout({ children }) {
       <body>
         <TagManagerBody />
         {children}
-        <TagManagerHead page={{ siteSection: "martech" }} />
+        <TagManagerHead page={{ siteSection: "martech", language: LOCALE }} />
+        <MetaPixel />
       </body>
     </html>
   );

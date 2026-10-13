@@ -13,10 +13,18 @@
  * still deploys when the CMS is down.
  */
 
+import { ui } from "../_data/ui";
+import { BASE_PATH } from "./base";
+import { LOCALE, pick } from "./locale";
 const WP = process.env.WP_BASE_URL ?? "https://blazelink.co";
 
 /** Category slugs the column reads, in the order the filter lists them. */
-export const COLUMN_CATEGORIES = ["web-design", "martech", "start-up"];
+export const COLUMN_CATEGORIES = pick({
+  zh: ["web-design", "martech", "start-up"],
+  // The English and Japanese posts live in their own WordPress categories.
+  en: ["content-mkt"],
+  ja: ["martech-jp", "leadership-jp"],
+});
 
 /** WordPress renders titles and excerpts with HTML entities. */
 function decodeEntities(text) {
@@ -29,6 +37,29 @@ function decodeEntities(text) {
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&amp;/g, "&");
+}
+
+/*
+ * WordPress keeps a Chinese slug percent-encoded in lower case
+ * (%e3%80%90…). A page's folder has to be the decoded text, since Apache
+ * decodes the address before looking for it; this brings either form back to
+ * WordPress's for the API.
+ */
+export function toWpSlug(slug) {
+  let text = slug;
+  try {
+    text = decodeURIComponent(slug);
+  } catch {}
+  return encodeURIComponent(text).replace(/%[0-9A-F]{2}/g, (hex) => hex.toLowerCase());
+}
+
+/** The folder name a slug's page is exported under. */
+export function pageSlug(slug) {
+  try {
+    return decodeURIComponent(slug);
+  } catch {
+    return slug;
+  }
 }
 
 function plainText(html) {
@@ -74,12 +105,65 @@ function cleanBody(html) {
   return html.replace(/\sstyle="[^"]*"/g, "");
 }
 
+/*
+ * WordPress pages that now live on the new sites. Links inside a body to one
+ * of these, to another column post or to a product are pointed at the new
+ * page, so reading never drops back into the old site.
+ */
+const MOVED = pick({
+  zh: {
+    contact: "/web-design/contact/",
+    about: "/web-design/about/",
+    cases: "/web-design/cases/",
+    mall: "/web-design/shop/",
+    "privacy-policy": "/web-design/privacy-policy/",
+    "term-of-use": "/web-design/terms/",
+    "global-seo": "/martech/seo/",
+    academy: "/martech/academy/",
+  },
+  en: {
+    "en/about-3": "/web-design/en/about/",
+    "en/contact-3": "/web-design/en/contact/",
+    "en/cases-3": "/web-design/en/cases/",
+    "en/seo-marketing": "/martech/en/seo/",
+    "en/insights": "/web-design/en/column/",
+  },
+  ja: {
+    "ja/about-2": "/web-design/ja/about/",
+    "ja/contact-2": "/web-design/ja/contact/",
+    "ja/cases-2": "/web-design/ja/cases/",
+    "ja/blog-2": "/web-design/ja/column/",
+    "ja/private-policy": "/web-design/ja/privacy-policy/",
+  },
+});
+const SHOP_PRODUCTS = ["astra-pro", "flatsome"];
+
+function localiseLinks(html, postSlugs) {
+  return html.replace(
+    /href="(?:https?:\/\/(?:www\.)?blazelink\.co)?\/((?:product\/|en\/|ja\/)?[^"/?#]+)\/?([?#][^"]*)?"/g,
+    (whole, path, rest = "") => {
+      let to = MOVED[path];
+      // A post's WordPress address carries its language: /en/slug/, /ja/slug/.
+      const prefixed = LOCALE !== "zh" && path.startsWith(`${LOCALE}/`);
+      const own = prefixed ? path.slice(LOCALE.length + 1) : path;
+      const thisLanguage = LOCALE === "zh" ? !/^(en|ja)\//.test(path) : prefixed;
+      if (path.startsWith("product/")) {
+        const slug = path.slice("product/".length);
+        to = SHOP_PRODUCTS.includes(slug) ? `/web-design/shop/${slug}/` : `/martech/academy/${slug}/`;
+      } else if (!to && thisLanguage && postSlugs.has(own)) {
+        to = `${BASE_PATH}/column/${own}/`;
+      }
+      return to ? `href="${to}${rest}"` : whole;
+    },
+  );
+}
+
 /** Reading time from the body's length, at roughly 400 characters a minute. */
 function readMinutes(html) {
   return Math.max(1, Math.round(plainText(html).length / 400));
 }
 
-function toPost(post, categories, images, tags) {
+function toPost(post, categories, images, tags, postSlugs = new Set()) {
   const category = categories.find((c) => post.categories.includes(c.id));
   const excerpt = plainText(post.excerpt?.rendered ?? "");
   return {
@@ -87,12 +171,13 @@ function toPost(post, categories, images, tags) {
     // The post's own address on WordPress, where Yoast SEO already ranks it.
     link: post.link,
     date: post.date.slice(0, 10).replace(/-/g, "."),
-    category: category ? decodeEntities(category.name) : "專欄",
+    category: category ? decodeEntities(category.name) : ui.column.fallbackCategory,
+    categorySlug: category?.slug ?? null,
     title: decodeEntities(post.title.rendered),
     excerpt,
     image: images.get(post.featured_media) ?? null,
     tags: (post.tags ?? []).map((id) => tags.get(id)).filter(Boolean),
-    ...(post.content ? { html: cleanBody(post.content.rendered), readMinutes: readMinutes(post.content.rendered) } : {}),
+    ...(post.content ? { html: localiseLinks(cleanBody(post.content.rendered), postSlugs), readMinutes: readMinutes(post.content.rendered) } : {}),
   };
 }
 
@@ -122,11 +207,15 @@ export async function getColumnPost(slug) {
   try {
     const categories = await columnCategories();
     const [post] = await wpJson(
-      `posts?slug=${encodeURIComponent(slug)}&_fields=id,slug,date,link,title,excerpt,content,categories,tags,featured_media`,
+      `posts?slug=${toWpSlug(slug)}&_fields=id,slug,date,link,title,excerpt,content,categories,tags,featured_media`,
     );
     if (!post || !categories.some((c) => post.categories.includes(c.id))) return null;
-    const [images, tags] = await Promise.all([featuredImages([post.featured_media]), tagNames(post.tags ?? [])]);
-    return toPost(post, categories, images, tags);
+    const [images, tags, all] = await Promise.all([
+      featuredImages([post.featured_media]),
+      tagNames(post.tags ?? []),
+      wpJson(`posts?categories=${categories.map((c) => c.id).join(",")}&per_page=100&_fields=slug`),
+    ]);
+    return toPost(post, categories, images, tags, new Set(all.map((p) => p.slug)));
   } catch (err) {
     console.warn(`WordPress: could not read post "${slug}" — ${err.message}`);
     return null;
