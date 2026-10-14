@@ -51,7 +51,7 @@ export const results = {
     },
     {
       no: "02",
-      title: "Better-quality leads",
+      title: "More, better-quality leads",
       body: "Forms, behaviour data and lead scoring are joined into one path, so every visit leaves a trail. Sales receive more than a phone number: they know what the prospect cares about and how far along they are.",
       image: asset("/img-9.webp"),
     },

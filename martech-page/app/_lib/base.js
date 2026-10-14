@@ -18,5 +18,12 @@ export const BASE_PATH = `${SITE_PATH}${LOCALES[LOCALE].path}`;
 
 export const asset = (path) => `${SITE_PATH}${path}`;
 
+/*
+ * The web-design site's home in this language. It is another build, so links
+ * to it are plain anchors: next/link would put /martech in front.
+ */
+export const WEB_DESIGN_HOME = `/web-design${LOCALES[LOCALE].path}/`;
+export const isOtherSite = (href) => href.startsWith("/web-design/");
+
 /** This page's path in another language, for the language switcher. */
 export const localePath = (lang, path = "/") => `${SITE_PATH}${LOCALES[lang].path}${path}`;

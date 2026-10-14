@@ -1,8 +1,12 @@
 // お問い合わせページの文言（日本語）。../zh/contact.js と同じ構成。
 
+import { WEB_DESIGN_HOME } from "../../_lib/base";
+
 export const intro = {
-  title: ["まずは、今つまずいている", "ところをお聞かせください。"],
-  lead: "資料も予算の見通しも、事前の準備は不要です。基本情報をご記入いただければ、2営業日以内にご返信いたします。",
+  // The web-design site, introduced beside the form; `more` links to it.
+  title: ["マーケティングの前に、", "成果を生むWebサイトを。"],
+  lead: "リードはWebサイトから始まります。BlazeLinkのWeb制作チームが、設計図から公開まで、美しさと成果を両立するブランドサイトをつくります。サイトの資産はすべてお客様のものです。",
+  more: { label: "Webサイト制作を見る", href: WEB_DESIGN_HOME },
   steps: [
     { no: "01", title: "フォームを送信", body: "2分ほどで、ブランドのことと今の課題をお知らせください。" },
     { no: "02", title: "2営業日以内にご返信", body: "Webサイトのアドレスをいただいた場合は、初期の所見を添えてご返信します。" },
@@ -39,6 +43,8 @@ export const form = {
     href: "/privacy-policy",
     after: "に従って取り扱うことに同意したものとみなします。",
   },
+  // Google asks for this wording wherever its reCAPTCHA badge is hidden.
+  recaptcha: ["このサイトは reCAPTCHA によって保護されており、Google の", "プライバシーポリシー", "と", "利用規約", "が適用されます。"],
   errors: {
     required: "この項目は必須です。",
     email: "正しいメールアドレスを入力してください。",

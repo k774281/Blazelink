@@ -1,8 +1,12 @@
 // Contact page copy, English. Same shape as ../zh/contact.js.
 
+import { WEB_DESIGN_HOME } from "../../_lib/base";
+
 export const intro = {
-  title: ["Let's talk about", "where you're stuck."],
-  lead: "No slide deck, no budget needed up front. Leave a few details and we'll get back to you within two business days.",
+  // The web-design site, introduced beside the form; `more` links to it.
+  title: ["Before the marketing,", "a website that works."],
+  lead: "Leads start on your website. Our web team takes your brand site from design blueprint to launch: good-looking, built to convert, and entirely yours.",
+  more: { label: "Explore web design", href: WEB_DESIGN_HOME },
   steps: [
     { no: "01", title: "Send the form", body: "Two minutes to tell us about your brand and what's holding it back." },
     { no: "02", title: "Reply within two business days", body: "If you include your website, our reply comes with a first look at it." },
@@ -40,6 +44,8 @@ export const form = {
     href: "/privacy-policy",
     after: ".",
   },
+  // Google asks for this wording wherever its reCAPTCHA badge is hidden.
+  recaptcha: ["This site is protected by reCAPTCHA and the Google ", "Privacy Policy", " and ", "Terms of Service", " apply."],
   errors: {
     required: "This field is required.",
     email: "Please enter a valid email address.",

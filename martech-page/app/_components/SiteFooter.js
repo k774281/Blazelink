@@ -144,7 +144,7 @@ export default function SiteFooter({ children, onThisPage }) {
             <div className="mx-auto flex max-w-[1200px] flex-col justify-between gap-10 py-[44px] md:flex-row md:items-start">
               <div className="flex w-full flex-col justify-center gap-[24px] md:w-[417px]">
                 <div className="flex flex-col items-start gap-[4px]">
-                  <div className="relative h-[84px] w-full max-w-[417px]">
+                  <Link href="/" className="relative block h-[84px] w-full max-w-[417px]">
                     <Image
                       src={asset("/figma/logo-footer.webp")}
                       alt={ui.logoAlt}
@@ -152,7 +152,7 @@ export default function SiteFooter({ children, onThisPage }) {
                       sizes="417px"
                       className="object-contain object-left"
                     />
-                  </div>
+                  </Link>
                   <p className="font-display w-[300px] text-[16px] font-light tracking-[0.32px] text-footer-body">
                     {footer.address}
                   </p>

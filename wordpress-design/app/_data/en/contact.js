@@ -9,9 +9,11 @@ export const header = {
 };
 
 export const intro = {
-  eyebrow: "LET’S TALK",
-  title: ["Let's talk about", "the website you want."],
-  lead: "Redesigning an existing site or starting from scratch — either works. Tell us about your brand and what you need, and we'll plan it with you from the design blueprint.",
+  // The marketing site, introduced beside the form; `more` links to it.
+  eyebrow: "MARTECH",
+  title: ["Once your site is live,", "let it bring in clients."],
+  lead: "From precision strategy and cross-border SEO content to automated sales funnels, our marketing team turns traffic into leads you can track, and hands them to your sales team.",
+  more: "/martech/en/",
   steps: [
     { no: "01", title: "Send the form", body: "Two minutes to tell us about your brand and the site you want." },
     { no: "02", title: "Reply within two business days", body: "If you include your current site, our reply comes with a first look at it." },
@@ -34,6 +36,8 @@ export const form = {
   submit: "Send",
   submitting: "Sending…",
   privacy: { before: "By sending this form you agree that we handle your details under our ", link: "Privacy Policy", href: "/privacy-policy", after: "." },
+  // Google asks for this wording wherever its reCAPTCHA badge is hidden.
+  recaptcha: ["This site is protected by reCAPTCHA and the Google ", "Privacy Policy", " and ", "Terms of Service", " apply."],
   errors: {
     required: "This field is required.",
     email: "Please enter a valid email address.",

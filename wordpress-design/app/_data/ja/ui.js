@@ -65,7 +65,7 @@ export const ui = {
   },
   meta: {
     home: { title: "ブランドサイト制作とWordPress構築｜BlazeLink", description: "設計図から公開まで、美しさと機能を兼ね備えたブランドサイトを制作します。デザインを確認してから着工し、サイトの資産はすべてお客様のものです。" },
-    cases: { title: "制作実績｜BlazeLink", description: "20を超えるブランドのWordPressサイト、カスタム機能、マーケティングオートメーション、API連携の実績。" },
+    cases: { title: "制作実績｜BlazeLink", description: "20を超えるブランドのWordPressサイト、カスタム機能、マーケティングオートメーション、ツール連携の実績。" },
     about: { title: "私たちについて｜BlazeLink", description: "戦略とテクノロジーが私たちのデュアル・エンジンです。先に設計、それから着工し、サイトの資産はすべてお客様のもの。BlazeLinkと創業者Benをご紹介します。" },
     column: { title: "コラム｜BlazeLink", description: "Webデザイン、マーケティング・テクノロジー、経営の実務まで。よいサイトを作る前に知っておきたいことを集めました。" },
     contact: { title: "お問い合わせ｜BlazeLink", description: "ブランドサイトの制作やリニューアルをご検討ですか？基本情報をご記入いただければ、2営業日以内にご返信し、設計図の段階からご一緒に計画します。" },

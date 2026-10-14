@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { asset } from "../_lib/base";
+import { asset, isOtherSite } from "../_lib/base";
 
 const TONES = {
   brand: { text: "text-brand", circle: "bg-brand-tint", icon: asset("/figma/arrow-purple.svg") },
@@ -17,8 +17,10 @@ export default function CtaLink({ children, href = "/contact", tone = "brand", s
   const large = size === "lg";
   const iconSize = large ? 40 : 17;
 
+  const Tag = isOtherSite(href) ? "a" : Link;
+
   return (
-    <Link
+    <Tag
       href={href}
       style={{ gap: `${gap}px` }}
       className={`group underline-grow inline-flex items-center pb-[8px] ${t.text}`}
@@ -45,6 +47,6 @@ export default function CtaLink({ children, href = "/contact", tone = "brand", s
           className="absolute top-1/2 left-1/2 -translate-x-[280%] -translate-y-1/2 transition-transform duration-500 ease-in-out group-hover:-translate-x-1/2"
         />
       </span>
-    </Link>
+    </Tag>
   );
 }

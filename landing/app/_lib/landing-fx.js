@@ -164,6 +164,7 @@ export function initLanding() {
 
   /* ---------- Section transitions (blur out / blur in) ---------- */
   const BLUR = 'blur(18px)';
+  const LOCK_MS = 2000;
   let unlockTimer;
   function goTo(next, opts = {}) {
     if (next < 0 || next >= N || next === current || (busy && !opts.force)) return;
@@ -192,9 +193,9 @@ export function initLanding() {
         onComplete: () => gsap.set(inn, { clearProps: 'filter,transform' }) });
     gsap.fromTo(inn.querySelectorAll('[data-reveal]'), { y: 34 * dir, opacity: 0, filter: 'blur(8px)' },
       { y: 0, opacity: 1, filter: 'blur(0px)', duration: .9, stagger: .06, delay: .5, ease: 'power3.out', clearProps: 'filter,transform' });
-    // lock long enough to swallow trackpad inertia
+    // Locked for 2s after every move, so one flick moves one section.
     clearTimeout(unlockTimer);
-    unlockTimer = later(() => { busy = false; }, 1350);
+    unlockTimer = later(() => { busy = false; }, LOCK_MS);
   }
 
   // Tall panels (small screens) scroll inside first, then the page moves on.
@@ -205,7 +206,9 @@ export function initLanding() {
     return dir > 0 ? s.scrollTop + s.clientHeight < s.scrollHeight - 2 : s.scrollTop > 2;
   };
 
-  let wheelAcc = 0, wheelTimer;
+  // A wheel gesture that began during the lock (trackpad inertia can run on
+  // past it) never moves the page: only one started after a pause does.
+  let wheelAcc = 0, wheelTimer, wheelFresh = true;
   on(window, 'wheel', e => {
     const dy = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
     dust.push(dy);
@@ -213,9 +216,11 @@ export function initLanding() {
     const dir = Math.sign(dy);
     if (canScroll(dir)) return;
     e.preventDefault();
+    clearTimeout(wheelTimer); wheelTimer = later(() => { wheelAcc = 0; wheelFresh = true; }, 180);
+    if (busy) { wheelAcc = 0; wheelFresh = false; return; }
+    if (!wheelFresh) return;
     wheelAcc += dy;
-    clearTimeout(wheelTimer); wheelTimer = later(() => { wheelAcc = 0; }, 180);
-    if (!busy && Math.abs(wheelAcc) > 40) {
+    if (Math.abs(wheelAcc) > 40) {
       goTo(current + Math.sign(wheelAcc), { speed: Math.min(Math.abs(dy) / 40, 4) });
       wheelAcc = 0;
     }

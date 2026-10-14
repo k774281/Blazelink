@@ -7,7 +7,9 @@ import { ui } from "../_data/ui";
 export default function SiteFooter() {
   return (
     <footer className="flex flex-col gap-[72px] border-t border-line bg-surface px-6 pb-12 pt-24 lg:px-8">
-      <Image src={asset("/home/logo.png")} alt={ui.logoAlt} width={255} height={85} className="h-auto w-[200px] lg:w-[255px]" />
+      <Link href="/" className="self-start">
+        <Image src={asset("/home/logo.png")} alt={ui.logoHomeAlt} width={255} height={85} className="h-auto w-[200px] lg:w-[255px]" />
+      </Link>
 
       <div className="flex flex-col gap-12 xl:flex-row xl:items-start xl:justify-between">
         <div className="flex flex-col gap-4">

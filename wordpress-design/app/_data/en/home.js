@@ -87,10 +87,9 @@ export const beyond = {
   kicker: "What we can do",
   title: "goes beyond websites",
   lead: [
-    "Feature modules built for your industry, and interactive touches people remember.",
-    "A brand website is only the starting point. Clinics need online booking and visit status, tutoring centres need course sign-ups and payment records, restaurants need menu management and reservations, logistics firms need shipment tracking and freight quotes — none of which a template can do. We build to your actual workflow, so the site plugs into daily operations rather than just looking good. The other half is interaction: entrance animations, cursor effects, stories that unfold as you scroll — details that don't slow the page but make people remember you after they leave. We also handle multilingual sites, payments, member areas and admin reports, so marketing, support and sales share one system. These modules live on your own hosting and admin too, so extending them later, or handing them to someone else, never ties you to us. The quickest way to see what's possible is to look at what we've built.",
+    "From forms and lead scoring all the way to your CRM. We don't just bring people in — every visit leaves a lead you can track and hand to your sales team.",
   ],
-  href: "/cases",
+  href: "/martech/en/",
 };
 
 export const column = {

@@ -21,7 +21,7 @@ import {
   partners,
   blog,
 } from "@/app/_data/home";
-import { asset } from "./_lib/base";
+import { asset, isOtherSite } from "./_lib/base";
 
 import { ui } from "@/app/_data/ui";
 /*
@@ -335,7 +335,7 @@ function CtaBanner() {
           <p className="font-display max-w-[512px] text-[28px] leading-[1.5] font-bold text-brand md:text-[40px]">
             {ctaBanner.title}
           </p>
-          <CtaLink href="#services">{ctaBanner.cta}</CtaLink>
+          <CtaLink href={ctaBanner.href}>{ctaBanner.cta}</CtaLink>
         </div>
 
         <div className="relative h-[240px] w-full shrink-0 overflow-hidden rounded-[50px] lg:h-[317px] lg:w-[430px]">
@@ -600,15 +600,18 @@ function Services() {
         <div className="flex flex-wrap items-center justify-between gap-6 border-t border-solid border-[#dfe1e8] pt-[26px]">
           <div className="flex flex-wrap items-center gap-[28px]">
             <p className="text-[14px] text-muted">{ui.moreDetails}</p>
-            {services.crossLinks.map((link) => (
-              <Link
+            {services.crossLinks.map((link) => {
+              const Tag = isOtherSite(link.href) ? "a" : Link;
+              return (
+              <Tag
                 key={link.label}
                 href={link.href}
                 className="border-b border-solid border-brand pb-[2px] text-[15px] font-medium whitespace-nowrap text-brand transition-opacity hover:opacity-70"
               >
                 {link.label}
-              </Link>
-            ))}
+              </Tag>
+              );
+            })}
           </div>
           <CtaLink href="/contact" tone="ink">
             {services.cta}

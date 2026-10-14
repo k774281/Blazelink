@@ -7,6 +7,7 @@ import { RECAPTCHA_KEY, sendEnquiry } from "../_lib/cf7";
 
 import Header from "../_components/Header";
 import SiteFooter from "../_components/SiteFooter";
+import CtaLink from "../_components/CtaLink";
 import CtaPill from "../_components/CtaPill";
 import Eyebrow from "../_components/Eyebrow";
 import { SelectField, TextField } from "../_components/FormField";
@@ -211,6 +212,13 @@ function ContactForm() {
           </Link>
           {form.privacy.after}
         </p>
+        <p className="text-[12px] leading-[1.7] text-faint">
+          {form.recaptcha[0]}
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-brand">{form.recaptcha[1]}</a>
+          {form.recaptcha[2]}
+          <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="text-brand">{form.recaptcha[3]}</a>
+          {form.recaptcha[4]}
+        </p>
       </div>
     </form>
   );
@@ -244,6 +252,10 @@ export default function Contact() {
               <p className="pt-[22px] text-[17px] leading-[1.95] font-light text-body lg:w-[460px]">
                 {intro.lead}
               </p>
+
+              <div className="pt-[24px]">
+                <CtaLink href={intro.more.href}>{intro.more.label}</CtaLink>
+              </div>
 
               <div className="mt-[40px] flex w-full flex-col items-start gap-[20px] border-t border-solid border-[#dfe1e8] pt-[32px]">
                 <Eyebrow zh={ui.eyebrow.nextSteps} en="NEXT STEPS" />

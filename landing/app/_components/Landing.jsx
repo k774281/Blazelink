@@ -26,23 +26,6 @@ function Arrow() {
   );
 }
 
-function LinkMark({ id }) {
-  return (
-    <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
-      <defs>
-        <linearGradient id={id} x1="8" y1="42" x2="42" y2="6" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#7b5cf6" />
-          <stop offset="1" stopColor="#5fd3f3" />
-        </linearGradient>
-      </defs>
-      <g stroke={`url(#${id})`} strokeWidth="4.6">
-        <rect x="22" y="6" width="14" height="26" rx="7" transform="rotate(45 29 19)" />
-        <rect x="12" y="16" width="14" height="26" rx="7" transform="rotate(45 19 29)" />
-      </g>
-    </svg>
-  );
-}
-
 function Marquee({ words, reverse }) {
   // The list is doubled so the -50% loop is seamless.
   return (
@@ -124,11 +107,7 @@ export default function Landing({ t, posts: builtPosts }) {
 
       <header className="header">
         <a className="brand" href="#hero" data-go="0" aria-label={t.homeLabel}>
-          <LinkMark id="lgBrand" />
-          <span>
-            <span className="brand__word">BLAZELINK</span>
-            <span className="brand__sub">EMPOWERING PRECISION GROWTH</span>
-          </span>
+          <img className="brand__logo" src={asset("/images/blazelink-logo.webp")} alt="BLAZELINK — Empowering Precision Growth" width="615" height="132" />
         </a>
       </header>
 
@@ -139,10 +118,13 @@ export default function Landing({ t, posts: builtPosts }) {
           </li>
         ))}
       </ol>
-      <div className="segments" aria-hidden="true">
-        <span className="segments__count"><b id="segCount">01</b> / {pad(S.length)}</span>
-        {S.map((_, i) => <span key={i} className={`segments__bar${i === 0 ? " is-done" : ""}`} />)}
-      </div>
+      {/* The progress bar doubles as navigation: each segment jumps to its section. */}
+      <nav className="segments" aria-label={t.railLabel}>
+        <span className="segments__count" aria-hidden="true"><b id="segCount">01</b> / {pad(S.length)}</span>
+        {S.map((label, i) => (
+          <button key={i} type="button" data-go={i} aria-label={label} className={`segments__bar${i === 0 ? " is-done" : ""}`} />
+        ))}
+      </nav>
 
       <main className="stage" id="stage">
         <Section id="hero" cls="hero" index={0} label={S[0]} accent="purple" labelledBy="heroTitle"
@@ -196,16 +178,13 @@ export default function Landing({ t, posts: builtPosts }) {
               <Marquee words={t.services.marquee[1]} reverse />
             </div>
             <div className="svc-head">
-              <div>
-                <p className="eyebrow" data-reveal>{t.services.eyebrow}</p>
-                <h2 className="title title--lg" id="svcTitle" data-reveal>{t.services.title}<span className="dot" aria-hidden="true">.</span></h2>
-              </div>
-              <p className="muted subtitle" data-reveal style={{ margin: 0 }}>{t.services.lead}</p>
+              <p className="eyebrow" data-reveal>{t.services.eyebrow}</p>
+              <h2 className="title title--lg" id="svcTitle" data-reveal>{t.services.title}<span className="dot" aria-hidden="true">.</span></h2>
             </div>
             <div className="svc-list">
               {t.services.items.map((it, i) => (
                 <article key={i} className="svc" data-reveal>
-                  <span className="svc__no">{pad(i + 1)}</span><h3>{it.title}</h3><p>{it.content}</p>
+                  <div className="svc__head"><span className="svc__no">{pad(i + 1)}</span><h3>{it.title}</h3></div><p>{it.content}</p>
                 </article>
               ))}
             </div>

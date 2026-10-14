@@ -184,6 +184,13 @@ export default function ContactForm() {
           </Link>
           {form.privacy.after}
         </p>
+        <p className="text-[13px] leading-[1.7] text-muted">
+          {form.recaptcha[0]}
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-lavender hover:underline">{form.recaptcha[1]}</a>
+          {form.recaptcha[2]}
+          <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="text-lavender hover:underline">{form.recaptcha[3]}</a>
+          {form.recaptcha[4]}
+        </p>
       </div>
     </form>
   );

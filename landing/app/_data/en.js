@@ -27,7 +27,7 @@ const en = {
     rolesPrefix: "Partners to ",
     roles: ["senior marketing advisers", "B2B growth teams", "B2B companies"],
     rolesSuffix: "",
-    headline: "We take the time to understand you, and build growth strategies that work",
+    headline: "Growth strategies that work",
     lead: "An automated growth engine that keeps your brand in a virtuous cycle.",
     cards: ["Precision strategy", "Cross-border SEO content", "Automated sales funnels"],
     cta: "Content marketing",
@@ -35,14 +35,13 @@ const en = {
   services: {
     eyebrow: "Strategy · Speed · Expertise",
     title: "Your brand image starts here",
-    lead: "Strategy, speed and technical skill — web services that actually deliver. From websites to AI adoption and API integration, we help brands build a digital presence people trust, step by step, with every piece doing real work.",
     items: [
-      { title: "Websites", content: "Site architecture tailored to your brand positioning and conversion goals." },
-      { title: "AI adoption", content: "AI tools and workflows fitted to your team, for sharper efficiency and insight." },
-      { title: "API integration", content: "Your internal and external systems connected, so data and services flow seamlessly." },
+      { title: "Positioning", content: "Who you serve, and what to say." },
+      { title: "Websites", content: "Sites built to convert." },
+      { title: "AI adoption", content: "AI that speeds up your team." },
     ],
     marquee: [
-      ["Websites", "AI adoption", "API integration", "Cross-border SEO"],
+      ["Positioning", "Websites", "AI adoption", "Cross-border SEO"],
       ["Sales funnels", "Data analytics", "Precision strategy", "Landing pages"],
     ],
   },

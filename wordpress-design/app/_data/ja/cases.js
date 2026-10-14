@@ -81,10 +81,10 @@ export const sections = [
   },
   {
     key: "api",
-    tab: "API連携",
-    eyebrow: "06 — API",
-    title: "ワンストップAPI連携",
-    lead: ["REST APIとWebhookで、", "サイトと普段お使いのツールをつなぎます。"],
+    tab: "ツール連携",
+    eyebrow: "06 — INTEGRATIONS",
+    title: "ワンストップのツール連携",
+    lead: ["サイトと普段お使いのツールをつなぎ、", "データが手作業なしで流れるようにします。"],
     items: [
       { name: "LINE", body: "リアルタイムのやりとり", icon: asset("/cases/icon-line.svg") },
       { name: "Google Sheets", body: "レポートの同期", icon: asset("/cases/icon-google-sheets.svg"), iconSize: [29.0671, 35.8338], iconDisc: true },

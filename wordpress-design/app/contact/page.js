@@ -3,7 +3,7 @@ import Image from "next/image";
 import ContactForm from "../_components/ContactForm";
 import SideNav from "../_components/SideNav";
 import SiteFooter from "../_components/SiteFooter";
-import { Eyebrow, PageHeader } from "../_components/ui";
+import { Eyebrow, PageHeader, ViewMore } from "../_components/ui";
 import { header, intro } from "../_data/contact";
 import { asset } from "../_lib/base";
 
@@ -36,6 +36,7 @@ export default function ContactPage() {
                 ))}
               </p>
               <p className="text-[17px] leading-[1.9] text-muted">{intro.lead}</p>
+              <ViewMore href={intro.more} />
             </div>
 
             <div className="flex flex-col gap-6 border-t border-line pt-10">

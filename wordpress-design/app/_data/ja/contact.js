@@ -9,9 +9,11 @@ export const header = {
 };
 
 export const intro = {
-  eyebrow: "LET’S TALK",
-  title: ["まずは、", "どんなサイトにしたいか聞かせてください。"],
-  lead: "既存サイトのリニューアルでも、ゼロからの制作でも大丈夫です。ブランドとご要望をお聞かせいただければ、設計図の段階からご一緒に計画します。",
+  // The marketing site, introduced beside the form; `more` links to it.
+  eyebrow: "MARTECH",
+  title: ["サイトが完成したら、", "次は顧客を呼び込む番です。"],
+  lead: "精密なマーケティング戦略、越境SEOコンテンツ、自動化セールスファネルまで。BlazeLinkのマーケティングチームが、アクセスを追跡できるリードに変えて営業チームへお渡しします。",
+  more: "/martech/ja/",
   steps: [
     { no: "01", title: "フォームを送信", body: "2分ほどで、ブランドのことと作りたいサイトをお知らせください。" },
     { no: "02", title: "2営業日以内にご返信", body: "現在のサイトのアドレスをいただいた場合は、初期の所見を添えてご返信します。" },
@@ -34,6 +36,8 @@ export const form = {
   submit: "送信する",
   submitting: "送信中…",
   privacy: { before: "送信により、ご提供いただいた情報を", link: "プライバシーポリシー", href: "/privacy-policy", after: "に従って取り扱うことに同意したものとみなします。" },
+  // Google asks for this wording wherever its reCAPTCHA badge is hidden.
+  recaptcha: ["このサイトは reCAPTCHA によって保護されており、Google の", "プライバシーポリシー", "と", "利用規約", "が適用されます。"],
   errors: {
     required: "この項目は必須です。",
     email: "正しいメールアドレスを入力してください。",

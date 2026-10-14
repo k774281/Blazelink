@@ -65,7 +65,7 @@ export const ui = {
   },
   meta: {
     home: { title: "形象網站設計與 WordPress 架站｜Blazelink 鏈客", description: "從設計藍圖到上線，為品牌打造兼具美感與功能的形象網站。先看設計、再開工，網站資產完全屬於你。" },
-    cases: { title: "網站案例｜Blazelink 鏈客", description: "與 20 多個品牌合作的 WordPress 形象網站、客製化功能、行銷自動化與 API 串接作品。" },
+    cases: { title: "網站案例｜Blazelink 鏈客", description: "與 20 多個品牌合作的 WordPress 形象網站、客製化功能、行銷自動化與工具整合作品。" },
     about: { title: "關於鏈客｜Blazelink 鏈客", description: "策略與科技，是我們的雙引擎。先設計、再開工，網站資產完全屬於你——認識鏈客與創辦人 Ben。" },
     column: { title: "專欄｜Blazelink 鏈客", description: "網站設計、行銷科技與經營實務，做一個好網站之前，你需要知道的事都在這裡。" },
     contact: { title: "聯繫我們｜Blazelink 鏈客", description: "想做形象網站或改版現有網站？留下基本資料，我們會在兩個工作天內回覆，並從設計藍圖開始陪你規劃。" },

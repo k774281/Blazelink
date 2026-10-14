@@ -1,4 +1,4 @@
-import { asset } from "../../_lib/base";
+import { asset, WEB_DESIGN_HOME } from "../../_lib/base";
 // Homepage copy, English. Same shape as ../zh/home.js.
 
 // 鏈客商學院 is Chinese only, so it is not in the English menu.
@@ -66,7 +66,7 @@ export const services = {
   ],
   crossLinks: [
     { label: "Global SEO", href: "/seo" },
-    { label: "Website design", href: "#web" },
+    { label: "Website design", href: WEB_DESIGN_HOME },
   ],
   cta: "Tell us what you need",
 };
@@ -78,7 +78,8 @@ export const academy = {
 
 export const ctaBanner = {
   title: "We're with you at every step of growth",
-  cta: "Explore more strategies",
+  cta: "Explore web design",
+  href: WEB_DESIGN_HOME,
   image: asset("/figma/cta-banner.webp"),
 };
 

@@ -131,10 +131,10 @@ export const sections = [
   },
   {
     key: "api",
-    tab: "API 串接",
-    eyebrow: "06 — API",
-    title: "一站式 API 串接",
-    lead: ["透過 REST API 與 Webhook，", "把網站和你正在用的工具串在一起。"],
+    tab: "工具整合",
+    eyebrow: "06 — INTEGRATIONS",
+    title: "一站式工具整合",
+    lead: ["把網站和你正在用的工具串在一起，", "資料自動流通，不用再手動搬運。"],
     items: [
       { name: "LINE", body: "即時互動", icon: asset("/cases/icon-line.svg") },
       { name: "Google Sheets", body: "報表同步", icon: asset("/cases/icon-google-sheets.svg"), iconSize: [29.0671, 35.8338], iconDisc: true },

@@ -53,7 +53,7 @@ export default async function ProductPage({ params }) {
           <Link href="/" className="absolute left-6 top-5 z-10 block lg:left-16 lg:top-[52px]">
             <Image src={asset("/home/logo.png")} alt="BLAZELINK 鏈客" width={188} height={63} preload className="h-auto w-[140px] lg:w-[188px]" />
           </Link>
-          <nav aria-label="麵包屑" className="whitespace-pre text-[13px] text-muted lg:absolute lg:left-[160px] lg:top-[190px]">
+          <nav aria-label="麵包屑" className="whitespace-pre text-[13px] text-muted lg:absolute lg:left-16 lg:top-[190px] 3xl:left-[160px]">
             <Link href="/" className="hover:text-ink">
               首頁
             </Link>
@@ -66,11 +66,16 @@ export default async function ProductPage({ params }) {
           </nav>
         </div>
 
-        {/* Gallery beside the purchase panel (Figma 229:214) */}
-        <div className="flex flex-col gap-12 px-6 pb-24 lg:flex-row lg:items-start lg:gap-20 lg:pb-[120px] lg:pl-[160px] lg:pr-[264px]">
+        {/*
+          Gallery beside the purchase panel (Figma 229:214). The 1920 layout
+          (560px panel, 160/264 padding) only fits from 3xl; below that the
+          padding and the panel narrow so the gallery keeps room, and the
+          gallery holds its proportions rather than a fixed height.
+        */}
+        <div className="flex flex-col gap-12 px-6 pb-24 lg:flex-row lg:items-start lg:gap-12 xl:gap-16 3xl:gap-20 lg:pb-[120px] lg:pl-16 lg:pr-[136px] 3xl:pl-[160px] 3xl:pr-[264px]">
           <ProductGallery images={gallery} />
 
-          <div className="flex flex-col gap-7 lg:sticky lg:top-12 lg:w-[560px] lg:shrink-0">
+          <div className="flex flex-col gap-7 lg:sticky lg:top-12 lg:w-[400px] lg:shrink-0 xl:w-[460px] 3xl:w-[560px]">
             <p className="font-mono text-xs tracking-[0.1em] text-teal">{p.kind}</p>
             <div className="flex flex-col gap-2">
               <h1 className="font-display text-[40px] font-bold leading-tight text-ink lg:text-[56px]">{p.name}</h1>
@@ -119,7 +124,7 @@ export default async function ProductPage({ params }) {
         <ProductTabs tabs={tabs} />
 
         {/* Overview, specs and FAQ (Figma 230:217) */}
-        <div className="flex flex-col gap-24 px-6 py-24 lg:gap-[120px] lg:py-[120px] lg:pl-[160px] lg:pr-[264px]">
+        <div className="flex flex-col gap-24 px-6 py-24 lg:gap-[120px] lg:py-[120px] lg:pl-16 lg:pr-[136px] 3xl:pl-[160px] 3xl:pr-[264px]">
           <Block id="overview" eyebrow="OVERVIEW" title="商品介紹">
             {d.html ? <div className="article-body product-body" dangerouslySetInnerHTML={{ __html: d.html }} /> : <p className="text-lg leading-[2] text-ink">{d.lead}</p>}
           </Block>
@@ -162,7 +167,7 @@ export default async function ProductPage({ params }) {
 
         {/* The other product (Figma 230:276) */}
         {other && (
-          <section className="flex flex-col gap-8 border-t border-line bg-surface px-6 pb-24 pt-20 lg:pb-[120px] lg:pl-[160px] lg:pr-[264px] lg:pt-24">
+          <section className="flex flex-col gap-8 border-t border-line bg-surface px-6 pb-24 pt-20 lg:pb-[120px] lg:pl-16 lg:pr-[136px] 3xl:pl-[160px] 3xl:pr-[264px] lg:pt-24">
             <p className="font-display text-sm font-semibold tracking-[0.2em] text-teal">ALSO AVAILABLE</p>
             <div className="flex flex-col overflow-hidden rounded-[4px] border border-line bg-canvas md:flex-row">
               <Link href={productHref(other)} className="relative block h-[240px] shrink-0 md:w-[420px]">

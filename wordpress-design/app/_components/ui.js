@@ -11,6 +11,13 @@ import { column } from "../_data/home";
 import { asset } from "../_lib/base";
 
 import { ui } from "../_data/ui";
+/*
+ * The marketing site is a sibling under /martech on the same domain, a
+ * separate build a full page load away. next/link would prefix a link to it
+ * with this site's basePath, so those go out as plain anchors.
+ */
+const OTHER_SITE = /^\/martech\//;
+
 /** Section label set in tracked Montserrat, e.g. "01 — WORKS". */
 export function Eyebrow({ children, className = "" }) {
   return <p className={`font-display text-sm font-semibold tracking-[0.2em] text-teal ${className}`}>{children}</p>;
@@ -34,8 +41,9 @@ export function Eyebrow({ children, className = "" }) {
  * and the hero section is one.
  */
 export function ViewMore({ href, label = "VIEW MORE", className = "" }) {
+  const Tag = OTHER_SITE.test(href) ? "a" : Link;
   return (
-    <Link href={href} className={`group/more inline-block ${className}`}>
+    <Tag href={href} className={`group/more inline-block ${className}`}>
       <span className="relative block h-[31px] w-[167px]">
         <span
           aria-hidden
@@ -58,7 +66,7 @@ export function ViewMore({ href, label = "VIEW MORE", className = "" }) {
           />
         </span>
       </span>
-    </Link>
+    </Tag>
   );
 }
 

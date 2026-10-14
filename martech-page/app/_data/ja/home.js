@@ -1,4 +1,4 @@
-import { asset } from "../../_lib/base";
+import { asset, WEB_DESIGN_HOME } from "../../_lib/base";
 // トップページの文言（日本語）。../zh/home.js と同じ構成。
 
 // 鏈客商學院は中国語のみのため、日本語メニューには載せない。
@@ -66,7 +66,7 @@ export const services = {
   ],
   crossLinks: [
     { label: "グローバルSEO", href: "/seo" },
-    { label: "Webサイト制作", href: "#web" },
+    { label: "Webサイト制作", href: WEB_DESIGN_HOME },
   ],
   cta: "まずはご相談ください",
 };
@@ -78,7 +78,8 @@ export const academy = {
 
 export const ctaBanner = {
   title: "成長のあらゆる段階で、あなたと共に歩みます",
-  cta: "マーケティング戦略をもっと見る",
+  cta: "Webサイト制作を見る",
+  href: WEB_DESIGN_HOME,
   image: asset("/figma/cta-banner.webp"),
 };
 

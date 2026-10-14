@@ -1,4 +1,4 @@
-import { asset } from "../../_lib/base";
+import { asset, WEB_DESIGN_HOME } from "../../_lib/base";
 // Homepage copy, kept in one place so it can be swapped for headless WP data later.
 
 // The header rides on every page, so these have to resolve from anywhere.
@@ -68,7 +68,7 @@ export const services = {
   ],
   crossLinks: [
     { label: "跨國SEO行銷", href: "/seo" },
-    { label: "網站架設服務", href: "#web" },
+    { label: "網站架設服務", href: WEB_DESIGN_HOME },
   ],
   cta: "直接聊聊你的需求",
 };
@@ -81,7 +81,8 @@ export const academy = {
 
 export const ctaBanner = {
   title: "成長的每一步，我們都與您同行",
-  cta: "探索更多行銷策略",
+  cta: "探索網站架設服務",
+  href: WEB_DESIGN_HOME,
   image: asset("/figma/cta-banner.webp"),
 };
 

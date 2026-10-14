@@ -10,7 +10,8 @@ export function ProductGallery({ images }) {
 
   return (
     <div className="flex min-w-0 flex-1 flex-col gap-4">
-      <div className="relative aspect-square overflow-hidden rounded-[4px] bg-surface lg:aspect-auto lg:h-[620px]">
+      {/* 856 × 620 at 1920 (Figma); the same proportions at every width. */}
+      <div className="relative aspect-square overflow-hidden rounded-[4px] bg-surface lg:aspect-[856/620]">
         <Image src={main.src} alt={main.alt} fill preload sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
       </div>
       {images.length > 1 && (
@@ -18,7 +19,7 @@ export function ProductGallery({ images }) {
           {images.map((img, i) => {
             const on = i === current;
             return (
-              <li key={img.src} className="w-[calc((100%-2rem)/3)] lg:w-[195px]">
+              <li key={img.src} className="w-[calc((100%-2rem)/3)] max-w-[195px]">
                 <button
                   type="button"
                   aria-label={`顯示第 ${i + 1} 張圖：${img.alt}`}
@@ -57,7 +58,7 @@ export function ProductTabs({ tabs }) {
   }, [tabs]);
 
   return (
-    <nav aria-label="商品資訊" className="sticky top-0 z-30 border-y border-line bg-canvas/90 px-6 backdrop-blur-md lg:pl-[160px] lg:pr-[264px]">
+    <nav aria-label="商品資訊" className="sticky top-0 z-30 border-y border-line bg-canvas/90 px-6 backdrop-blur-md lg:pl-16 lg:pr-[136px] 3xl:pl-[160px] 3xl:pr-[264px]">
       <ul className="flex gap-8 lg:gap-12">
         {tabs.map((t) => {
           const on = t.id === active;

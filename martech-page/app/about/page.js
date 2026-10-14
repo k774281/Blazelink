@@ -174,8 +174,8 @@ function AllInOne() {
       className="bg-white px-6 py-20 md:px-10 xl:px-[120px] xl:py-[88px]"
     >
       <div className="mx-auto flex max-w-[1200px] flex-col gap-[16px]">
-        {/* The photograph sits between the gradient and the copy, washed back to
-            a fifth of its strength — it is texture, not a subject. */}
+        {/* The photograph sits behind the copy under a deep brand overlay, so the
+            white copy stands out against it. */}
         <div
           className="relative flex flex-col items-center justify-center gap-[32px] overflow-hidden rounded-[50px] px-6 py-16 md:px-[80px] md:py-[92px]"
           style={{
@@ -187,20 +187,21 @@ function AllInOne() {
             alt=""
             fill
             sizes="1200px"
-            className="pointer-events-none object-cover opacity-20"
+            className="pointer-events-none object-cover"
           />
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(24,20,48,0.78),rgba(40,28,92,0.82))]" />
 
           <div
             data-reveal-stagger
             className="relative flex w-full flex-col items-center gap-[26px]"
           >
-            <h2 className="font-display max-w-[480px] text-center text-[32px] leading-[1.26] font-bold tracking-[-1.32px] text-ink md:text-[44px]">
+            <h2 className="font-display max-w-[480px] text-center text-[32px] leading-[1.26] font-bold tracking-[-1.32px] text-white md:text-[44px]">
               {allInOne.title}
             </h2>
             {allInOne.paragraphs.map((para, i) => (
               <p
                 key={i}
-                className="font-display max-w-[882px] text-center text-[16px] leading-[1.95] font-light text-body md:text-[18px]"
+                className="font-display max-w-[882px] text-center text-[16px] leading-[1.95] font-light text-white/85 md:text-[18px]"
               >
                 {para}
               </p>

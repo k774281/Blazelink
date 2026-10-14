@@ -329,3 +329,8 @@ body {
   max-width: 100%;
   height: auto;
 }
+
+/* reCAPTCHA v3 still runs; its floating badge is replaced by the notice under the contact form. */
+.grecaptcha-badge {
+  visibility: hidden;
+}

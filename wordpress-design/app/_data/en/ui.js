@@ -65,7 +65,7 @@ export const ui = {
   },
   meta: {
     home: { title: "Brand websites and WordPress development | BlazeLink", description: "From design blueprint to launch, we build brand websites that look good and work hard. You see the design before we build — and the website is entirely yours." },
-    cases: { title: "Our work | BlazeLink", description: "WordPress brand websites, custom features, marketing automation and API integrations for more than 20 brands." },
+    cases: { title: "Our work | BlazeLink", description: "WordPress brand websites, custom features, marketing automation and tool integrations for more than 20 brands." },
     about: { title: "About | BlazeLink", description: "Strategy and technology are our twin engines. Design first, then build — and the website is entirely yours. Meet BlazeLink and our founder, Ben." },
     column: { title: "Insights | BlazeLink", description: "Web design, marketing technology and running a business — what to know before you build a good website." },
     contact: { title: "Contact | BlazeLink", description: "Planning a brand website or a redesign? Leave a few details and we'll reply within two business days, then plan it with you from the design blueprint." },

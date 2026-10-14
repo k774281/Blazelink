@@ -81,10 +81,10 @@ export const sections = [
   },
   {
     key: "api",
-    tab: "API integration",
-    eyebrow: "06 — API",
-    title: "One-stop API integration",
-    lead: ["Through REST APIs and webhooks,", "we connect your website to the tools you already use."],
+    tab: "Integrations",
+    eyebrow: "06 — INTEGRATIONS",
+    title: "One-stop tool integration",
+    lead: ["We connect your website to the tools you already use,", "so data flows on its own instead of by hand."],
     items: [
       { name: "LINE", body: "Real-time messaging", icon: asset("/cases/icon-line.svg") },
       { name: "Google Sheets", body: "Report sync", icon: asset("/cases/icon-google-sheets.svg"), iconSize: [29.0671, 35.8338], iconDisc: true },

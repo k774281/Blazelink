@@ -1,8 +1,12 @@
 // 聯繫我們 page copy, kept in one place so it can be swapped for headless WP data later.
 
+import { WEB_DESIGN_HOME } from "../../_lib/base";
+
 export const intro = {
-  title: ["先聊聊，", "你現在卡在哪一段。"],
-  lead: "不用先準備簡報，也不用先想好預算。留下基本資料，我們會在兩個工作天內回覆你。",
+  // The web-design site, introduced beside the form; `more` links to it.
+  title: ["行銷之前，", "先有一個好網站。"],
+  lead: "名單從網站開始。鏈客的網站架設團隊從設計藍圖到上線，為品牌打造兼具美感與轉換的形象網站，網站資產完全屬於你。",
+  more: { label: "了解網站架設服務", href: WEB_DESIGN_HOME },
   steps: [
     {
       no: "01",
@@ -41,6 +45,8 @@ export const form = {
     href: "/privacy-policy",
     after: "處理你提供的資料。",
   },
+  // Google asks for this wording wherever its reCAPTCHA badge is hidden.
+  recaptcha: ["本網站受 reCAPTCHA 保護，並適用 Google ", "隱私權政策", "與", "服務條款", "。"],
   // Wording the design fixes for the one error it shows; the rest follow it.
   errors: {
     required: "此欄位為必填。",

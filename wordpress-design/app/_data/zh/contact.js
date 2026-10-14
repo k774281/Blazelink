@@ -35,9 +35,11 @@ export const header = {
 };
 
 export const intro = {
-  eyebrow: "LET’S TALK",
-  title: ["先聊聊，", "你想要什麼樣的網站。"],
-  lead: "有現成網站想改版，或是從零開始都可以。先告訴我們你的品牌和需求，我們會從設計藍圖開始陪你規劃。",
+  // The marketing site, introduced beside the form; `more` links to it.
+  eyebrow: "MARTECH",
+  title: ["網站上線之後，", "讓它開始帶來客戶。"],
+  lead: "從精準行銷策略、SEO 跨國內容到自動化銷售漏斗，鏈客的行銷團隊把流量變成可追蹤的名單，交到你的業務手上。",
+  more: "/martech/",
   steps: [
     { no: "01", title: "送出表單", body: "花兩分鐘，說說你的品牌和想做的網站。" },
     { no: "02", title: "兩個工作天內回覆", body: "若你留了現有網址，回覆時會一併附上初步觀察。" },
@@ -65,6 +67,8 @@ export const form = {
     href: "/privacy-policy",
     after: "處理你提供的資料。",
   },
+  // Google asks for this wording wherever its reCAPTCHA badge is hidden.
+  recaptcha: ["本網站受 reCAPTCHA 保護，並適用 Google ", "隱私權政策", "與", "服務條款", "。"],
   errors: {
     required: "此欄位為必填。",
     email: "請填寫正確的電子郵件格式。",
